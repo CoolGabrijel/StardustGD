@@ -1,0 +1,38 @@
+[gd_scene load_steps=14 format=3 uid="uid://dd12b25ehcgfr"]
+
+[ext_resource type="Script" path="res://Scripts/2D/Pawn2D.cs" id="1_2s7n1"]
+[ext_resource type="Texture2D" uid="uid://bn8evfrs86315" path="res://Textures/Other/HD Circle.png" id="1_400ln"]
+[ext_resource type="Texture2D" uid="uid://cf2xy8cu14wbe" path="res://Textures/CaptainHoers/Horse cards/Concorde.png" id="1_qgbsi"]
+[ext_resource type="Material" uid="uid://b2atvok2hwcoa" path="res://Materials/2D/Circular Portraits/RosettaCircle.tres" id="3_3v1r2"]
+[ext_resource type="Material" uid="uid://clgwardw2v57" path="res://Materials/2D/Circular Portraits/ZambukoCircle.tres" id="3_5r0bn"]
+[ext_resource type="Material" uid="uid://dsaxj03tk3pqp" path="res://Materials/2D/Circular Portraits/AuroraCircle.tres" id="3_61e12"]
+[ext_resource type="Material" uid="uid://bkudevxn6rtk1" path="res://Materials/2D/Circular Portraits/WolframCircle.tres" id="3_b8qih"]
+[ext_resource type="Material" uid="uid://cyi8jk858cpt5" path="res://Materials/2D/Circular Portraits/ConcordeCircle.tres" id="3_xvb6n"]
+[ext_resource type="Texture2D" uid="uid://dxw4c53leeyvu" path="res://Textures/CaptainHoers/Horse cards/Wolfram.png" id="4_355nh"]
+[ext_resource type="Texture2D" uid="uid://bikvdx5le53qr" path="res://Textures/CaptainHoers/Horse cards/Rosetta.png" id="4_bxnp0"]
+[ext_resource type="Texture2D" uid="uid://cpk05b2mm7bje" path="res://Textures/CaptainHoers/Horse cards/Aurora.png" id="4_hta4c"]
+[ext_resource type="Texture2D" uid="uid://dsthg2hdprrio" path="res://Textures/CaptainHoers/Horse cards/Zambuko.png" id="4_y410x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hkkdo"]
+radius = 70.0
+
+[node name="Pawn2D" type="Node2D" node_paths=PackedStringArray("charSprite")]
+script = ExtResource("1_2s7n1")
+charSprite = NodePath("CharSprite")
+shaders = Array[ShaderMaterial]([ExtResource("3_xvb6n"), ExtResource("3_61e12"), ExtResource("3_5r0bn"), ExtResource("3_3v1r2"), ExtResource("3_b8qih")])
+textures = Array[Texture2D]([ExtResource("1_qgbsi"), ExtResource("4_hta4c"), ExtResource("4_y410x"), ExtResource("4_bxnp0"), ExtResource("4_355nh")])
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hkkdo")
+
+[node name="BGSprite" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+scale = Vector2(0.644, 0.644)
+texture = ExtResource("1_400ln")
+
+[node name="CharSprite" type="Sprite2D" parent="."]
+material = ExtResource("3_xvb6n")
+scale = Vector2(0.115, 0.115)
+texture = ExtResource("1_qgbsi")

@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=3 uid="uid://5a5l3k857768"]
+
+[ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
+[ext_resource type="Texture2D" uid="uid://ck7ktofpuetwx" path="res://Textures/CaptainHoers/BoxCoverNoSubtitle.png" id="1_oa4bt"]
+[ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="2_3emmv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3f1bu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqfu"]
+bg_color = Color(0.827451, 0.827451, 0.827451, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="."]
+material = ExtResource("1_7dcey")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0117647, 0, 0.0901961, 1)
+
+[node name="BoxCover" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -324.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_oa4bt")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="MenuButtons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 103.0
+offset_top = -60.0
+offset_right = 264.0
+offset_bottom = 60.0
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_3emmv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f1bu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2mqfu")
+text = "Singleplayer"
+
+[node name="Button2" type="Button" parent="MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_3emmv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f1bu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2mqfu")
+text = "Multiplayer"
+
+[node name="Button3" type="Button" parent="MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_3emmv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f1bu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2mqfu")
+text = "Settings"
+
+[node name="Button4" type="Button" parent="MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_3emmv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f1bu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2mqfu")
+text = "Credits"
+
+[node name="Button5" type="Button" parent="MenuButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.2, 0.2, 0.2, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_3emmv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3f1bu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_2mqfu")
+text = "Exit"

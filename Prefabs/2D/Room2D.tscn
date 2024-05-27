@@ -1,0 +1,205 @@
+[gd_scene load_steps=14 format=3 uid="uid://br7af73781a77"]
+
+[ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
+[ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
+[ext_resource type="Script" path="res://Scripts/2D/PawnSlot2D.cs" id="3_yj03h"]
+[ext_resource type="Script" path="res://Scripts/2D/RoomPartsDisplay.cs" id="4_0uxpp"]
+[ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="5_ueb33"]
+[ext_resource type="Script" path="res://Scripts/2D/RoomDamageDisplay.cs" id="5_wf81v"]
+[ext_resource type="Script" path="res://Scripts/2D/RoomObjDisplay.cs" id="7_ujy87"]
+[ext_resource type="Texture2D" uid="uid://bnpukrxw6mgm" path="res://Textures/CaptainHoers/Rooms/Overlays/Habitation Activation.png" id="8_6vamm"]
+[ext_resource type="Texture2D" uid="uid://c557gtfiuau31" path="res://Textures/CaptainHoers/Rooms/Overlays/Habitation2 Overlay.png" id="9_hmcw8"]
+[ext_resource type="Texture2D" uid="uid://ce0vh0n3utdcp" path="res://Textures/CaptainHoers/Rooms/Overlays/Slot1.png" id="10_d11i8"]
+[ext_resource type="Texture2D" uid="uid://cbgowem1d5i6r" path="res://Textures/CaptainHoers/Rooms/Overlays/Slot2.png" id="11_dqrou"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_31hmr"]
+size = Vector2(1125, 1125)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8v67t"]
+font = ExtResource("5_ueb33")
+font_size = 68
+outline_size = 19
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "slot1", "slot2")]
+texture = ExtResource("1_s0s7v")
+script = ExtResource("2_iag5j")
+area = NodePath("Area2D")
+middleSlot = NodePath("PawnSlots/Center")
+topSlot = NodePath("PawnSlots/Top")
+bottomSlot = NodePath("PawnSlots/Bottom")
+extraSlot = NodePath("PawnSlots/Extra")
+activationGraphic = NodePath("Overlay/Activation")
+slot1 = NodePath("Overlay/Slot1")
+slot2 = NodePath("Overlay/Slot2")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("RectangleShape2D_31hmr")
+
+[node name="PawnSlots" type="Node2D" parent="."]
+
+[node name="Center" type="Node2D" parent="PawnSlots"]
+script = ExtResource("3_yj03h")
+
+[node name="Top" type="Node2D" parent="PawnSlots"]
+position = Vector2(0, -160)
+script = ExtResource("3_yj03h")
+
+[node name="Bottom" type="Node2D" parent="PawnSlots"]
+position = Vector2(0, 135)
+script = ExtResource("3_yj03h")
+
+[node name="Extra" type="Node2D" parent="PawnSlots"]
+position = Vector2(-200, 0)
+script = ExtResource("3_yj03h")
+
+[node name="DebugText" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -562.5
+offset_top = -562.5
+offset_right = -562.5
+offset_bottom = -562.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Parts" type="Button" parent="DebugText" node_paths=PackedStringArray("roomGraphic", "partsLabel")]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 0.5
+offset_top = -314.0
+offset_right = 400.5
+offset_bottom = -254.0
+grow_vertical = 0
+mouse_filter = 1
+flat = true
+script = ExtResource("4_0uxpp")
+roomGraphic = NodePath("../..")
+partsLabel = NodePath("Label")
+
+[node name="Label" type="Label" parent="DebugText/Parts"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Parts: 0"
+label_settings = SubResource("LabelSettings_8v67t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Damage" type="Button" parent="DebugText" node_paths=PackedStringArray("roomGraphic", "damageLabel")]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -424.0
+offset_top = -320.5
+offset_right = 1.0
+offset_bottom = -260.5
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 1
+flat = true
+script = ExtResource("5_wf81v")
+roomGraphic = NodePath("../..")
+damageLabel = NodePath("Label")
+
+[node name="Label" type="Label" parent="DebugText/Damage"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Damage: 0"
+label_settings = SubResource("LabelSettings_8v67t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Objectives" type="Button" parent="DebugText" node_paths=PackedStringArray("roomGraphic", "objLabel")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -305.5
+offset_top = 2.5
+offset_right = -5.5
+offset_bottom = 62.5
+grow_horizontal = 0
+flat = true
+script = ExtResource("7_ujy87")
+roomGraphic = NodePath("../..")
+objLabel = NodePath("Label")
+
+[node name="Label" type="Label" parent="DebugText/Objectives"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Obj: 0"
+label_settings = SubResource("LabelSettings_8v67t")
+
+[node name="Overlay" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -562.5
+offset_top = -562.5
+offset_right = -562.5
+offset_bottom = -562.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Activation" type="TextureRect" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_6vamm")
+
+[node name="original overlay" type="TextureRect" parent="Overlay"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("9_hmcw8")
+
+[node name="Slot1" type="TextureRect" parent="Overlay"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("10_d11i8")
+
+[node name="Slot2" type="TextureRect" parent="Overlay"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("11_dqrou")

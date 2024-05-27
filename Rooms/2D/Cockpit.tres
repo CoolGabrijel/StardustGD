@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RoomRes2D" load_steps=3 format=3 uid="uid://ctqd8hy5pnewl"]
+
+[ext_resource type="Script" path="res://Scripts/2D/RoomRes2D.cs" id="1_h8qam"]
+[ext_resource type="Texture2D" uid="uid://htg3w52v2v8w" path="res://Textures/CaptainHoers/Rooms/Cockpit.png" id="1_k0efn"]
+
+[resource]
+script = ExtResource("1_h8qam")
+Texture = ExtResource("1_k0efn")
+Type = 7

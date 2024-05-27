@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomRes2D" load_steps=4 format=3 uid="uid://dh45nicpgnnns"]
+
+[ext_resource type="Script" path="res://Scripts/2D/RoomRes2D.cs" id="1_7lmqt"]
+[ext_resource type="Texture2D" uid="uid://bfqg1chpp36k0" path="res://Textures/CaptainHoers/Rooms/Workshop1.png" id="1_c4kxh"]
+[ext_resource type="Texture2D" uid="uid://dp88aq0hopgjt" path="res://Textures/CaptainHoers/Rooms/Overlays/Workshop Activation.png" id="1_sfjw2"]
+
+[resource]
+script = ExtResource("1_7lmqt")
+Texture = ExtResource("1_c4kxh")
+Type = 1
+Tex_Activation = ExtResource("1_sfjw2")

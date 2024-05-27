@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RoomRes2D" load_steps=3 format=3 uid="uid://4hmoexdo2i2i"]
+
+[ext_resource type="Texture2D" uid="uid://78bwjebsa1nx" path="res://Textures/CaptainHoers/Rooms/Airlock.png" id="1_5e8pw"]
+[ext_resource type="Script" path="res://Scripts/2D/RoomRes2D.cs" id="1_b2s27"]
+
+[resource]
+script = ExtResource("1_b2s27")
+Texture = ExtResource("1_5e8pw")
+Type = 5

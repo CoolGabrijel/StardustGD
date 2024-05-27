@@ -1,0 +1,387 @@
+[gd_scene load_steps=19 format=3 uid="uid://bkahpnv2redrw"]
+
+[ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
+[ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
+[ext_resource type="Script" path="res://Scripts/2D/RoomGen2D.cs" id="1_rotuu"]
+[ext_resource type="Script" path="res://Scripts/2D/Camera2DController.cs" id="2_fdinn"]
+[ext_resource type="PackedScene" uid="uid://dyhegt1q52b2f" path="res://Prefabs/UI/Game/TurnOrder.tscn" id="3_kxsqj"]
+[ext_resource type="PackedScene" uid="uid://dd12b25ehcgfr" path="res://Prefabs/2D/Pawn2D.tscn" id="4_xd6pi"]
+[ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="4_ypirp"]
+[ext_resource type="Script" path="res://Scripts/GameStart.cs" id="5_dg8px"]
+[ext_resource type="Script" path="res://Scripts/UI/Game/EnergyLabel.cs" id="5_iehag"]
+[ext_resource type="Texture2D" uid="uid://bw6b1kehnf6ko" path="res://Textures/Other/DamageBar.png" id="6_k5505"]
+[ext_resource type="Script" path="res://Scripts/UI/Game/DamageIndicator.cs" id="6_nidup"]
+[ext_resource type="Script" path="res://Scripts/2D/RoomSelection2D.cs" id="8_6w5tx"]
+[ext_resource type="Texture2D" uid="uid://dx7yik4v2q2wg" path="res://Textures/CaptainHoers/Video icons/RW_FF.png" id="8_u05v0"]
+[ext_resource type="Texture2D" uid="uid://78bwjebsa1nx" path="res://Textures/CaptainHoers/Rooms/Airlock.png" id="9_p5cjo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ghges"]
+font = ExtResource("4_ypirp")
+
+[sub_resource type="LabelSettings" id="LabelSettings_2v04b"]
+font = ExtResource("4_ypirp")
+font_size = 19
+font_color = Color(0.215686, 0.27451, 0.4, 1)
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkc6v"]
+bg_color = Color(0.894118, 0.890196, 0.921569, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4pipj"]
+shader = ExtResource("1_d2325")
+shader_parameter/Color = Color(0.678431, 0.996078, 1, 1)
+
+[node name="Game2D" type="Node2D"]
+
+[node name="Station" type="Node2D" parent="."]
+script = ExtResource("1_rotuu")
+sizeOffset = 1125
+
+[node name="Pawns" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.25, 0.25)
+script = ExtResource("2_fdinn")
+movementSpeed = 30.0
+zoomSpeed = 0.05
+maxZoom = 0.4
+minZoom = 0.15
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="TurnOrder" parent="HUD" instance=ExtResource("3_kxsqj")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="EnergyLabel" type="Label" parent="HUD"]
+offset_left = 156.0
+offset_right = 364.0
+offset_bottom = 23.0
+text = "Energy Expended: 0"
+label_settings = SubResource("LabelSettings_ghges")
+script = ExtResource("5_iehag")
+
+[node name="DamageIndicator" type="Control" parent="HUD" node_paths=PackedStringArray("tickParent")]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -111.0
+offset_right = 111.0
+offset_bottom = 40.0
+grow_horizontal = 2
+mouse_filter = 2
+script = ExtResource("6_nidup")
+healthyColor = Color(0.494118, 0.494118, 0.494118, 1)
+damagedColor = Color(0.819608, 0.239216, 0.258824, 1)
+tickParent = NodePath("DamageTicks/BG/Ticks")
+
+[node name="DmgIndicatorBG" type="TextureRect" parent="HUD/DamageIndicator"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.055, 1.055)
+pivot_offset = Vector2(111.67, 0)
+texture = ExtResource("6_k5505")
+expand_mode = 3
+
+[node name="DmgIndicatorFG" type="TextureRect" parent="HUD/DamageIndicator"]
+self_modulate = Color(0.894118, 0.890196, 0.921569, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_k5505")
+expand_mode = 3
+
+[node name="Ticks" type="HBoxContainer" parent="HUD/DamageIndicator/DmgIndicatorFG"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 43.0
+offset_top = 22.0
+offset_right = -42.6923
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="DamageTick" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick2" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick3" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick4" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick5" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick6" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick7" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick8" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick9" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick10" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageText" type="Label" parent="HUD/DamageIndicator"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Total Damage"
+label_settings = SubResource("LabelSettings_2v04b")
+horizontal_alignment = 1
+
+[node name="DamageTicks" type="Control" parent="HUD/DamageIndicator"]
+clip_contents = true
+layout_mode = 1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_right = -23.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BG" type="TextureRect" parent="HUD/DamageIndicator/DamageTicks"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+clip_children = 2
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("6_k5505")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Ticks" type="HBoxContainer" parent="HUD/DamageIndicator/DamageTicks/BG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_right = -22.5077
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="DamageTick" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick2" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick3" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick4" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick5" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick6" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick7" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick8" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick9" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick10" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick11" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick12" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick13" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick14" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageTick15" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="NextTurnUndo" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="HUD/NextTurnUndo"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_mkc6v")
+
+[node name="BG" type="ColorRect" parent="HUD/NextTurnUndo/Button"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="HUD/NextTurnUndo/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+texture = ExtResource("8_u05v0")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="GameStart" type="Node" parent="." node_paths=PackedStringArray("roomGen", "pawnParent")]
+script = ExtResource("5_dg8px")
+roomGen = NodePath("../Station")
+pawnParent = NodePath("../Pawns")
+pawnPrefab = ExtResource("4_xd6pi")
+
+[node name="Selection" type="Sprite2D" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_4pipj")
+texture = ExtResource("9_p5cjo")
+script = ExtResource("8_6w5tx")
+spriteSize = 1125
+
+[node name="Space" type="ColorRect" parent="."]
+z_index = -100
+z_as_relative = false
+material = ExtResource("1_08knh")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -55081.0
+offset_top = -36620.0
+offset_right = 55217.0
+offset_bottom = 36722.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.109804, 0.109804, 0.109804, 1)

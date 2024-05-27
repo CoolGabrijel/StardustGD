@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b2atvok2hwcoa"]
+
+[ext_resource type="Shader" uid="uid://g3tl7v57p1hx" path="res://Shaders/GamePawnPortrait.tres" id="1_armha"]
+
+[resource]
+shader = ExtResource("1_armha")
+shader_parameter/Panning = Vector2(-0.77, -0.01)
+shader_parameter/Scale = 0.35
