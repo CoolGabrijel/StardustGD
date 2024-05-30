@@ -16,3 +16,5 @@ mono_crash.*.json
 
 # Visual Studio ignores
 .vs/
+*.csproj.user
+Properties/

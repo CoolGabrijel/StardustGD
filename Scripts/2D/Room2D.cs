@@ -96,7 +96,22 @@ namespace Stardust.Godot
 					}
 				}
 
-                MoveAction moveAction = new(GameStart.LocalPlayer, cost, GameStart.LocalPlayer.Room, Room, movDir);
+				IUndoableAction moveAction = null;
+
+				if (GameLogic.TurnQueue.CurrentPawn.Type == PawnType.Concorde)
+                {
+					Direction finalMoveDirection = Direction.None;
+					Room previousRoom = null;
+					if (path.Length > 1) previousRoom = path[^2];
+					else previousRoom = GameLogic.TurnQueue.CurrentPawn.Room;
+
+					finalMoveDirection = previousRoom.Neighbours.Where(n => n.Item2 == path[^1]).FirstOrDefault().Item1;
+
+                    moveAction = new ConcordeMove(GameStart.LocalPlayer, cost, GameStart.LocalPlayer.Room, Room, movDir, finalMoveDirection);
+                }
+				else moveAction = new MoveAction(GameStart.LocalPlayer, cost, GameStart.LocalPlayer.Room, Room, movDir);
+
+                //moveAction = new MoveAction(GameStart.LocalPlayer, cost, GameStart.LocalPlayer.Room, Room, movDir);
 				moveAction.Do();
 				ActionLibrary.AddAction(moveAction);
 			}

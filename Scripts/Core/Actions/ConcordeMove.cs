@@ -1,14 +1,17 @@
+using Godot;
+
 namespace Stardust.Actions
 {
-    public class MoveAction : IUndoableAction
+    public class ConcordeMove : IUndoableAction
     {
-        public MoveAction(Pawn pawn, int cost, Room from, Room to, Direction startingMovementDirection)
+        public ConcordeMove(Pawn pawn, int cost, Room from, Room to, Direction startingMovementDirection, Direction endingMovementDirection)
         {
             Pawn = pawn;
             EnergyCost = cost;
             FromRoom = from;
             ToRoom = to;
             StartingMovementDirection = startingMovementDirection;
+            EndingMovementDirection = endingMovementDirection;
         }
 
         public Pawn Pawn { get; private set; }
@@ -16,17 +19,19 @@ namespace Stardust.Actions
         public Room FromRoom { get; private set; }
         public Room ToRoom { get; private set; }
         public Direction StartingMovementDirection { get; private set; }
+        public Direction EndingMovementDirection { get; private set; }
 
         public void Do()
         {
             Pawn.MoveTo(ToRoom);
             GameLogic.EnergyExpended += EnergyCost;
+            Pawn.LastMovementDirection = EndingMovementDirection;
         }
 
         public void Undo()
         {
             Pawn.MoveTo(FromRoom);
-            //Pawn.LastMovementDirection = StartingMovementDirection;
+            Pawn.LastMovementDirection = StartingMovementDirection;
             GameLogic.EnergyExpended -= EnergyCost;
         }
     }

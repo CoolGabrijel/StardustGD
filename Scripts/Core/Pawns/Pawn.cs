@@ -35,7 +35,7 @@ namespace Stardust
         public int Parts = 0;
 
         // Concorde specific
-        public Direction LastMovementDirection = Direction.None;
+        public Direction LastMovementDirection { get; set; } = Direction.None;
 
         public void MoveTo(Room room)
         {
@@ -61,27 +61,25 @@ namespace Stardust
 
             Direction movDir = LastMovementDirection;
             if (ActionLibrary.Actions.Count > 0 &&
-                (ActionLibrary.Actions[^1] is not MoveAction &&
+                (ActionLibrary.Actions[^1] is not ConcordeMove &&
                 ActionLibrary.Actions[^1] is not PickUpPart)) // Concorde can only move for free if he didn't do something other than Move or Pick up.
                 movDir = Direction.None;
 
             foreach (Room room in path)
             {
                 Direction direction = previousRoom.Neighbours.Where(n => n.Item2 == room).FirstOrDefault().Item1;
-                // Are we already moving in a direction
+
+                // Are there pawns in the room we're in besides us?
+                if (previousRoom.Pawns.Where((p) => p.Type != PawnType.Concorde).Any())
+                {
+                    movDir = Direction.None;
+                }
+
+                // Are we already moving in a direction?
                 if (movDir != Direction.None)
                 {
-                    // Are we moving in the same direction?
-                    if (movDir == direction)
-                    {
-                        // Are there pawns here that can disable the ability?
-                        if (room.Pawns.Count > 0)
-                        {
-                            movDir = Direction.None;
-                        }
-                    }
                     // Are we moving in another direction?
-                    else
+                    if (movDir != direction)
                     {
                         movDir = direction;
                         cost++;
@@ -102,10 +100,6 @@ namespace Stardust
 
                 previousRoom = room;
             }
-
-            // TODO: THIS HAS TO GO SOMEWHERE ELSE. IT CANNOT STAY HERE.
-            // We don't want cost calculations overwriting actual movement.
-            LastMovementDirection = movDir;
             return cost;
         }
     } 
