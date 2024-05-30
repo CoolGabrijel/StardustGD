@@ -35,7 +35,6 @@ shader_parameter/Color = Color(0.678431, 0.996078, 1, 1)
 
 [node name="Station" type="Node2D" parent="."]
 script = ExtResource("1_rotuu")
-sizeOffset = 1125
 
 [node name="Pawns" type="Node2D" parent="."]
 

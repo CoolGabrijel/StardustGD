@@ -8,7 +8,7 @@ namespace Stardust.Godot
 	public partial class RoomGen2D : Node2D
 	{
 		[Export] private PackedScene roomPrefab = ResourceLoader.Load<PackedScene>("res://Prefabs/2D/Room2D.tscn");
-		[Export] private int sizeOffset = 410;
+		[Export] private int sizeOffset = 1125;
 		[Export] private string roomResourcePath = "res://Rooms/2D";
 		[ExportCategory("Debug Tools")]
 		[Export] private bool GenRooms

@@ -1,4 +1,5 @@
 using Godot;
+using Stardust.Actions;
 using System;
 
 namespace Stardust.Godot
@@ -36,9 +37,11 @@ namespace Stardust.Godot
             }
             if (Input.IsActionJustPressed("NextTurn"))
             {
-                GameLogic.EndTurn();
-                LocalPlayer = GameLogic.TurnQueue.CurrentPawn; // TODO: Delete later.
+                //GameLogic.EndTurn();
+                new EndTurn().Do();
             }
+
+            LocalPlayer = GameLogic.TurnQueue.CurrentPawn; // TODO: Delete later.
         }
 
         private void SpawnPawnGraphic(Pawn pawn)

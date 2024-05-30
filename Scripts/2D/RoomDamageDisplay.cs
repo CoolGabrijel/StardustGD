@@ -1,4 +1,5 @@
 using Godot;
+using Stardust.Actions;
 using System;
 
 namespace Stardust.Godot
@@ -17,15 +18,22 @@ namespace Stardust.Godot
         {
             if (roomGraphic.Room.DamageAmount > 0)
             {
-                damageLabel.Show();
                 damageLabel.Text = $"Damage: {roomGraphic.Room.DamageAmount}";
+                //damageLabel.Show();
+                Show();
+                Disabled = false;
             }
-            else damageLabel.Hide();
+            else
+            {
+                //damageLabel.Hide();
+                Hide();
+                Disabled = true;
+            }
         }
 
 		private void OnClicked()
 		{
-            roomGraphic.Room.DamageAmount--;
+            new RepairRoom(roomGraphic.Room).Do();
 		}
 
         public override void _ExitTree()

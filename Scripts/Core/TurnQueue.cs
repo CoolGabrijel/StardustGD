@@ -21,5 +21,12 @@ namespace Stardust
 
             if (current >= Pawns.Length) current = 0;
         }
+
+        public void Previous()
+        {
+            current--;
+
+            if (current < 0) current = 0;
+        }
     } 
 }

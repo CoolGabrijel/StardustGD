@@ -81,7 +81,7 @@ namespace Stardust.Godot
 				Room[] path = Pathfinding.GetPath(Room, GameStart.LocalPlayer);
 				int cost = GameStart.LocalPlayer.CalculateMoveCost(path);
 
-				int localMaxEnergy = GameStart.LocalPlayer.EnergyCards.Max(x => x.Energy);
+				int localMaxEnergy = GameStart.LocalPlayer.EnergyCards.Where((c) => !c.Exhausted).Max(x => x.Energy);
 
                 // No need to move anywhere when we don't have the energy.
                 // TODO: Concorde's cost calculation breaks a bit when moving for free, attempting to go another direction midway, then trying to go the correct direction.

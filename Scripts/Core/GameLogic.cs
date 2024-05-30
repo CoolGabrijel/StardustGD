@@ -1,6 +1,7 @@
-using Godot;
+using Godot; // Ideally, this shouldn't use Godot. But it's useful for now.
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Stardust
 {
@@ -21,16 +22,26 @@ namespace Stardust
 
 		public static void EndTurn()
 		{
-            int randRoomIndex = rng.Next(RoomManager.Rooms.Length);
-            Room randRoom = RoomManager.Rooms[randRoomIndex];
-            randRoom.Damage();
+            //int randRoomIndex = rng.Next(RoomManager.Rooms.Length);
+            //Room randRoom = RoomManager.Rooms[randRoomIndex];
+            //randRoom.Damage();
 
             if (CheckFailState()) AnnounceGameEnd(false);
+
+            ExhaustPawn(TurnQueue.CurrentPawn);
 
             TurnQueue.Next();
 
             EnergyExpended = 0;
 		}
+
+        public static Room GetRoomToDamage()
+        {
+            int randRoomIndex = rng.Next(RoomManager.Rooms.Length);
+            Room randRoom = RoomManager.Rooms[randRoomIndex];
+
+            return randRoom;
+        }
 
         private static bool CheckFailState()
         {
@@ -39,6 +50,16 @@ namespace Stardust
 
             return fullyExhausted || damaged;
 
+        }
+
+        private static void ExhaustPawn(Pawn pawn)
+        {
+            EnergyCard card = pawn.EnergyCards.Where((x) => !x.Exhausted).Where((x) => x.Energy >= EnergyExpended).FirstOrDefault();
+
+            if (card == null) return;
+
+            card.Exhausted = true;
+            GD.Print($"GameLogic :: Exhausting {card.Energy} Energy");
         }
 
         /// <returns>True if every pawn is fully exhausted (No cards can be activated)</returns>
