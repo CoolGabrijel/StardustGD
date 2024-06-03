@@ -107,7 +107,7 @@ namespace Stardust.Godot
 
 					finalMoveDirection = previousRoom.Neighbours.Where(n => n.Item2 == path[^1]).FirstOrDefault().Item1;
 
-                    moveAction = new ConcordeMove(GameStart.LocalPlayer, cost, GameStart.LocalPlayer.Room, Room, movDir, finalMoveDirection);
+                    moveAction = new ConcordeMove(GameStart.LocalPlayer, cost, Room, movDir, finalMoveDirection);
                 }
 				else moveAction = new MoveAction(GameStart.LocalPlayer, cost, GameStart.LocalPlayer.Room, Room, movDir);
 

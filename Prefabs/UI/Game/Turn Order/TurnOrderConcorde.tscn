@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://dx8mfntvtl0nu"]
+
+[ext_resource type="Shader" uid="uid://cac7re2oe0rws" path="res://Shaders/TurnOrderPawnShader.tres" id="1_abnkp"]
+[ext_resource type="Texture2D" uid="uid://cf2xy8cu14wbe" path="res://Textures/CaptainHoers/Horse cards/Concorde.png" id="2_kmrac"]
+[ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="3_nipdt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_inwdh"]
+shader = ExtResource("1_abnkp")
+shader_parameter/Panning = Vector2(0.52, -0.137)
+shader_parameter/Scale = 1.0
+shader_parameter/Flip = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_qlae4"]
+font = ExtResource("3_nipdt")
+font_size = 13
+
+[node name="Concorde" type="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.196078)
+
+[node name="Portrait" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_inwdh")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_kmrac")
+expand_mode = 4
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Concorde"
+label_settings = SubResource("LabelSettings_qlae4")
+horizontal_alignment = 2
+vertical_alignment = 1

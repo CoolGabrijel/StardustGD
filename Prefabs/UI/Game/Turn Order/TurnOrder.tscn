@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://dyhegt1q52b2f"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Game/TurnOrderDisplay.cs" id="1_wdqc8"]
+[ext_resource type="PackedScene" uid="uid://dx8mfntvtl0nu" path="res://Prefabs/UI/Game/Turn Order/TurnOrderConcorde.tscn" id="2_dtkm8"]
+[ext_resource type="PackedScene" uid="uid://xn7o38n86ann" path="res://Prefabs/UI/Game/Turn Order/TurnOrderAurora.tscn" id="3_dv4tw"]
+[ext_resource type="PackedScene" uid="uid://cuiq2x1sh5s2q" path="res://Prefabs/UI/Game/Turn Order/TurnOrderZambuko.tscn" id="4_bxxc6"]
+[ext_resource type="PackedScene" uid="uid://5mlrfygsixea" path="res://Prefabs/UI/Game/Turn Order/TurnOrderRosetta.tscn" id="5_3nim2"]
+[ext_resource type="PackedScene" uid="uid://dxbs0hpj3vpvi" path="res://Prefabs/UI/Game/Turn Order/TurnOrderWolfram.tscn" id="6_8xkk4"]
+
+[node name="TurnOrder" type="Control" node_paths=PackedStringArray("portraitParent")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wdqc8")
+portraitParent = NodePath("List")
+concordePrefab = ExtResource("2_dtkm8")
+auroraPrefab = ExtResource("3_dv4tw")
+zambukoPrefab = ExtResource("4_bxxc6")
+rosettaPrefab = ExtResource("5_3nim2")
+wolframPrefab = ExtResource("6_8xkk4")
+
+[node name="List" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Concorde" parent="List" instance=ExtResource("2_dtkm8")]
+layout_mode = 2
+
+[node name="Aurora" parent="List" instance=ExtResource("3_dv4tw")]
+layout_mode = 2
+
+[node name="Zambuko" parent="List" instance=ExtResource("4_bxxc6")]
+layout_mode = 2
+
+[node name="Rosetta" parent="List" instance=ExtResource("5_3nim2")]
+layout_mode = 2
+
+[node name="Wolfram" parent="List" instance=ExtResource("6_8xkk4")]
+layout_mode = 2

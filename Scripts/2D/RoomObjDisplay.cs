@@ -50,7 +50,7 @@ namespace Stardust.Godot
         {
             if (GameStart.LocalPlayer.Room != roomGraphic.Room) return;
 
-            if (GameStart.LocalPlayer.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy) >= GameLogic.EnergyExpended) return;
+            if (GameStart.LocalPlayer.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy) <= GameLogic.EnergyExpended) return;
 
             CompleteBaseTask action = new(roomGraphic.Room.RoomType);
             action.Do();

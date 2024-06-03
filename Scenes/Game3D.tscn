@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c54lq4qtvwx76" path="res://Prefabs/3D/Room3D.tscn" id="1_jcmc6"]
 [ext_resource type="Script" path="res://Scripts/3D/Camera3DController.cs" id="2_jkf2p"]
-[ext_resource type="PackedScene" uid="uid://dyhegt1q52b2f" path="res://Prefabs/UI/Game/TurnOrder.tscn" id="3_laaqb"]
+[ext_resource type="PackedScene" uid="uid://dyhegt1q52b2f" path="res://Prefabs/UI/Game/Turn Order/TurnOrder.tscn" id="3_laaqb"]
 
 [node name="Game3d" type="Node3D"]
 

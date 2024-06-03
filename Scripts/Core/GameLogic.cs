@@ -7,6 +7,11 @@ namespace Stardust
 {
 	public static class GameLogic
     {
+        /// <summary>
+        /// Fired when the players win or lose. Boolean represents that.
+        /// </summary>
+        public static event Action<bool> OnGameFinished;
+
         public static int EnergyExpended { get; set; }
         public static RoomManager RoomManager { get; private set; } = new();
         public static TurnQueue TurnQueue { get; private set; }
@@ -125,7 +130,7 @@ namespace Stardust
 
         public static void AnnounceGameEnd(bool v)
         {
-            GD.Print($"Game End State: {v}");
+            OnGameFinished?.Invoke(v);
         }
     } 
 }

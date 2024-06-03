@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=20 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
 [ext_resource type="Script" path="res://Scripts/2D/RoomGen2D.cs" id="1_rotuu"]
 [ext_resource type="Script" path="res://Scripts/2D/Camera2DController.cs" id="2_fdinn"]
-[ext_resource type="PackedScene" uid="uid://dyhegt1q52b2f" path="res://Prefabs/UI/Game/TurnOrder.tscn" id="3_kxsqj"]
+[ext_resource type="PackedScene" uid="uid://dyhegt1q52b2f" path="res://Prefabs/UI/Game/Turn Order/TurnOrder.tscn" id="3_kxsqj"]
 [ext_resource type="PackedScene" uid="uid://dd12b25ehcgfr" path="res://Prefabs/2D/Pawn2D.tscn" id="4_xd6pi"]
 [ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="4_ypirp"]
 [ext_resource type="Script" path="res://Scripts/GameStart.cs" id="5_dg8px"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Scripts/2D/RoomSelection2D.cs" id="8_6w5tx"]
 [ext_resource type="Texture2D" uid="uid://dx7yik4v2q2wg" path="res://Textures/CaptainHoers/Video icons/RW_FF.png" id="8_u05v0"]
 [ext_resource type="Texture2D" uid="uid://78bwjebsa1nx" path="res://Textures/CaptainHoers/Rooms/Airlock.png" id="9_p5cjo"]
+[ext_resource type="PackedScene" uid="uid://drnsv3rfbym4u" path="res://Prefabs/UI/Game/VictoryScreen.tscn" id="11_alr5n"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ghges"]
 font = ExtResource("4_ypirp")
@@ -46,10 +47,15 @@ zoomSpeed = 0.05
 maxZoom = 0.4
 minZoom = 0.15
 
+[node name="GameStart" type="Node" parent="." node_paths=PackedStringArray("roomGen", "pawnParent")]
+script = ExtResource("5_dg8px")
+roomGen = NodePath("../Station")
+pawnParent = NodePath("../Pawns")
+pawnPrefab = ExtResource("4_xd6pi")
+
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="TurnOrder" parent="HUD" instance=ExtResource("3_kxsqj")]
-visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -356,11 +362,8 @@ texture = ExtResource("8_u05v0")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="GameStart" type="Node" parent="." node_paths=PackedStringArray("roomGen", "pawnParent")]
-script = ExtResource("5_dg8px")
-roomGen = NodePath("../Station")
-pawnParent = NodePath("../Pawns")
-pawnPrefab = ExtResource("4_xd6pi")
+[node name="VictoryScreen" parent="HUD" instance=ExtResource("11_alr5n")]
+visible = false
 
 [node name="Selection" type="Sprite2D" parent="."]
 z_index = 1
