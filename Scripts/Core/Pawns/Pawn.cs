@@ -32,6 +32,7 @@ namespace Stardust
                 else return 1;
             }
         }
+        public bool CanPickUp => Parts < InventoryCapacity;
         public int Parts = 0;
 
         // Concorde specific

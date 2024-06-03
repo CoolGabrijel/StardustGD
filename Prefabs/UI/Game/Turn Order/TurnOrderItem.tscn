@@ -1,0 +1,102 @@
+[gd_scene load_steps=13 format=3 uid="uid://cowi6qfmdent6"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Game/TurnOrderItem.cs" id="1_jr7po"]
+[ext_resource type="Shader" uid="uid://cac7re2oe0rws" path="res://Shaders/TurnOrderPawnShader.tres" id="2_6xbnu"]
+[ext_resource type="Texture2D" uid="uid://defq6ia742nep" path="res://Textures/Other/Hex.png" id="2_q13vh"]
+[ext_resource type="Texture2D" uid="uid://cpk05b2mm7bje" path="res://Textures/CaptainHoers/Horse cards/Aurora.png" id="3_a3234"]
+[ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="4_77nsi"]
+
+[sub_resource type="Curve" id="Curve_i0pvo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.89968, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8eo85"]
+curve = SubResource("Curve_i0pvo")
+
+[sub_resource type="Curve" id="Curve_si4w1"]
+_data = [Vector2(0, 0.05), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.99145, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qdq80"]
+curve = SubResource("Curve_si4w1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8e5i0"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 30, 1)
+angle_max = 360.0
+gravity = Vector3(50, 0, 0)
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_qdq80")
+alpha_curve = SubResource("CurveTexture_8eo85")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y2sa7"]
+shader = ExtResource("2_6xbnu")
+shader_parameter/Panning = Vector2(0.501, 0.07)
+shader_parameter/Scale = 1.0
+shader_parameter/Flip = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_ehkjw"]
+font = ExtResource("4_77nsi")
+font_size = 13
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="TurnOrderItem" type="Control" node_paths=PackedStringArray("portrait", "pawnNameLabel", "particles")]
+clip_contents = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 130.0
+offset_bottom = 30.0
+script = ExtResource("1_jr7po")
+portrait = NodePath("Portrait")
+pawnNameLabel = NodePath("Label")
+particles = NodePath("GPUParticles2D")
+
+[node name="Background" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.196078)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+self_modulate = Color(0.941176, 0.72549, 0.141176, 1)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_8e5i0")
+texture = ExtResource("2_q13vh")
+lifetime = 2.3
+visibility_rect = Rect2(-1.87592, -30.6027, 231.041, 61.3738)
+local_coords = true
+
+[node name="Portrait" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_y2sa7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_a3234")
+expand_mode = 4
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Aurora"
+label_settings = SubResource("LabelSettings_ehkjw")
+horizontal_alignment = 2
+vertical_alignment = 1

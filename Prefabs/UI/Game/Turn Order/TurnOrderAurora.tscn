@@ -19,6 +19,8 @@ clip_contents = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 130.0
+offset_bottom = 30.0
 
 [node name="BG2" type="ColorRect" parent="."]
 layout_mode = 1

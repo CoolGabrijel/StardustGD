@@ -31,7 +31,10 @@ namespace Stardust.Godot
 
         private void OnClick()
         {
-            PickUpPart PickupAction = new(GameStart.LocalPlayer, roomGraphic.Room, roomGraphic.Room.GetItem(ItemType.Part));
+            Pawn player = GameStart.LocalPlayer;
+            if (!player.CanPickUp) return;
+
+            PickUpPart PickupAction = new(player, roomGraphic.Room, roomGraphic.Room.GetItem(ItemType.Part));
             PickupAction.Do();
             ActionLibrary.AddAction(PickupAction);
         }
