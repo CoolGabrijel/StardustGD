@@ -123,7 +123,7 @@ grow_vertical = 2
 alignment = 1
 
 [node name="Button" type="Button" parent="MenuButtons2"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 flat = true
 
@@ -164,7 +164,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button2" type="Button" parent="MenuButtons2"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 flat = true
 
@@ -194,7 +194,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button3" type="Button" parent="MenuButtons2"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 flat = true
 
@@ -224,7 +224,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button4" type="Button" parent="MenuButtons2"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 flat = true
 
@@ -254,7 +254,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Button5" type="Button" parent="MenuButtons2"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 70)
 layout_mode = 2
 flat = true
 
