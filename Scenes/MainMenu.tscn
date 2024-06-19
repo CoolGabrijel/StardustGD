@@ -1,13 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=8 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Texture2D" uid="uid://ck7ktofpuetwx" path="res://Textures/CaptainHoers/BoxCoverNoSubtitle.png" id="1_oa4bt"]
 [ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="2_3emmv"]
+[ext_resource type="Texture2D" uid="uid://dl06m7xjhkwqh" path="res://Textures/Other/Sci fi UI Element with Border.png" id="4_vuvsy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3f1bu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqfu"]
 bg_color = Color(0.827451, 0.827451, 0.827451, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ok7yy"]
+font = ExtResource("2_3emmv")
+font_size = 27
+font_color = Color(0.0117647, 0, 0.0901961, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -42,6 +48,7 @@ expand_mode = 5
 stretch_mode = 4
 
 [node name="MenuButtons" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -102,3 +109,176 @@ theme_override_fonts/font = ExtResource("2_3emmv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_3f1bu")
 theme_override_styles/hover = SubResource("StyleBoxFlat_2mqfu")
 text = "Exit"
+
+[node name="MenuButtons2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = -183.0
+offset_right = 429.0
+offset_bottom = 183.0
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="MenuButtons2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MenuButtons2/Button"]
+self_modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vuvsy")
+region_rect = Rect2(0, 0, 120, 120)
+patch_margin_left = 37
+patch_margin_right = 37
+
+[node name="TextureRect" type="TextureRect" parent="MenuButtons2/Button"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vuvsy")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="MenuButtons2/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Singleplayer"
+label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="MenuButtons2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MenuButtons2/Button2"]
+self_modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vuvsy")
+region_rect = Rect2(0, 0, 120, 120)
+patch_margin_left = 37
+patch_margin_right = 37
+
+[node name="Label" type="Label" parent="MenuButtons2/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Multiplayer"
+label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="MenuButtons2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MenuButtons2/Button3"]
+self_modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vuvsy")
+region_rect = Rect2(0, 0, 120, 120)
+patch_margin_left = 37
+patch_margin_right = 37
+
+[node name="Label" type="Label" parent="MenuButtons2/Button3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button4" type="Button" parent="MenuButtons2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MenuButtons2/Button4"]
+self_modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vuvsy")
+region_rect = Rect2(0, 0, 120, 120)
+patch_margin_left = 37
+patch_margin_right = 37
+
+[node name="Label" type="Label" parent="MenuButtons2/Button4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button5" type="Button" parent="MenuButtons2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+flat = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MenuButtons2/Button5"]
+self_modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_vuvsy")
+region_rect = Rect2(0, 0, 120, 120)
+patch_margin_left = 37
+patch_margin_right = 37
+
+[node name="Label" type="Label" parent="MenuButtons2/Button5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit"
+label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1

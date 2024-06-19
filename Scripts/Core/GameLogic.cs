@@ -15,8 +15,9 @@ namespace Stardust
         public static int EnergyExpended { get; set; }
         public static RoomManager RoomManager { get; private set; } = new();
         public static TurnQueue TurnQueue { get; private set; }
+        public static Room PreviouslyDamagedRoom { get; set; }
 
-        static Random rng = new Random();
+        readonly static Random rng = new();
 
         public static void BeginGame()
         {
@@ -42,8 +43,12 @@ namespace Stardust
 
         public static Room GetRoomToDamage()
         {
-            int randRoomIndex = rng.Next(RoomManager.Rooms.Length);
-            Room randRoom = RoomManager.Rooms[randRoomIndex];
+            List<Room> rooms = new List<Room>(RoomManager.Rooms);
+
+            if (PreviouslyDamagedRoom != null) rooms.Remove(PreviouslyDamagedRoom);
+
+            int randRoomIndex = rng.Next(rooms.Count);
+            Room randRoom = rooms[randRoomIndex];
 
             return randRoom;
         }
@@ -67,25 +72,18 @@ namespace Stardust
             GD.Print($"GameLogic :: Exhausting {card.Energy} Energy");
         }
 
-        /// <returns>True if every pawn is fully exhausted (No cards can be activated)</returns>
+        /// <returns>True if current pawn is fully exhausted (No cards can be activated)</returns>
         private static bool ExhaustedCheck()
         {
-            foreach (Pawn pawn in TurnQueue.Pawns)
+            foreach (EnergyCard card in TurnQueue.CurrentPawn.EnergyCards)
             {
-                bool fullyExhausted = true;
-                foreach (EnergyCard card in pawn.EnergyCards)
+                if (!card.Exhausted)
                 {
-                    if (!card.Exhausted)
-                    {
-                        fullyExhausted = false;
-                        break;
-                    }
+                    return false;
                 }
-
-                if (fullyExhausted) return true;
             }
 
-            return false;
+            return true;
         }
 
         /// <returns>True if station damage reaches above a certain point</returns>
@@ -97,7 +95,7 @@ namespace Stardust
                 accumulatedDamage += room.DamageAmount;
             }
 
-            return accumulatedDamage > 10;
+            return accumulatedDamage > 15;
         }
 
         private static void SpawnPawns()

@@ -38,7 +38,6 @@ namespace Stardust.Godot
                 if (eventKey.Keycode == Key.Escape)
                 {
                     Hide();
-                    GD.Print("hidden");
                 }
             }
         }

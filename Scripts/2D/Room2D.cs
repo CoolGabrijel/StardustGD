@@ -22,16 +22,21 @@ namespace Stardust.Godot
 		[Export] TextureRect activationGraphic;
 		[Export] Control slot1;
         [Export] Control slot2;
+		[ExportCategory("Buttons")]
+		[Export] Button activationButton;
 
         Tween colorTween;
+		Tween activationTween;
 
 		public override void _Ready()
 		{
 			if (Engine.IsEditorHint()) return;
 			area.InputEvent += OnInput;
 			area.MouseEntered += OnHovered;
+			area.MouseExited += OnMouseExit;
 			Room.OnDamage += OnDamaged;
 			Room.OnBreak += OnBroken;
+			activationButton.Pressed += OnActivationClicked;
 		}
 
         public void Initialize(Room room, Texture2D tex, Texture2D texActivation = null)
@@ -117,10 +122,32 @@ namespace Stardust.Godot
 			}
 		}
 
+		private void OnActivationClicked()
+		{
+			Pawn player = GameStart.LocalPlayer;
+
+			if (player.Room != Room || !Room.CanBeActivated) return;
+
+            Room.ActivateAbility(player);
+        }
+
         private void OnHovered()
 		{
 			RoomSelection2D.Instance.SetPos(GlobalPosition);
+
+			activationTween?.Kill();
+
+			activationTween = activationGraphic.CreateTween();
+			activationTween.TweenProperty(activationGraphic, "position", Vector2.Zero, .25f).SetTrans(Tween.TransitionType.Expo);
 		}
+
+		private void OnMouseExit()
+		{
+            activationTween?.Kill();
+
+            activationTween = activationGraphic.CreateTween();
+            activationTween.TweenProperty(activationGraphic, "position", new Vector2(-1125f, 0f), 1f);
+        }
 
 		private void OnDamaged()
 		{
@@ -141,6 +168,7 @@ namespace Stardust.Godot
 
             colorTween = CreateTween();
 
+			// Creates a flashing effect
             colorTween.TweenProperty(this, "self_modulate", Color.FromHtml("#555555"), .2f);
             colorTween.TweenProperty(this, "self_modulate", Color.FromHtml("#ffffff"), .2f);
             colorTween.TweenProperty(this, "self_modulate", Color.FromHtml("#555555"), .2f);

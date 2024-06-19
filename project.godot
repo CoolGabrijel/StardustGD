@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="StardustGD"
-run/main_scene="res://Scenes/Game2D.tscn"
+run/main_scene="res://Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 0)
 boot_splash/image="res://Textures/CaptainHoers/StardustLogo.PNG"
@@ -25,6 +25,8 @@ SplashScreen="*res://Scripts/UI/SplashScreen.cs"
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/borderless=true
 window/size/transparent=true
 window/stretch/mode="canvas_items"

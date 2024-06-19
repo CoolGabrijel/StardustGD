@@ -122,6 +122,7 @@ namespace Stardust.Godot
 
 		private void GetRoomResources()
 		{
+			if (rr2d != null) return;
 			rr2d = new();
 
 			using var dir = DirAccess.Open(roomResourcePath);
@@ -134,7 +135,7 @@ namespace Stardust.Godot
 				if (!dir.CurrentIsDir())
 				{
 					RoomRes2D roomRes = ResourceLoader.Load<RoomRes2D>(roomResourcePath + '/' + fileName);
-					rr2d.Add(roomRes.Type, roomRes);
+					rr2d.TryAdd(roomRes.Type, roomRes);
 				}
 				fileName = dir.GetNext();
 			}

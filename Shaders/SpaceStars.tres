@@ -1,4 +1,8 @@
-[gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://dee1ym3im1kl7"]
+[gd_resource type="VisualShader" load_steps=11 format=3 uid="uid://dee1ym3im1kl7"]
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_x47gc"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_1meo1"]
 input_name = "color"
@@ -16,12 +20,21 @@ texture = SubResource("NoiseTexture2D_lfg43")
 
 [sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_sj0iv"]
 output_port_for_preview = 0
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
+op_type = 2
 
 [sub_resource type="VisualShaderNodeStep" id="VisualShaderNodeStep_bfjmp"]
+output_port_for_preview = 0
 default_input_values = [0, 0.91, 1, 0.0]
 
 [sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_vfu55"]
 input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_0g2yf"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_8v84i"]
 
 [resource]
 code = "shader_type canvas_item;
@@ -44,17 +57,35 @@ void fragment() {
 	vec4 n_out3p0 = texture(tex_frg_3, n_out7p0);
 
 
+// VectorDecompose:10
+	float n_out10p0 = n_out3p0.x;
+	float n_out10p1 = n_out3p0.y;
+	float n_out10p2 = n_out3p0.z;
+	float n_out10p3 = n_out3p0.w;
+
+
 // Step:6
 	float n_in6p0 = 0.91000;
-	float n_out6p0 = step(n_in6p0, n_out3p0.x);
+	float n_out6p0 = step(n_in6p0, n_out10p0);
 
 
 // VectorOp:4
-	vec3 n_out4p0 = vec3(n_out2p0.xyz) + vec3(n_out6p0);
+	vec4 n_out4p0 = n_out2p0 + vec4(n_out6p0);
+
+
+// VectorDecompose:8
+	float n_out8p0 = n_out4p0.x;
+	float n_out8p1 = n_out4p0.y;
+	float n_out8p2 = n_out4p0.z;
+	float n_out8p3 = n_out4p0.w;
+
+
+// VectorCompose:9
+	vec3 n_out9p0 = vec3(n_out8p0, n_out8p1, n_out8p2);
 
 
 // Output:0
-	COLOR.rgb = n_out4p0;
+	COLOR.rgb = n_out9p0;
 
 
 }
@@ -62,13 +93,19 @@ void fragment() {
 mode = 1
 flags/light_only = false
 nodes/fragment/2/node = SubResource("VisualShaderNodeInput_1meo1")
-nodes/fragment/2/position = Vector2(-500, 80)
+nodes/fragment/2/position = Vector2(-1000, 160)
 nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_a61l2")
-nodes/fragment/3/position = Vector2(-640, 400)
+nodes/fragment/3/position = Vector2(-1000, 320)
 nodes/fragment/4/node = SubResource("VisualShaderNodeVectorOp_sj0iv")
-nodes/fragment/4/position = Vector2(20, 200)
+nodes/fragment/4/position = Vector2(-280, 160)
 nodes/fragment/6/node = SubResource("VisualShaderNodeStep_bfjmp")
-nodes/fragment/6/position = Vector2(-320, 400)
+nodes/fragment/6/position = Vector2(-600, 380)
 nodes/fragment/7/node = SubResource("VisualShaderNodeInput_vfu55")
-nodes/fragment/7/position = Vector2(-1000, 500)
-nodes/fragment/connections = PackedInt32Array(2, 0, 4, 0, 4, 0, 0, 0, 3, 0, 6, 1, 6, 0, 4, 1, 7, 0, 3, 0)
+nodes/fragment/7/position = Vector2(-1340, 460)
+nodes/fragment/8/node = SubResource("VisualShaderNodeVectorDecompose_0g2yf")
+nodes/fragment/8/position = Vector2(-80, 280)
+nodes/fragment/9/node = SubResource("VisualShaderNodeVectorCompose_8v84i")
+nodes/fragment/9/position = Vector2(200, 300)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVectorDecompose_x47gc")
+nodes/fragment/10/position = Vector2(-780, 420)
+nodes/fragment/connections = PackedInt32Array(6, 0, 4, 1, 7, 0, 3, 0, 8, 0, 9, 0, 8, 1, 9, 1, 8, 2, 9, 2, 2, 0, 4, 0, 4, 0, 8, 0, 9, 0, 0, 0, 3, 0, 10, 0, 10, 0, 6, 1)

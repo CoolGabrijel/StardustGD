@@ -21,7 +21,7 @@ font_size = 68
 outline_size = 19
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "slot1", "slot2")]
+[node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "slot1", "slot2", "activationButton")]
 texture = ExtResource("1_s0s7v")
 script = ExtResource("2_iag5j")
 area = NodePath("Area2D")
@@ -32,6 +32,7 @@ extraSlot = NodePath("PawnSlots/Extra")
 activationGraphic = NodePath("Overlay/Activation")
 slot1 = NodePath("Overlay/Slot1")
 slot2 = NodePath("Overlay/Slot2")
+activationButton = NodePath("Overlay/Activation/Button")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -176,6 +177,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("8_6vamm")
+
+[node name="Button" type="Button" parent="Overlay/Activation"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -228.0
+offset_right = 551.0
+offset_bottom = -56.0
+grow_vertical = 0
+mouse_filter = 1
 
 [node name="original overlay" type="TextureRect" parent="Overlay"]
 visible = false
