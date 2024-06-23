@@ -122,24 +122,24 @@ texture = ExtResource("11_ui2fj")
 [node name="Label" parent="List/Rosetta" index="3"]
 text = "Rosetta"
 
-[node name="TurnOrderItem5" parent="List" node_paths=PackedStringArray("portrait", "pawnNameLabel", "particles") instance=ExtResource("7_sawvq")]
+[node name="Wolfram" parent="List" node_paths=PackedStringArray("portrait", "pawnNameLabel", "particles") instance=ExtResource("7_sawvq")]
 layout_mode = 2
 portrait = NodePath("../Concorde/Portrait")
 pawnNameLabel = NodePath("../Concorde/Label")
 particles = NodePath("../Concorde/GPUParticles2D")
 
-[node name="GPUParticles2D" parent="List/TurnOrderItem5" index="1"]
+[node name="GPUParticles2D" parent="List/Wolfram" index="1"]
 self_modulate = Color(0.619608, 0.729412, 0.803922, 1)
 
-[node name="Portrait" parent="List/TurnOrderItem5" index="2"]
+[node name="Portrait" parent="List/Wolfram" index="2"]
 material = SubResource("ShaderMaterial_hl3m4")
 texture = ExtResource("12_1kkep")
 
-[node name="Label" parent="List/TurnOrderItem5" index="3"]
+[node name="Label" parent="List/Wolfram" index="3"]
 text = "Wolfram"
 
 [editable path="List/Concorde"]
 [editable path="List/Aurora"]
 [editable path="List/Zambuko"]
 [editable path="List/Rosetta"]
-[editable path="List/TurnOrderItem5"]
+[editable path="List/Wolfram"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=23 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dx7yik4v2q2wg" path="res://Textures/CaptainHoers/Video icons/RW_FF.png" id="8_u05v0"]
 [ext_resource type="Texture2D" uid="uid://78bwjebsa1nx" path="res://Textures/CaptainHoers/Rooms/Airlock.png" id="9_p5cjo"]
 [ext_resource type="PackedScene" uid="uid://drnsv3rfbym4u" path="res://Prefabs/UI/Game/VictoryScreen.tscn" id="11_alr5n"]
+[ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="12_l0nto"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ghges"]
 font = ExtResource("4_ypirp")
@@ -27,6 +28,16 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkc6v"]
 bg_color = Color(0.894118, 0.890196, 0.921569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ic10b"]
+font = ExtResource("4_ypirp")
+font_size = 13
+font_color = Color(0.215686, 0.27451, 0.4, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2v51c"]
+font = ExtResource("4_ypirp")
+font_size = 19
+font_color = Color(0.215686, 0.27451, 0.4, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4pipj"]
 shader = ExtResource("1_d2325")
@@ -364,6 +375,232 @@ stretch_mode = 5
 
 [node name="VictoryScreen" parent="HUD" instance=ExtResource("11_alr5n")]
 visible = false
+
+[node name="Objectives" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -214.0
+offset_bottom = 110.0
+grow_horizontal = 0
+
+[node name="DetailedObjectives" type="Control" parent="HUD/Objectives"]
+layout_mode = 1
+anchor_left = 0.182
+anchor_top = 0.364
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.052
+offset_top = -0.0400009
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BG" type="ColorRect" parent="HUD/Objectives/DetailedObjectives"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(87, 0)
+color = Color(0.215686, 0.27451, 0.4, 1)
+
+[node name="FG" type="ColorRect" parent="HUD/Objectives/DetailedObjectives"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.894118, 0.890196, 0.921569, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Objectives/DetailedObjectives"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HUD/Objectives/DetailedObjectives/VBoxContainer"]
+layout_mode = 2
+text = "Do Objectives on Life Support"
+label_settings = SubResource("LabelSettings_ic10b")
+
+[node name="Label2" type="Label" parent="HUD/Objectives/DetailedObjectives/VBoxContainer"]
+layout_mode = 2
+text = "Do Objectives on Solar Panels"
+label_settings = SubResource("LabelSettings_ic10b")
+
+[node name="TopBar" type="Control" parent="HUD/Objectives"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.364
+offset_bottom = -0.0400009
+grow_horizontal = 2
+
+[node name="BG" type="TextureRect" parent="HUD/Objectives/TopBar"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.055, 1.055)
+pivot_offset = Vector2(111.67, 0)
+texture = ExtResource("6_k5505")
+expand_mode = 3
+
+[node name="BGPadding" type="ColorRect" parent="HUD/Objectives/TopBar/BG"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.818
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.3154
+offset_right = 34.9726
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.215686, 0.27451, 0.4, 1)
+
+[node name="FG" type="TextureRect" parent="HUD/Objectives/TopBar"]
+self_modulate = Color(0.894118, 0.890196, 0.921569, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_k5505")
+expand_mode = 3
+
+[node name="FGPadding" type="ColorRect" parent="HUD/Objectives/TopBar/FG"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.818
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.0196838
+offset_right = 40.3077
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.894118, 0.890196, 0.921569, 1)
+
+[node name="Label" type="Label" parent="HUD/Objectives/TopBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+offset_left = 35.0
+offset_top = 2.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "Objectives"
+label_settings = SubResource("LabelSettings_2v51c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlipContainer" type="HBoxContainer" parent="HUD/Objectives/TopBar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.173
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.0220032
+offset_top = -16.0
+offset_right = -4.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="ObjBlip" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip2" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip3" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip4" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip5" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip6" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip7" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip8" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip9" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip10" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip11" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
+
+[node name="ObjBlip12" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("12_l0nto")
+expand_mode = 1
 
 [node name="Selection" type="Sprite2D" parent="."]
 z_index = 1
