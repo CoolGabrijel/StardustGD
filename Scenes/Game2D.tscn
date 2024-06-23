@@ -74,8 +74,8 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="EnergyLabel" type="Label" parent="HUD"]
-offset_left = 156.0
-offset_right = 364.0
+offset_left = 220.0
+offset_right = 428.0
 offset_bottom = 23.0
 text = "Energy Expended: 0"
 label_settings = SubResource("LabelSettings_ghges")

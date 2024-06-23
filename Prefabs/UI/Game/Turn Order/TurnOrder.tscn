@@ -68,8 +68,8 @@ wolframColor = Color(0.619608, 0.729412, 0.803922, 1)
 [node name="List" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 201.0
+offset_bottom = 257.0
 
 [node name="Concorde" parent="List" instance=ExtResource("7_sawvq")]
 layout_mode = 2
