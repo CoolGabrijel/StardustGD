@@ -15,9 +15,7 @@ namespace Stardust
         public static int EnergyExpended { get; set; }
         public static RoomManager RoomManager { get; private set; } = new();
         public static TurnQueue TurnQueue { get; private set; }
-        public static Room PreviouslyDamagedRoom { get; set; }
-
-        readonly static Random rng = new();
+        public static DamageManager DamageManager { get; private set; } = new(RoomManager);
 
         public static void BeginGame()
         {
@@ -40,18 +38,6 @@ namespace Stardust
 
             EnergyExpended = 0;
 		}
-
-        public static Room GetRoomToDamage()
-        {
-            List<Room> rooms = new List<Room>(RoomManager.Rooms);
-
-            if (PreviouslyDamagedRoom != null) rooms.Remove(PreviouslyDamagedRoom);
-
-            int randRoomIndex = rng.Next(rooms.Count);
-            Room randRoom = rooms[randRoomIndex];
-
-            return randRoom;
-        }
 
         private static bool CheckFailState()
         {

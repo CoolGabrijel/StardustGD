@@ -29,7 +29,7 @@ namespace Stardust
         {
             Room room = GetRoomToDamage();
 
-            if (TurnIndex > roomsDamaged.Count)
+            if (TurnIndex >= roomsDamaged.Count)
             {
                 roomsDamaged.Add(room.RoomType);
             }
@@ -44,7 +44,7 @@ namespace Stardust
 
         public Room GetRoomToDamage()
         {
-            if (TurnIndex <= roomsDamaged.Count)
+            if (TurnIndex < roomsDamaged.Count)
             {
                 return roomManager.GetRoomByType(roomsDamaged[TurnIndex]);
             }

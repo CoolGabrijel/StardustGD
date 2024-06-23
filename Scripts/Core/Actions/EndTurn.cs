@@ -4,24 +4,26 @@ namespace Stardust.Actions
     {
         public Room DamagedRoom { get; set; }
         public int EnergyExpended { get; set; }
-        public Room PreviouslyDamagedRoom { get; set; }
 
         public void Do()
         {
-            PreviouslyDamagedRoom = GameLogic.PreviouslyDamagedRoom;
-            if (DamagedRoom == null) DamagedRoom = GameLogic.GetRoomToDamage();
-            DamagedRoom.Damage();
-            GameLogic.PreviouslyDamagedRoom = DamagedRoom;
+            GameLogic.DamageManager.Damage();
+            //if (DamagedRoom == null) DamagedRoom = GameLogic.GetRoomToDamage();
+            //DamagedRoom.Damage();
+
             EnergyExpended = GameLogic.EnergyExpended;
             GameLogic.EndTurn();
+
+            GameLogic.DamageManager.TurnIndex++;
 
             ActionLibrary.AddAction(this); // TODO: Maybe not have this here for Zambuko?
         }
 
         public void Undo()
         {
-            GameLogic.PreviouslyDamagedRoom = PreviouslyDamagedRoom;
-            DamagedRoom.DamageAmount--;
+            //DamagedRoom.DamageAmount--;
+            GameLogic.DamageManager.TurnIndex--;
+            GameLogic.DamageManager.UndoDamage();
             GameLogic.EnergyExpended = EnergyExpended;
             GameLogic.TurnQueue.Previous();
         }
