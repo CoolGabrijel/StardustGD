@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=22 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -22,7 +22,7 @@ font = ExtResource("4_ypirp")
 
 [sub_resource type="LabelSettings" id="LabelSettings_2v04b"]
 font = ExtResource("4_ypirp")
-font_size = 19
+font_size = 21
 font_color = Color(0.215686, 0.27451, 0.4, 1)
 outline_color = Color(0, 0, 0, 1)
 
@@ -32,11 +32,6 @@ bg_color = Color(0.894118, 0.890196, 0.921569, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_ic10b"]
 font = ExtResource("4_ypirp")
 font_size = 13
-font_color = Color(0.215686, 0.27451, 0.4, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_2v51c"]
-font = ExtResource("4_ypirp")
-font_size = 19
 font_color = Color(0.215686, 0.27451, 0.4, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4pipj"]
@@ -88,7 +83,7 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -111.0
 offset_right = 111.0
-offset_bottom = 40.0
+offset_bottom = 45.0
 grow_horizontal = 2
 mouse_filter = 2
 script = ExtResource("6_nidup")
@@ -200,8 +195,9 @@ layout_mode = 1
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 23.0
-offset_right = -23.0
+offset_left = 15.0
+offset_top = 0.5
+offset_right = -15.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -215,7 +211,7 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -20.0
+offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -228,8 +224,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 23.0
-offset_right = -22.5077
+offset_left = 28.0
+offset_right = -26.4692
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -387,11 +383,11 @@ grow_horizontal = 0
 
 [node name="DetailedObjectives" type="Control" parent="HUD/Objectives"]
 layout_mode = 1
-anchor_left = 0.182
-anchor_top = 0.364
+anchor_left = 0.14
+anchor_top = 0.409
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 5.052
+offset_left = 0.039999
 offset_top = -0.0400009
 grow_horizontal = 2
 grow_vertical = 0
@@ -438,8 +434,8 @@ label_settings = SubResource("LabelSettings_ic10b")
 [node name="TopBar" type="Control" parent="HUD/Objectives"]
 layout_mode = 1
 anchor_right = 1.0
-anchor_bottom = 0.364
-offset_bottom = -0.0400009
+anchor_bottom = 0.409
+offset_bottom = 0.00999832
 grow_horizontal = 2
 
 [node name="BG" type="TextureRect" parent="HUD/Objectives/TopBar"]
@@ -499,18 +495,18 @@ offset_top = 2.0
 offset_bottom = 23.0
 grow_horizontal = 0
 text = "Objectives"
-label_settings = SubResource("LabelSettings_2v51c")
+label_settings = SubResource("LabelSettings_2v04b")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BlipContainer" type="HBoxContainer" parent="HUD/Objectives/TopBar"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.173
+anchor_left = 0.131
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.0220032
+offset_left = -0.0340023
 offset_top = -16.0
 offset_right = -4.0
 offset_bottom = -3.0
@@ -575,27 +571,6 @@ texture = ExtResource("12_l0nto")
 expand_mode = 1
 
 [node name="ObjBlip9" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
-self_modulate = Color(0.215686, 0.27451, 0.4, 1)
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("12_l0nto")
-expand_mode = 1
-
-[node name="ObjBlip10" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
-self_modulate = Color(0.215686, 0.27451, 0.4, 1)
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("12_l0nto")
-expand_mode = 1
-
-[node name="ObjBlip11" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
-self_modulate = Color(0.215686, 0.27451, 0.4, 1)
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("12_l0nto")
-expand_mode = 1
-
-[node name="ObjBlip12" type="TextureRect" parent="HUD/Objectives/TopBar/BlipContainer"]
 self_modulate = Color(0.215686, 0.27451, 0.4, 1)
 layout_mode = 2
 size_flags_horizontal = 3
