@@ -1,18 +1,66 @@
-[gd_scene load_steps=17 format=3 uid="uid://br7af73781a77"]
+[gd_scene load_steps=33 format=3 uid="uid://br7af73781a77"]
 
 [ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
 [ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
+[ext_resource type="Texture2D" uid="uid://dnhuffsfrmp3e" path="res://Textures/CaptainHoers/Rooms/Icons/Engines Icon.png" id="3_ll875"]
 [ext_resource type="Script" path="res://Scripts/2D/PawnSlot2D.cs" id="3_yj03h"]
 [ext_resource type="Script" path="res://Scripts/2D/RoomPartsDisplay.cs" id="4_0uxpp"]
+[ext_resource type="Script" path="res://Scripts/2D/RoomIcon.cs" id="4_rkktj"]
+[ext_resource type="Texture2D" uid="uid://b0nkqaymk30wj" path="res://Textures/CaptainHoers/Rooms/Icons/Workshop Icon.png" id="5_8w6hf"]
 [ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="5_ueb33"]
 [ext_resource type="Script" path="res://Scripts/2D/RoomDamageDisplay.cs" id="5_wf81v"]
+[ext_resource type="Texture2D" uid="uid://dihf2cpnc3mbx" path="res://Textures/CaptainHoers/Rooms/Icons/Life Support Icon.png" id="7_alb0w"]
 [ext_resource type="Script" path="res://Scripts/2D/RoomObjDisplay.cs" id="7_ujy87"]
 [ext_resource type="Texture2D" uid="uid://bnpukrxw6mgm" path="res://Textures/CaptainHoers/Rooms/Overlays/Habitation Activation.png" id="8_6vamm"]
+[ext_resource type="Texture2D" uid="uid://bskgw1ud0apmo" path="res://Textures/CaptainHoers/Rooms/Icons/Solar Panels Icon.png" id="8_aftt0"]
+[ext_resource type="Texture2D" uid="uid://dgw655564qgxp" path="res://Textures/CaptainHoers/Rooms/Icons/Airlock Icon.png" id="9_dgxlv"]
 [ext_resource type="Texture2D" uid="uid://c557gtfiuau31" path="res://Textures/CaptainHoers/Rooms/Overlays/Habitation2 Overlay.png" id="9_hmcw8"]
 [ext_resource type="Texture2D" uid="uid://ce0vh0n3utdcp" path="res://Textures/CaptainHoers/Rooms/Overlays/Slot1.png" id="10_d11i8"]
+[ext_resource type="Texture2D" uid="uid://b8qsm2eig5hoj" path="res://Textures/CaptainHoers/Rooms/Icons/Comms Icon.png" id="10_tiuw3"]
+[ext_resource type="Texture2D" uid="uid://dgac5waojctfv" path="res://Textures/CaptainHoers/Rooms/Icons/Cockpit Icon.png" id="11_a501l"]
 [ext_resource type="Texture2D" uid="uid://cbgowem1d5i6r" path="res://Textures/CaptainHoers/Rooms/Overlays/Slot2.png" id="11_dqrou"]
 [ext_resource type="Texture2D" uid="uid://ck7p0bxabtlnt" path="res://Textures/CaptainHoers/Rooms/Overlays/Header Overlay.png" id="12_xgir8"]
 [ext_resource type="Texture2D" uid="uid://bnvi5k1dfyuq" path="res://Textures/CaptainHoers/Rooms/Icons/Habitation Icon.png" id="13_8w8f0"]
+
+[sub_resource type="Resource" id="Resource_inm74"]
+script = ExtResource("4_rkktj")
+Icon = ExtResource("3_ll875")
+RoomType = 0
+
+[sub_resource type="Resource" id="Resource_y2fpd"]
+script = ExtResource("4_rkktj")
+Icon = ExtResource("5_8w6hf")
+RoomType = 1
+
+[sub_resource type="Resource" id="Resource_u2lfq"]
+script = ExtResource("4_rkktj")
+Icon = ExtResource("13_8w8f0")
+RoomType = 2
+
+[sub_resource type="Resource" id="Resource_7nnbh"]
+script = ExtResource("4_rkktj")
+Icon = ExtResource("7_alb0w")
+RoomType = 3
+
+[sub_resource type="Resource" id="Resource_yvkab"]
+script = ExtResource("4_rkktj")
+Icon = ExtResource("8_aftt0")
+RoomType = 4
+
+[sub_resource type="Resource" id="Resource_wwo3x"]
+script = ExtResource("4_rkktj")
+Icon = ExtResource("9_dgxlv")
+RoomType = 5
+
+[sub_resource type="Resource" id="Resource_v1rbk"]
+script = ExtResource("4_rkktj")
+Icon = ExtResource("10_tiuw3")
+RoomType = 6
+
+[sub_resource type="Resource" id="Resource_tbuks"]
+script = ExtResource("4_rkktj")
+Icon = ExtResource("11_a501l")
+RoomType = 7
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31hmr"]
 size = Vector2(1125, 1125)
@@ -27,7 +75,7 @@ outline_color = Color(0, 0, 0, 1)
 font = ExtResource("5_ueb33")
 font_size = 62
 
-[node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "header", "roomNameLabel", "slot1", "slot2", "activationButton")]
+[node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "header", "roomIconGraphic", "roomNameLabel", "slot1", "slot2", "activationButton")]
 texture = ExtResource("1_s0s7v")
 script = ExtResource("2_iag5j")
 area = NodePath("Area2D")
@@ -37,6 +85,8 @@ bottomSlot = NodePath("PawnSlots/Bottom")
 extraSlot = NodePath("PawnSlots/Extra")
 activationGraphic = NodePath("Overlay/Activation")
 header = NodePath("Overlay/Header")
+roomIconGraphic = NodePath("Overlay/Header/RoomIcon")
+roomIcons = [SubResource("Resource_inm74"), SubResource("Resource_y2fpd"), SubResource("Resource_u2lfq"), SubResource("Resource_7nnbh"), SubResource("Resource_yvkab"), SubResource("Resource_wwo3x"), SubResource("Resource_v1rbk"), SubResource("Resource_tbuks")]
 roomNameLabel = NodePath("Overlay/Header/RoomName")
 slot1 = NodePath("Overlay/Slot1")
 slot2 = NodePath("Overlay/Slot2")

@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using Stardust.Actions;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace Stardust.Godot
 		[ExportCategory("Overlay")]
 		[Export] TextureRect activationGraphic;
 		[Export] Control header;
+		[Export] TextureRect roomIconGraphic;
+		[Export] Array<RoomIcon> roomIcons;
 		[Export] Label roomNameLabel;
 		[Export] Control slot1;
         [Export] Control slot2;
@@ -64,6 +67,18 @@ namespace Stardust.Godot
 			else slot2.Show();
 
 			roomNameLabel.Text = room.Name;
+
+			if (roomIconGraphic != null)
+			{
+				for (int i = 0; i < roomIcons.Count; i++)
+				{
+					if (roomIcons[i].RoomType == room.RoomType)
+                    {
+                        roomIconGraphic.Texture = roomIcons[i].Icon;
+						break;
+                    }
+                }
+			}
         }
 
 		public PawnSlot2D GetVacantSlot()
