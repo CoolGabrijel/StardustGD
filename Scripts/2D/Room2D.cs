@@ -20,6 +20,8 @@ namespace Stardust.Godot
         [Export] PawnSlot2D extraSlot;
 		[ExportCategory("Overlay")]
 		[Export] TextureRect activationGraphic;
+		[Export] Control header;
+		[Export] Label roomNameLabel;
 		[Export] Control slot1;
         [Export] Control slot2;
 		[ExportCategory("Buttons")]
@@ -27,6 +29,7 @@ namespace Stardust.Godot
 
         Tween colorTween;
 		Tween activationTween;
+		Tween headerTween;
 
 		public override void _Ready()
 		{
@@ -37,7 +40,10 @@ namespace Stardust.Godot
 			Room.OnDamage += OnDamaged;
 			Room.OnBreak += OnBroken;
 			activationButton.Pressed += OnActivationClicked;
-		}
+
+			activationGraphic.Position = new Vector2(-1125f, 0f);
+			header.Position = new Vector2(-687f, 0f);
+        }
 
         public void Initialize(Room room, Texture2D tex, Texture2D texActivation = null)
 		{
@@ -56,6 +62,8 @@ namespace Stardust.Godot
             
 			if (room.Capacity == 1) slot1.Show();
 			else slot2.Show();
+
+			roomNameLabel.Text = room.Name;
         }
 
 		public PawnSlot2D GetVacantSlot()
@@ -136,17 +144,25 @@ namespace Stardust.Godot
 			RoomSelection2D.Instance.SetPos(GlobalPosition);
 
 			activationTween?.Kill();
+			headerTween?.Kill();
 
 			activationTween = activationGraphic.CreateTween();
 			activationTween.TweenProperty(activationGraphic, "position", Vector2.Zero, .25f).SetTrans(Tween.TransitionType.Expo);
-		}
+
+			headerTween = header.CreateTween();
+            headerTween.TweenProperty(header, "position", Vector2.Zero, .25f).SetTrans(Tween.TransitionType.Expo);
+        }
 
 		private void OnMouseExit()
 		{
             activationTween?.Kill();
+            headerTween?.Kill();
 
             activationTween = activationGraphic.CreateTween();
             activationTween.TweenProperty(activationGraphic, "position", new Vector2(-1125f, 0f), 1f);
+
+            headerTween = header.CreateTween();
+            headerTween.TweenProperty(header, "position", new Vector2(-687f, 0f), 1f);
         }
 
 		private void OnDamaged()

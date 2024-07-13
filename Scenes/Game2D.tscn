@@ -31,7 +31,7 @@ bg_color = Color(0.894118, 0.890196, 0.921569, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ic10b"]
 font = ExtResource("4_ypirp")
-font_size = 13
+font_size = 10
 font_color = Color(0.215686, 0.27451, 0.4, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4pipj"]
@@ -377,18 +377,19 @@ layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -214.0
+offset_left = -240.0
 offset_bottom = 110.0
 grow_horizontal = 0
 
 [node name="DetailedObjectives" type="Control" parent="HUD/Objectives"]
 layout_mode = 1
-anchor_left = 0.14
+anchor_left = 0.162
 anchor_top = 0.409
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.039999
-offset_top = -0.0400009
+offset_left = 0.119999
+offset_top = 0.00999832
+offset_bottom = -34.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -418,6 +419,9 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = 3.0
+offset_right = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -425,11 +429,13 @@ grow_vertical = 2
 layout_mode = 2
 text = "Do Objectives on Life Support"
 label_settings = SubResource("LabelSettings_ic10b")
+horizontal_alignment = 2
 
 [node name="Label2" type="Label" parent="HUD/Objectives/DetailedObjectives/VBoxContainer"]
 layout_mode = 2
 text = "Do Objectives on Solar Panels"
 label_settings = SubResource("LabelSettings_ic10b")
+horizontal_alignment = 2
 
 [node name="TopBar" type="Control" parent="HUD/Objectives"]
 layout_mode = 1
@@ -506,7 +512,7 @@ anchor_left = 0.131
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.0340023
+offset_left = 7.56
 offset_top = -16.0
 offset_right = -4.0
 offset_bottom = -3.0

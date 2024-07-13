@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://br7af73781a77"]
+[gd_scene load_steps=17 format=3 uid="uid://br7af73781a77"]
 
 [ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
 [ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://c557gtfiuau31" path="res://Textures/CaptainHoers/Rooms/Overlays/Habitation2 Overlay.png" id="9_hmcw8"]
 [ext_resource type="Texture2D" uid="uid://ce0vh0n3utdcp" path="res://Textures/CaptainHoers/Rooms/Overlays/Slot1.png" id="10_d11i8"]
 [ext_resource type="Texture2D" uid="uid://cbgowem1d5i6r" path="res://Textures/CaptainHoers/Rooms/Overlays/Slot2.png" id="11_dqrou"]
+[ext_resource type="Texture2D" uid="uid://ck7p0bxabtlnt" path="res://Textures/CaptainHoers/Rooms/Overlays/Header Overlay.png" id="12_xgir8"]
+[ext_resource type="Texture2D" uid="uid://bnvi5k1dfyuq" path="res://Textures/CaptainHoers/Rooms/Icons/Habitation Icon.png" id="13_8w8f0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31hmr"]
 size = Vector2(1125, 1125)
@@ -21,7 +23,11 @@ font_size = 68
 outline_size = 19
 outline_color = Color(0, 0, 0, 1)
 
-[node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "slot1", "slot2", "activationButton")]
+[sub_resource type="LabelSettings" id="LabelSettings_j2eta"]
+font = ExtResource("5_ueb33")
+font_size = 62
+
+[node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "header", "roomNameLabel", "slot1", "slot2", "activationButton")]
 texture = ExtResource("1_s0s7v")
 script = ExtResource("2_iag5j")
 area = NodePath("Area2D")
@@ -30,6 +36,8 @@ topSlot = NodePath("PawnSlots/Top")
 bottomSlot = NodePath("PawnSlots/Bottom")
 extraSlot = NodePath("PawnSlots/Extra")
 activationGraphic = NodePath("Overlay/Activation")
+header = NodePath("Overlay/Header")
+roomNameLabel = NodePath("Overlay/Header/RoomName")
 slot1 = NodePath("Overlay/Slot1")
 slot2 = NodePath("Overlay/Slot2")
 activationButton = NodePath("Overlay/Activation/Button")
@@ -215,3 +223,34 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 texture = ExtResource("11_dqrou")
+
+[node name="Header" type="TextureRect" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_xgir8")
+
+[node name="RoomName" type="Label" parent="Overlay/Header"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.07
+anchor_right = 0.569
+anchor_bottom = 0.133
+offset_left = 71.0
+offset_top = 0.25
+offset_right = 1.875
+offset_bottom = 0.375
+text = "Solar Panels"
+label_settings = SubResource("LabelSettings_j2eta")
+vertical_alignment = 1
+
+[node name="RoomIcon" type="TextureRect" parent="Overlay/Header"]
+layout_mode = 2
+offset_left = 706.5
+offset_top = 78.5
+offset_right = 824.5
+offset_bottom = 149.5
+texture = ExtResource("13_8w8f0")
