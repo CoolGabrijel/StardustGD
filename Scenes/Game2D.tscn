@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=24 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -16,9 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://78bwjebsa1nx" path="res://Textures/CaptainHoers/Rooms/Airlock.png" id="9_p5cjo"]
 [ext_resource type="PackedScene" uid="uid://drnsv3rfbym4u" path="res://Prefabs/UI/Game/VictoryScreen.tscn" id="11_alr5n"]
 [ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="12_l0nto"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_ghges"]
-font = ExtResource("4_ypirp")
+[ext_resource type="Texture2D" uid="uid://cfid71506n7nl" path="res://Textures/CaptainHoers/Battery.png" id="13_pndv2"]
+[ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="14_x6gs1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2v04b"]
 font = ExtResource("4_ypirp")
@@ -32,6 +31,11 @@ bg_color = Color(0.894118, 0.890196, 0.921569, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_ic10b"]
 font = ExtResource("4_ypirp")
 font_size = 10
+font_color = Color(0.215686, 0.27451, 0.4, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fanpc"]
+font = ExtResource("4_ypirp")
+font_size = 33
 font_color = Color(0.215686, 0.27451, 0.4, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4pipj"]
@@ -67,14 +71,6 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
-
-[node name="EnergyLabel" type="Label" parent="HUD"]
-offset_left = 220.0
-offset_right = 428.0
-offset_bottom = 23.0
-text = "Energy Expended: 0"
-label_settings = SubResource("LabelSettings_ghges")
-script = ExtResource("5_iehag")
 
 [node name="DamageIndicator" type="Control" parent="HUD" node_paths=PackedStringArray("tickParent")]
 layout_mode = 3
@@ -582,6 +578,58 @@ layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("12_l0nto")
 expand_mode = 1
+
+[node name="Energy" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -59.0
+offset_right = 104.0
+offset_bottom = -12.0
+grow_vertical = 0
+tooltip_text = "How much Energy will be used this turn."
+
+[node name="Battery" type="TextureRect" parent="HUD/Energy"]
+self_modulate = Color(0.894118, 0.890196, 0.921569, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("13_pndv2")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Lightning" type="TextureRect" parent="HUD/Energy/Battery"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = 18.0
+grow_vertical = 2
+texture = ExtResource("14_x6gs1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="EnergyUsed" type="Label" parent="HUD/Energy/Battery"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_right = -20.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "5"
+label_settings = SubResource("LabelSettings_fanpc")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_iehag")
 
 [node name="Selection" type="Sprite2D" parent="."]
 z_index = 1

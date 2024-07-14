@@ -7,7 +7,7 @@ namespace Stardust.Godot
 	{
         public override void _Process(double delta)
         {
-            Text = $"Energy Expended: {GameLogic.EnergyExpended}";
+            Text = GameLogic.EnergyExpended.ToString();
         }
     } 
 }
