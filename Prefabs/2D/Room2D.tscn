@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://br7af73781a77"]
+[gd_scene load_steps=36 format=3 uid="uid://br7af73781a77"]
 
 [ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
 [ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
@@ -21,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://cbgowem1d5i6r" path="res://Textures/CaptainHoers/Rooms/Overlays/Slot2.png" id="11_dqrou"]
 [ext_resource type="Texture2D" uid="uid://ck7p0bxabtlnt" path="res://Textures/CaptainHoers/Rooms/Overlays/Header Overlay.png" id="12_xgir8"]
 [ext_resource type="Texture2D" uid="uid://bnvi5k1dfyuq" path="res://Textures/CaptainHoers/Rooms/Icons/Habitation Icon.png" id="13_8w8f0"]
+[ext_resource type="Texture2D" uid="uid://v5cdtrrcsk25" path="res://Textures/CaptainHoers/Background Bit Border Alternate.png" id="22_8pvfr"]
+[ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="23_7lgwt"]
 
 [sub_resource type="Resource" id="Resource_inm74"]
 script = ExtResource("4_rkktj")
@@ -74,6 +76,10 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_j2eta"]
 font = ExtResource("5_ueb33")
 font_size = 62
+
+[sub_resource type="LabelSettings" id="LabelSettings_qah6t"]
+font = ExtResource("5_ueb33")
+font_size = 37
 
 [node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "header", "roomIconGraphic", "roomNameLabel", "slot1", "slot2", "activationButton")]
 texture = ExtResource("1_s0s7v")
@@ -187,31 +193,6 @@ label_settings = SubResource("LabelSettings_8v67t")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Objectives" type="Button" parent="DebugText" node_paths=PackedStringArray("roomGraphic", "objLabel")]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -305.5
-offset_top = 2.5
-offset_right = -5.5
-offset_bottom = 62.5
-grow_horizontal = 0
-flat = true
-script = ExtResource("7_ujy87")
-roomGraphic = NodePath("../..")
-objLabel = NodePath("Label")
-
-[node name="Label" type="Label" parent="DebugText/Objectives"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Obj: 0"
-label_settings = SubResource("LabelSettings_8v67t")
-
 [node name="Overlay" type="Control" parent="."]
 clip_contents = true
 layout_mode = 3
@@ -304,3 +285,69 @@ offset_top = 78.5
 offset_right = 824.5
 offset_bottom = 149.5
 texture = ExtResource("13_8w8f0")
+
+[node name="Obj" type="Button" parent="Overlay" node_paths=PackedStringArray("roomGraphic", "objLabel")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -190.0
+offset_top = 68.0
+offset_right = -41.0
+offset_bottom = 164.0
+grow_horizontal = 0
+flat = true
+script = ExtResource("7_ujy87")
+roomGraphic = NodePath("../..")
+objLabel = NodePath("Amount")
+
+[node name="BG" type="TextureRect" parent="Overlay/Obj"]
+self_modulate = Color(0.0588235, 0.341176, 0.498039, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -47.5
+offset_right = 76.5
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("22_8pvfr")
+
+[node name="Icon" type="TextureRect" parent="Overlay/Obj"]
+self_modulate = Color(0, 0.647059, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.014
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 54.0
+offset_top = 14.656
+offset_right = -52.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("23_7lgwt")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Amount" type="Label" parent="Overlay/Obj"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -103.5
+offset_top = -50.5
+offset_right = -46.5
+offset_bottom = -9.5
+grow_horizontal = 0
+grow_vertical = 0
+text = "x2"
+label_settings = SubResource("LabelSettings_qah6t")
+horizontal_alignment = 1
+vertical_alignment = 2

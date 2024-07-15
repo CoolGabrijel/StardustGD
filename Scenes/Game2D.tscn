@@ -30,7 +30,7 @@ bg_color = Color(0.894118, 0.890196, 0.921569, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ic10b"]
 font = ExtResource("4_ypirp")
-font_size = 10
+font_size = 9
 font_color = Color(0.215686, 0.27451, 0.4, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_fanpc"]
@@ -415,9 +415,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -4.0
+offset_left = 4.0
 offset_top = 3.0
-offset_right = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -425,13 +424,11 @@ grow_vertical = 2
 layout_mode = 2
 text = "Do Objectives on Life Support"
 label_settings = SubResource("LabelSettings_ic10b")
-horizontal_alignment = 2
 
 [node name="Label2" type="Label" parent="HUD/Objectives/DetailedObjectives/VBoxContainer"]
 layout_mode = 2
 text = "Do Objectives on Solar Panels"
 label_settings = SubResource("LabelSettings_ic10b")
-horizontal_alignment = 2
 
 [node name="TopBar" type="Control" parent="HUD/Objectives"]
 layout_mode = 1

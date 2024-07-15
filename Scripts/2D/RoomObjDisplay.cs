@@ -35,7 +35,9 @@ namespace Stardust.Godot
 
             if (taskCount > 0)
             {
-                objLabel.Text = $"Obj: {taskCount}";
+                if (taskCount > 1) objLabel.Text = $"x{taskCount}";
+                else objLabel.Text = "";
+
                 Show();
                 Disabled = false;
             }
@@ -51,6 +53,8 @@ namespace Stardust.Godot
             if (GameStart.LocalPlayer.Room != roomGraphic.Room) return;
 
             if (GameStart.LocalPlayer.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy) <= GameLogic.EnergyExpended) return;
+
+            if (roomGraphic.Room.Pawns.Count > roomGraphic.Room.Capacity) return;
 
             CompleteBaseTask action = new(roomGraphic.Room.RoomType);
             action.Do();
