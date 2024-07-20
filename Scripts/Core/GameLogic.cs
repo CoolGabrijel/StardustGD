@@ -20,7 +20,7 @@ namespace Stardust
         public static void BeginGame()
         {
             RoomManager.GenerateRooms();
-            ObjectiveHandler.Initialize(2);
+            ObjectiveHandler.Initialize(6);
             SpawnPawns();
         }
 
