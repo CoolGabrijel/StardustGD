@@ -1,6 +1,4 @@
 using Godot;
-using Stardust;
-using System;
 
 namespace Stardust.Actions
 {
@@ -22,12 +20,14 @@ namespace Stardust.Actions
         public void Do()
         {
             Workshop.AddItem(Part);
+            GameLogic.EnergyExpended += EnergyCost;
             GD.Print($"{Workshop.Name}: Created Part");
         }
 
         public void Undo()
         {
             Workshop.RemoveItem(Part);
+            GameLogic.EnergyExpended -= EnergyCost;
             GD.Print($"{Workshop.Name}: Undone Part");
         }
     }
