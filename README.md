@@ -1,6 +1,6 @@
 # StardustGD
  This is a Godot port of the [Stardust Board Game](https://www.thegamecrafter.com/games/stardust2) which is owned by [CaptainHoers](https://captainhoers.tumblr.com/).
- Developed with [Godot Mono](https://godotengine.org/) [v4.2](https://godotengine.org/download/archive/4.2-stable/)
+ Developed with [Godot Mono](https://godotengine.org/) [v4.3](https://godotengine.org/download/archive/4.3-stable/)
  
  The Images found in Textures/CaptainHoers directory and Models found in Meshes/Pawns belong to [CaptainHoers](https://captainhoers.tumblr.com/). Some of them have been modified.
 
