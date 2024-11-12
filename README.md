@@ -3,6 +3,7 @@
  Developed with [Godot Mono](https://godotengine.org/) [v4.3](https://godotengine.org/download/archive/4.3-stable/)
  
  The Images found in Textures/CaptainHoers directory and Models found in Meshes/Pawns belong to [CaptainHoers](https://captainhoers.tumblr.com/). Some of them have been modified.
+ The Files found in Textures/Kenney are made by [Kenney](https://kenney.nl/).
 
  There used to be a Unity version, but I'm rewriting it in Godot and making the code available for all to see.
  Why? Multiple reasons. Some more obvious, some less. Mostly because nobody stopped me.

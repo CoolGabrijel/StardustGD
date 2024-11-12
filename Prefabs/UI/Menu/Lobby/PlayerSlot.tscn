@@ -1,0 +1,485 @@
+[gd_scene load_steps=13 format=3 uid="uid://cwnns2jklwavn"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Menu/PlayerSlot.cs" id="1_boct3"]
+[ext_resource type="Texture2D" uid="uid://cpk05b2mm7bje" path="res://Textures/CaptainHoers/Horse cards/Aurora.png" id="1_ndgp0"]
+[ext_resource type="Texture2D" uid="uid://cf2xy8cu14wbe" path="res://Textures/CaptainHoers/Horse cards/Concorde.png" id="2_c4nol"]
+[ext_resource type="Texture2D" uid="uid://dsthg2hdprrio" path="res://Textures/CaptainHoers/Horse cards/Zambuko.png" id="4_yh51v"]
+[ext_resource type="Texture2D" uid="uid://bikvdx5le53qr" path="res://Textures/CaptainHoers/Horse cards/Rosetta.png" id="5_52fh0"]
+[ext_resource type="Texture2D" uid="uid://dxw4c53leeyvu" path="res://Textures/CaptainHoers/Horse cards/Wolfram.png" id="6_46rq7"]
+[ext_resource type="Texture2D" uid="uid://but26v3hn718u" path="res://Textures/Other/LobbyFrame.png" id="7_d1nhi"]
+[ext_resource type="Texture2D" uid="uid://2via82jj3s0v" path="res://Textures/Kenney/Particles/circle_05.png" id="8_e5you"]
+
+[sub_resource type="Gradient" id="Gradient_m6c2l"]
+colors = PackedColorArray(0.4278, 0.457853, 0.46, 1, 0.807843, 0.866667, 0.870588, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_y8h1g"]
+gradient = SubResource("Gradient_m6c2l")
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_jcr57"]
+offsets = PackedFloat32Array(0.223629, 1)
+colors = PackedColorArray(0, 0, 0, 0.733333, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ry8s3"]
+gradient = SubResource("Gradient_jcr57")
+fill_to = Vector2(0, 1)
+
+[node name="PlayerSlot" type="Control" node_paths=PackedStringArray("portrait", "nameplate")]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 180.0
+offset_bottom = 362.0
+script = ExtResource("1_boct3")
+portrait = NodePath("PortraitWindow/Portrait")
+nameplate = NodePath("NamePlate/Label")
+portraits = {
+"Aurora": ExtResource("1_ndgp0"),
+"Concorde": ExtResource("2_c4nol"),
+"Random": null,
+"Rosetta": ExtResource("5_52fh0"),
+"Wolfram": ExtResource("6_46rq7"),
+"Zambuko": ExtResource("4_yh51v")
+}
+
+[node name="Frame" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mid" type="ColorRect" parent="Frame"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_right = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8091, 0.864925, 0.87, 1)
+
+[node name="Top" type="ColorRect" parent="Frame"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.2
+offset_left = -5.0
+offset_top = -3.0
+offset_right = 5.0
+grow_horizontal = 2
+color = Color(0.8091, 0.864925, 0.87, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Frame/Top"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_y8h1g")
+expand_mode = 1
+
+[node name="Bot" type="ColorRect" parent="Frame"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_right = 5.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.8091, 0.864925, 0.87, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Frame"]
+self_modulate = Color(0.921569, 0.992157, 1, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -29.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_d1nhi")
+region_rect = Rect2(0, 0, 191, 397)
+patch_margin_left = 5
+patch_margin_top = 120
+patch_margin_right = 6
+patch_margin_bottom = 97
+
+[node name="ReadyLabel" type="Label" parent="Frame/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -74.0
+offset_right = -23.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "READY"
+
+[node name="ReadyLight" type="TextureRect" parent="Frame/NinePatchRect"]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -25.0
+offset_top = -1.0
+offset_right = 2.0
+offset_bottom = 25.0
+grow_horizontal = 0
+texture = ExtResource("8_e5you")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RAM" type="Control" parent="Frame/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -3.0
+offset_right = -7.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Bind" type="ColorRect" parent="Frame/NinePatchRect/RAM"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0313726, 0.0666667, 0.0745098, 1)
+
+[node name="Left" type="Control" parent="Frame/NinePatchRect/RAM"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1148, 0.241453, 0.28, 1)
+
+[node name="Pins" type="HBoxContainer" parent="Frame/NinePatchRect/RAM/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Pin" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin2" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin3" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin4" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin5" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin6" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin7" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin8" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin9" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin10" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin11" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin12" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin13" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin14" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin15" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Shadow" type="TextureRect" parent="Frame/NinePatchRect/RAM/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ry8s3")
+expand_mode = 1
+
+[node name="Right" type="Control" parent="Frame/NinePatchRect/RAM"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.113725, 0.243137, 0.278431, 1)
+
+[node name="Pins" type="HBoxContainer" parent="Frame/NinePatchRect/RAM/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Pin" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin2" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin3" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin4" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin5" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin6" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin7" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin8" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin9" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin10" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Shadow" type="TextureRect" parent="Frame/NinePatchRect/RAM/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ry8s3")
+expand_mode = 1
+
+[node name="PortraitWindow" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="PortraitWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Portrait" type="TextureRect" parent="PortraitWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 182.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ndgp0")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="NamePlate" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchor_top = 0.055
+anchor_right = 1.0
+anchor_bottom = 0.138
+offset_top = 0.0899982
+offset_bottom = 0.0439949
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="NamePlate"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Label" type="Label" parent="NamePlate"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "AURORA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusPlate" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 133.0
+offset_bottom = 163.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="StatusPlate"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.392157)
+
+[node name="Label" type="Label" parent="StatusPlate"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "NOT READY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fade" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Curtain" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

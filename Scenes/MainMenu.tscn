@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=9 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Texture2D" uid="uid://ck7ktofpuetwx" path="res://Textures/CaptainHoers/BoxCoverNoSubtitle.png" id="1_oa4bt"]
 [ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="2_3emmv"]
 [ext_resource type="Texture2D" uid="uid://dl06m7xjhkwqh" path="res://Textures/Other/Sci fi UI Element with Border.png" id="4_vuvsy"]
+[ext_resource type="PackedScene" uid="uid://cwnns2jklwavn" path="res://Prefabs/UI/Menu/Lobby/PlayerSlot.tscn" id="5_m4o33"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqfu"]
 bg_color = Color(0.827451, 0.827451, 0.827451, 1)
@@ -111,6 +112,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_3f1bu")
 text = "Exit"
 
 [node name="MenuButtons2" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -280,5 +282,94 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Exit"
 label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LobbyScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Players" type="Control" parent="LobbyScreen"]
+layout_mode = 1
+anchor_left = 0.148
+anchor_top = 0.249
+anchor_right = 0.852
+anchor_bottom = 0.751
+offset_left = 0.559998
+offset_top = -0.280014
+offset_right = -0.560059
+offset_bottom = 0.279968
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LobbyScreen/Players"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PlayerSlot" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+layout_mode = 2
+
+[node name="PlayerSlot4" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+layout_mode = 2
+
+[node name="PlayerSlot5" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+layout_mode = 2
+
+[node name="PlayerSlot2" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+layout_mode = 2
+
+[node name="PlayerSlot3" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LobbyScreen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.426
+anchor_top = 0.824
+anchor_right = 0.574
+anchor_bottom = 0.879
+offset_left = -0.280029
+offset_top = -0.280029
+offset_right = 0.280029
+offset_bottom = 0.119934
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="LobbyScreen/HBoxContainer"]
+layout_mode = 2
+text = "Leave"
+
+[node name="Button2" type="Button" parent="LobbyScreen/HBoxContainer"]
+layout_mode = 2
+text = "READY"
+
+[node name="Button3" type="Button" parent="LobbyScreen/HBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="HeaderLabel" type="Label" parent="LobbyScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -274.0
+offset_top = -271.0
+offset_right = 270.0
+offset_bottom = -248.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LOBBY"
 horizontal_alignment = 1
 vertical_alignment = 1
