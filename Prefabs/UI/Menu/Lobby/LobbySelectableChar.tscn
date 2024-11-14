@@ -1,0 +1,144 @@
+[gd_scene load_steps=10 format=3 uid="uid://7ky63yvh43nu"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Menu/LobbyChar.cs" id="1_w4pks"]
+[ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="2_60x13"]
+[ext_resource type="Texture2D" uid="uid://cf2xy8cu14wbe" path="res://Textures/CaptainHoers/Horse cards/Concorde.png" id="2_v31ix"]
+[ext_resource type="BitMap" uid="uid://02b87smpwlr6" path="res://Textures/Other/RoundedTriangleBitMask.png" id="3_tunvd"]
+[ext_resource type="Texture2D" uid="uid://dsthg2hdprrio" path="res://Textures/CaptainHoers/Horse cards/Zambuko.png" id="4_gyuph"]
+[ext_resource type="Texture2D" uid="uid://cpk05b2mm7bje" path="res://Textures/CaptainHoers/Horse cards/Aurora.png" id="4_otyri"]
+[ext_resource type="Texture2D" uid="uid://bvct2yu0qaegu" path="res://Textures/Other/RoundedTriangleBorder.png" id="5_5rxrc"]
+[ext_resource type="Texture2D" uid="uid://bikvdx5le53qr" path="res://Textures/CaptainHoers/Horse cards/Rosetta.png" id="5_oqqd6"]
+[ext_resource type="Texture2D" uid="uid://dxw4c53leeyvu" path="res://Textures/CaptainHoers/Horse cards/Wolfram.png" id="6_4j81l"]
+
+[node name="LobbySelectableChar" type="Control" node_paths=PackedStringArray("btn", "btnBorder", "btnMask", "portraits")]
+custom_minimum_size = Vector2(0, 65)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 65.0
+offset_bottom = 65.0
+mouse_filter = 2
+script = ExtResource("1_w4pks")
+btn = NodePath("Button")
+btnBorder = NodePath("Mask/Border")
+btnMask = NodePath("Mask")
+portraits = NodePath("Mask/Portraits")
+
+[node name="Button" type="TextureButton" parent="."]
+self_modulate = Color(0.78, 0.78, 0.78, 1)
+clip_children = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(32, 32)
+texture_normal = ExtResource("2_60x13")
+texture_pressed = ExtResource("2_60x13")
+texture_hover = ExtResource("2_60x13")
+texture_focused = ExtResource("2_60x13")
+texture_click_mask = ExtResource("3_tunvd")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="Mask" type="TextureRect" parent="."]
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(32, 32)
+mouse_filter = 2
+texture = ExtResource("2_60x13")
+expand_mode = 1
+
+[node name="Portraits" type="Control" parent="Mask"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.00012207
+offset_top = -0.00012207
+offset_right = 0.00012207
+offset_bottom = -0.00012207
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Concorde" type="TextureRect" parent="Mask/Portraits"]
+visible = false
+layout_mode = 0
+offset_left = -9.0
+offset_top = 67.0003
+offset_right = 104.0
+offset_bottom = 182.0
+rotation = -1.5708
+mouse_filter = 2
+texture = ExtResource("2_v31ix")
+expand_mode = 1
+
+[node name="Aurora" type="TextureRect" parent="Mask/Portraits"]
+layout_mode = 0
+offset_left = -37.0
+offset_top = 67.0
+offset_right = 76.0
+offset_bottom = 182.0
+rotation = -1.5708
+mouse_filter = 2
+texture = ExtResource("4_otyri")
+expand_mode = 1
+
+[node name="Zambuko" type="TextureRect" parent="Mask/Portraits"]
+visible = false
+layout_mode = 0
+offset_left = -36.0
+offset_top = 67.0004
+offset_right = 77.0
+offset_bottom = 182.0
+rotation = -1.5708
+mouse_filter = 2
+texture = ExtResource("4_gyuph")
+expand_mode = 1
+
+[node name="Rosetta" type="TextureRect" parent="Mask/Portraits"]
+visible = false
+layout_mode = 0
+offset_left = -23.0
+offset_top = 67.0003
+offset_right = 90.0
+offset_bottom = 182.0
+rotation = -1.5708
+mouse_filter = 2
+texture = ExtResource("5_oqqd6")
+expand_mode = 1
+
+[node name="Wolfram" type="TextureRect" parent="Mask/Portraits"]
+visible = false
+layout_mode = 0
+offset_left = -5.0
+offset_top = 67.0003
+offset_right = 108.0
+offset_bottom = 182.0
+rotation = -1.5708
+mouse_filter = 2
+texture = ExtResource("6_4j81l")
+expand_mode = 1
+
+[node name="Border" type="TextureRect" parent="Mask"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.00012207
+offset_top = -0.00012207
+offset_right = 0.00012207
+offset_bottom = -0.00012207
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_5rxrc")
+expand_mode = 1

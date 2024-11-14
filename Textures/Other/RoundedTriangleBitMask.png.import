@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://02b87smpwlr6"
+path="res://.godot/imported/RoundedTriangleBitMask.png-9347a2d42b714e01cffc8acfe3dbdfc5.res"
+
+[deps]
+
+source_file="res://Textures/Other/RoundedTriangleBitMask.png"
+dest_files=["res://.godot/imported/RoundedTriangleBitMask.png-9347a2d42b714e01cffc8acfe3dbdfc5.res"]
+
+[params]
+
+create_from=1
+threshold=0.5
