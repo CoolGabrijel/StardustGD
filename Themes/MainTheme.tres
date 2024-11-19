@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://beri00884ypmy"]
+
+[ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="1_6g0n5"]
+
+[resource]
+default_font = ExtResource("1_6g0n5")

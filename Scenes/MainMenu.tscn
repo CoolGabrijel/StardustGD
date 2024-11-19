@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=14 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
+[ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
 [ext_resource type="Texture2D" uid="uid://ck7ktofpuetwx" path="res://Textures/CaptainHoers/BoxCoverNoSubtitle.png" id="1_oa4bt"]
 [ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="2_3emmv"]
 [ext_resource type="Texture2D" uid="uid://dl06m7xjhkwqh" path="res://Textures/Other/Sci fi UI Element with Border.png" id="4_vuvsy"]
@@ -33,6 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_lhprw")
 
 [node name="BG" type="ColorRect" parent="."]
 material = ExtResource("1_7dcey")

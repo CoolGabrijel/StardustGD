@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwnns2jklwavn"]
+[gd_scene load_steps=14 format=3 uid="uid://cwnns2jklwavn"]
 
+[ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_8pbng"]
 [ext_resource type="Script" path="res://Scripts/UI/Menu/PlayerSlot.cs" id="1_boct3"]
 [ext_resource type="Texture2D" uid="uid://cpk05b2mm7bje" path="res://Textures/CaptainHoers/Horse cards/Aurora.png" id="1_ndgp0"]
 [ext_resource type="Texture2D" uid="uid://cf2xy8cu14wbe" path="res://Textures/CaptainHoers/Horse cards/Concorde.png" id="2_c4nol"]
@@ -30,6 +31,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 180.0
 offset_bottom = 362.0
+theme = ExtResource("1_8pbng")
 script = ExtResource("1_boct3")
 portrait = NodePath("PortraitWindow/Portrait")
 nameplate = NodePath("NamePlate/Label")
@@ -122,10 +124,12 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -74.0
-offset_right = -23.0
+offset_left = -76.0
+offset_top = 4.0
+offset_right = -21.0
 offset_bottom = 23.0
 grow_horizontal = 0
+theme_override_font_sizes/font_size = 14
 text = "READY"
 
 [node name="ReadyLight" type="TextureRect" parent="Frame/NinePatchRect"]
