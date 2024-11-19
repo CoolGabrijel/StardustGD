@@ -4,6 +4,7 @@ using System;
 namespace Stardust.Godot.UI
 {
 	[GlobalClass]
+	[Tool]
 	public partial class CenterPivot : Node
 	{
 		Control parent;
