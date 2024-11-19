@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=13 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Texture2D" uid="uid://ck7ktofpuetwx" path="res://Textures/CaptainHoers/BoxCoverNoSubtitle.png" id="1_oa4bt"]
 [ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="2_3emmv"]
 [ext_resource type="Texture2D" uid="uid://dl06m7xjhkwqh" path="res://Textures/Other/Sci fi UI Element with Border.png" id="4_vuvsy"]
 [ext_resource type="PackedScene" uid="uid://cwnns2jklwavn" path="res://Prefabs/UI/Menu/Lobby/PlayerSlot.tscn" id="5_m4o33"]
+[ext_resource type="Texture2D" uid="uid://cj2uv7qqst7ee" path="res://Textures/Other/SmoothDrawer.png" id="6_03cc2"]
 [ext_resource type="PackedScene" uid="uid://7ky63yvh43nu" path="res://Prefabs/UI/Menu/Lobby/LobbySelectableChar.tscn" id="6_56qg5"]
+[ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="7_af3c0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqfu"]
 bg_color = Color(0.827451, 0.827451, 0.827451, 1)
@@ -16,6 +18,13 @@ bg_color = Color(0.827451, 0.827451, 0.827451, 1)
 font = ExtResource("2_3emmv")
 font_size = 27
 font_color = Color(0.0117647, 0, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a4e60"]
+bg_color = Color(0.94902, 0.94902, 0.94902, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -297,31 +306,28 @@ grow_vertical = 2
 [node name="Panel" type="Panel" parent="LobbyScreen"]
 layout_mode = 1
 anchors_preset = -1
-offset_right = 40.0
-offset_bottom = 40.0
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.75
+offset_left = -533.0
+offset_top = -20.0
+offset_right = 533.0
+offset_bottom = 20.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_a4e60")
 
-[node name="Players" type="Control" parent="LobbyScreen"]
+[node name="Players" type="Control" parent="LobbyScreen/Panel"]
 layout_mode = 1
-anchor_left = 0.148
-anchor_top = 0.249
-anchor_right = 0.852
-anchor_bottom = 0.751
-offset_left = -47.44
-offset_top = -0.279999
-offset_right = 47.4399
-offset_bottom = 0.280029
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="BG" type="ColorRect" parent="LobbyScreen/Players"]
-layout_mode = 1
-anchors_preset = 15
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
+offset_top = -178.0
+offset_bottom = 184.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LobbyScreen/Players"]
+[node name="HBoxContainer" type="HBoxContainer" parent="LobbyScreen/Panel/Players"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -331,20 +337,80 @@ grow_vertical = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="PlayerSlot" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+[node name="PlayerSlot" parent="LobbyScreen/Panel/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
 layout_mode = 2
 
-[node name="PlayerSlot4" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+[node name="PlayerSlot4" parent="LobbyScreen/Panel/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
 layout_mode = 2
 
-[node name="PlayerSlot5" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+[node name="PlayerSlot5" parent="LobbyScreen/Panel/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
 layout_mode = 2
 
-[node name="PlayerSlot2" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+[node name="PlayerSlot2" parent="LobbyScreen/Panel/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
 layout_mode = 2
 
-[node name="PlayerSlot3" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+[node name="PlayerSlot3" parent="LobbyScreen/Panel/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
 layout_mode = 2
+
+[node name="TextureRect" type="NinePatchRect" parent="LobbyScreen/Panel"]
+self_modulate = Color(0.913725, 0.913725, 0.913725, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -123.0
+offset_top = -114.0
+offset_right = 264.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(120.81, 64.55)
+texture = ExtResource("6_03cc2")
+patch_margin_left = 76
+patch_margin_right = 78
+
+[node name="Label" type="Label" parent="LobbyScreen/Panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -30.13
+offset_top = 77.71
+offset_right = 120.87
+offset_bottom = 100.71
+grow_horizontal = 0
+grow_vertical = 2
+rotation = -1.5708
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "CHARACTER SELECT"
+
+[node name="TextureRect" type="TextureRect" parent="LobbyScreen/Panel/Label"]
+modulate = Color(0.190762, 0.190762, 0.190762, 1)
+layout_mode = 0
+offset_left = -23.29
+offset_top = 2.13
+offset_right = -3.29001
+offset_bottom = 22.13
+texture = ExtResource("7_af3c0")
+expand_mode = 4
+flip_v = true
+
+[node name="TextureRect2" type="TextureRect" parent="LobbyScreen/Panel/Label"]
+modulate = Color(0.190762, 0.190762, 0.190762, 1)
+layout_mode = 0
+offset_left = 156.71
+offset_top = 2.13001
+offset_right = 176.71
+offset_bottom = 22.13
+texture = ExtResource("7_af3c0")
+expand_mode = 4
+flip_v = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="LobbyScreen"]
 layout_mode = 1
@@ -359,6 +425,7 @@ offset_right = 0.280029
 offset_bottom = 0.119934
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
 [node name="Button" type="Button" parent="LobbyScreen/HBoxContainer"]
 layout_mode = 2
@@ -396,9 +463,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 497.0
+offset_left = 534.0
 offset_top = -125.0
-offset_right = 628.0
+offset_right = 665.0
 offset_bottom = 125.0
 grow_horizontal = 2
 grow_vertical = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://7ky63yvh43nu"]
+[gd_scene load_steps=11 format=3 uid="uid://7ky63yvh43nu"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Menu/LobbyChar.cs" id="1_w4pks"]
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="2_60x13"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bvct2yu0qaegu" path="res://Textures/Other/RoundedTriangleBorder.png" id="5_5rxrc"]
 [ext_resource type="Texture2D" uid="uid://bikvdx5le53qr" path="res://Textures/CaptainHoers/Horse cards/Rosetta.png" id="5_oqqd6"]
 [ext_resource type="Texture2D" uid="uid://dxw4c53leeyvu" path="res://Textures/CaptainHoers/Horse cards/Wolfram.png" id="6_4j81l"]
+[ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="10_ciy2j"]
 
 [node name="LobbySelectableChar" type="Control" node_paths=PackedStringArray("btn", "btnBorder", "btnMask", "portraits")]
 custom_minimum_size = Vector2(0, 65)
@@ -42,6 +43,9 @@ texture_click_mask = ExtResource("3_tunvd")
 ignore_texture_size = true
 stretch_mode = 4
 
+[node name="CenterPivot" type="Node" parent="Button"]
+script = ExtResource("10_ciy2j")
+
 [node name="Mask" type="TextureRect" parent="."]
 clip_children = 2
 layout_mode = 1
@@ -55,6 +59,7 @@ pivot_offset = Vector2(32, 32)
 mouse_filter = 2
 texture = ExtResource("2_60x13")
 expand_mode = 1
+stretch_mode = 4
 
 [node name="Portraits" type="Control" parent="Mask"]
 layout_mode = 1
@@ -142,3 +147,7 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("5_5rxrc")
 expand_mode = 1
+stretch_mode = 4
+
+[node name="CenterPivot" type="Node" parent="Mask"]
+script = ExtResource("10_ciy2j")
