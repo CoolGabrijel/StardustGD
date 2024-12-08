@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://7ky63yvh43nu"]
+[gd_scene load_steps=12 format=3 uid="uid://7ky63yvh43nu"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Menu/LobbyChar.cs" id="1_w4pks"]
+[ext_resource type="Material" uid="uid://d02hdwrqarhyh" path="res://Materials/2D/Greyscale.tres" id="2_8p642"]
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="2_60x13"]
 [ext_resource type="Texture2D" uid="uid://cf2xy8cu14wbe" path="res://Textures/CaptainHoers/Horse cards/Concorde.png" id="2_v31ix"]
 [ext_resource type="BitMap" uid="uid://02b87smpwlr6" path="res://Textures/Other/RoundedTriangleBitMask.png" id="3_tunvd"]
@@ -23,6 +24,7 @@ btn = NodePath("Button")
 btnBorder = NodePath("Mask/Border")
 btnMask = NodePath("Mask")
 portraits = NodePath("Mask/Portraits")
+greyscaleShader = ExtResource("2_8p642")
 
 [node name="Button" type="TextureButton" parent="."]
 self_modulate = Color(0.78, 0.78, 0.78, 1)
@@ -35,6 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 rotation = 1.5708
 pivot_offset = Vector2(32.5, 32.5)
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("2_60x13")
 texture_pressed = ExtResource("2_60x13")
 texture_hover = ExtResource("2_60x13")

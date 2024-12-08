@@ -7,6 +7,7 @@ namespace Stardust.Godot.UI
 	{
 		[Export] TextureRect portrait;
 		[Export] Label nameplate;
+		[Export] ShaderMaterial greyscaleShader;
 
 		[Export] Dictionary<string, Texture2D> portraits;
 
@@ -55,9 +56,14 @@ namespace Stardust.Godot.UI
 
             if (newChar == "Random")
             {
+				portrait.Material = greyscaleShader;
 				PlayRandomCycle();
 				return;
             }
+			else
+			{
+				portrait.Material = null;
+			}
 
             portrait.Texture = portraits[newChar];
             randCycleTween?.Kill();

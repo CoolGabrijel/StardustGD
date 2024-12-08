@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwnns2jklwavn"]
+[gd_scene load_steps=15 format=3 uid="uid://cwnns2jklwavn"]
 
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_8pbng"]
 [ext_resource type="Script" path="res://Scripts/UI/Menu/PlayerSlot.cs" id="1_boct3"]
 [ext_resource type="Texture2D" uid="uid://cpk05b2mm7bje" path="res://Textures/CaptainHoers/Horse cards/Aurora.png" id="1_ndgp0"]
 [ext_resource type="Texture2D" uid="uid://cf2xy8cu14wbe" path="res://Textures/CaptainHoers/Horse cards/Concorde.png" id="2_c4nol"]
+[ext_resource type="Material" uid="uid://d02hdwrqarhyh" path="res://Materials/2D/Greyscale.tres" id="3_8v3ty"]
 [ext_resource type="Texture2D" uid="uid://dsthg2hdprrio" path="res://Textures/CaptainHoers/Horse cards/Zambuko.png" id="4_yh51v"]
 [ext_resource type="Texture2D" uid="uid://bikvdx5le53qr" path="res://Textures/CaptainHoers/Horse cards/Rosetta.png" id="5_52fh0"]
 [ext_resource type="Texture2D" uid="uid://dxw4c53leeyvu" path="res://Textures/CaptainHoers/Horse cards/Wolfram.png" id="6_46rq7"]
@@ -35,6 +36,7 @@ theme = ExtResource("1_8pbng")
 script = ExtResource("1_boct3")
 portrait = NodePath("PortraitWindow/Portrait")
 nameplate = NodePath("NamePlate/Label")
+greyscaleShader = ExtResource("3_8v3ty")
 portraits = {
 "Aurora": ExtResource("1_ndgp0"),
 "Concorde": ExtResource("2_c4nol"),
