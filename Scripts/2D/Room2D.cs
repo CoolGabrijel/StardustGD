@@ -31,7 +31,8 @@ namespace Stardust.Godot
 		[Export] Button activationButton;
 
         Tween colorTween;
-		Tween activationTween;
+		Tween activationMoveTween;
+		Tween activationHoverTween;
 		Tween headerTween;
 
 		public override void _Ready()
@@ -43,8 +44,10 @@ namespace Stardust.Godot
 			Room.OnDamage += OnDamaged;
 			Room.OnBreak += OnBroken;
 			activationButton.Pressed += OnActivationClicked;
+			activationButton.MouseEntered += OnActivationMouseEntered;
+			activationButton.MouseExited += OnActivationMouseExited;
 
-			activationGraphic.Position = new Vector2(-1125f, 0f);
+			activationButton.Position = new Vector2(-1125f, 897f);
 			header.Position = new Vector2(-687f, 0f);
         }
 
@@ -158,11 +161,11 @@ namespace Stardust.Godot
 		{
 			RoomSelection2D.Instance.SetPos(GlobalPosition);
 
-			activationTween?.Kill();
+			activationMoveTween?.Kill();
 			headerTween?.Kill();
 
-			activationTween = activationGraphic.CreateTween();
-			activationTween.TweenProperty(activationGraphic, "position", Vector2.Zero, .25f).SetTrans(Tween.TransitionType.Expo);
+			activationMoveTween = activationButton.CreateTween();
+			activationMoveTween.TweenProperty(activationButton, "position", new Vector2(0f, 897f), .25f).SetTrans(Tween.TransitionType.Expo);
 
 			headerTween = header.CreateTween();
             headerTween.TweenProperty(header, "position", Vector2.Zero, .25f).SetTrans(Tween.TransitionType.Expo);
@@ -170,17 +173,33 @@ namespace Stardust.Godot
 
 		private void OnMouseExit()
 		{
-            activationTween?.Kill();
+            activationMoveTween?.Kill();
             headerTween?.Kill();
 
-            activationTween = activationGraphic.CreateTween();
-            activationTween.TweenProperty(activationGraphic, "position", new Vector2(-1125f, 0f), 1f);
+            activationMoveTween = activationButton.CreateTween();
+            activationMoveTween.TweenProperty(activationButton, "position", new Vector2(-1125f, 897f), 1f);
 
             headerTween = header.CreateTween();
             headerTween.TweenProperty(header, "position", new Vector2(-687f, 0f), 1f);
         }
 
-		private void OnDamaged()
+        private void OnActivationMouseEntered()
+        {
+            activationHoverTween?.Kill();
+
+            activationHoverTween = activationButton.CreateTween();
+            activationHoverTween.TweenProperty(activationButton, "modulate", new Color(2, 2, 2), .2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
+        }
+
+        private void OnActivationMouseExited()
+        {
+            activationHoverTween?.Kill();
+
+            activationHoverTween = activationButton.CreateTween();
+            activationHoverTween.TweenProperty(activationButton, "modulate", Colors.White, .2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
+        }
+
+        private void OnDamaged()
 		{
 			colorTween?.Kill();
 
@@ -210,6 +229,7 @@ namespace Stardust.Godot
         }
 	} 
 
+	// Ideally, this class should be somewhere else.
 	public static class Pathfinding
 	{
 		public static Room[] GetPath(Room start, Pawn pawn)
