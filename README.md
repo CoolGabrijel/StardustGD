@@ -15,4 +15,4 @@
  Scripts/UI - Code for both 2D and 3D UI shared in here, and the main menu. Usually scripts inherit the Control class.
 
  This project is under the [CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/3.0/) License.
- The planetn font in the Fonts directory has it's own License.
+ The planetn font in the Fonts directory has its own License.
