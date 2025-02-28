@@ -66,20 +66,20 @@ namespace Stardust.Godot
             ObjectiveHandler.CheckAllObjectivesCompleted();
         }
 
-        private void OnMouseExited()
-        {
-            colorTween?.Kill();
-
-            colorTween = CreateTween();
-            colorTween.TweenProperty(this, "modulate", Colors.White, .2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
-        }
-
         private void OnMouseEntered()
         {
             colorTween?.Kill();
 
             colorTween = CreateTween();
             colorTween.TweenProperty(this, "modulate", new Color(2, 2, 2), .2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
+        }
+
+        private void OnMouseExited()
+        {
+            colorTween?.Kill();
+
+            colorTween = CreateTween();
+            colorTween.TweenProperty(this, "modulate", Colors.White, .2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
         }
 
         public override void _ExitTree()

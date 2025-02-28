@@ -62,7 +62,7 @@ namespace Stardust.Godot
 			Room = room;
 			Texture = tex;
 			if (texActivation != null) activationGraphic.Texture = texActivation;
-			else activationGraphic.Hide();
+			else activationButton.Hide();
 
             if (GameLogic.TurnQueue == null) return;
             
