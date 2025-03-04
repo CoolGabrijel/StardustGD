@@ -35,7 +35,9 @@ namespace Stardust.Godot.UI
         {
 			if (!CanNextTurn) return;
 
-            new EndTurn().Do();
+            EndTurn action = new EndTurn();
+			action.Do();
+            ActionLibrary.AddAction(action);
         }
 
 		private void OnNextTurnPressed()

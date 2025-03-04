@@ -26,7 +26,7 @@ namespace Stardust
         {
             current--;
 
-            if (current < 0) current = 0;
+            if (current < 0) current = Pawns.Length-1;
         }
     } 
 }

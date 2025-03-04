@@ -24,7 +24,7 @@ namespace Stardust
             SpawnPawns();
         }
 
-		public static void EndTurn()
+		public static void EndTurn(bool skipExhaustion = false)
 		{
             //int randRoomIndex = rng.Next(RoomManager.Rooms.Length);
             //Room randRoom = RoomManager.Rooms[randRoomIndex];
@@ -32,7 +32,7 @@ namespace Stardust
 
             if (CheckFailState()) AnnounceGameEnd(false);
 
-            ExhaustPawn(TurnQueue.CurrentPawn);
+            //if (!skipExhaustion) ExhaustPawn(TurnQueue.CurrentPawn);
 
             TurnQueue.Next();
 

@@ -1,3 +1,4 @@
+using Godot;
 using Stardust.Actions;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,7 @@ namespace Stardust
                     action = new CreatePart(pawn, 1, this, new(ItemType.Part));
                     break;
                 case RoomType.Habitation:
+                    action = new Sleep(pawn);
                     break;
                 case RoomType.Comms:
                     action = new RevealObjective();
@@ -60,7 +62,7 @@ namespace Stardust
                 default:
                     break;
             }
-
+            GD.Print(RoomType);
             if (action == null) return;
 
             action.Do();

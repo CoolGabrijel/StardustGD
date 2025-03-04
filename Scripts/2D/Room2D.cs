@@ -155,6 +155,9 @@ namespace Stardust.Godot
 			if (player.Room != Room || !Room.CanBeActivated) return;
 
             Room.ActivateAbility(player);
+
+            // If you click on the button, you "focus" it and then space bar (the end turn button) pushes it again. Release focus to fix.
+            GetViewport().GuiReleaseFocus();
         }
 
         private void OnHovered()
