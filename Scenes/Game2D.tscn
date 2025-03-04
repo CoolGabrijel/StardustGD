@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=29 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="10_t882l"]
 [ext_resource type="PackedScene" uid="uid://drnsv3rfbym4u" path="res://Prefabs/UI/Game/VictoryScreen.tscn" id="11_alr5n"]
 [ext_resource type="PackedScene" uid="uid://vsfjln1evw8f" path="res://Prefabs/UI/Game/ObjectiveDisplay.tscn" id="11_f8qgo"]
+[ext_resource type="Theme" uid="uid://dnrdk6b1gwj0e" path="res://Themes/GameUITheme.tres" id="12_cvj7j"]
 [ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="12_l0nto"]
 [ext_resource type="Script" path="res://Scripts/UI/Game/EnergyDisplay.cs" id="13_ghygi"]
 [ext_resource type="Texture2D" uid="uid://cfid71506n7nl" path="res://Textures/CaptainHoers/Battery.png" id="13_pndv2"]
@@ -27,20 +28,6 @@ font = ExtResource("4_ypirp")
 font_size = 21
 font_color = Color(0.215686, 0.27451, 0.4, 1)
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n4kwy"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncifc"]
-bg_color = Color(0.894118, 0.890196, 0.921569, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.215686, 0.27451, 0.4, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
 
 [sub_resource type="LabelSettings" id="LabelSettings_ic10b"]
 font = ExtResource("4_ypirp")
@@ -357,6 +344,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("12_cvj7j")
 script = ExtResource("9_yiud2")
 nextTurnButton = NodePath("NextTurn")
 undoButton = NodePath("Undo")
@@ -375,8 +363,6 @@ offset_bottom = -13.0
 grow_horizontal = 0
 grow_vertical = 0
 tooltip_text = "Next turn"
-theme_override_styles/focus = SubResource("StyleBoxEmpty_n4kwy")
-theme_override_styles/normal = SubResource("StyleBoxFlat_ncifc")
 
 [node name="TextureRect" type="TextureRect" parent="HUD/TurnButtons/NextTurn"]
 layout_mode = 1
@@ -408,8 +394,6 @@ offset_bottom = -18.0
 grow_horizontal = 0
 grow_vertical = 0
 tooltip_text = "Undo last turn"
-theme_override_styles/focus = SubResource("StyleBoxEmpty_n4kwy")
-theme_override_styles/normal = SubResource("StyleBoxFlat_ncifc")
 
 [node name="TextureRect" type="TextureRect" parent="HUD/TurnButtons/Undo"]
 layout_mode = 1

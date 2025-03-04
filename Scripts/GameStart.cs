@@ -37,8 +37,7 @@ namespace Stardust.Godot
             }
             if (Input.IsActionJustPressed("NextTurn"))
             {
-                //GameLogic.EndTurn();
-                new EndTurn().Do();
+                UI.TurnButtons.AttemptNextTurn();
             }
 
             LocalPlayer = GameLogic.TurnQueue.CurrentPawn; // TODO: Delete later.
