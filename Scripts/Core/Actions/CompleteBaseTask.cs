@@ -19,7 +19,6 @@ namespace Stardust.Actions
         {
             Task.Complete();
             GameLogic.EnergyExpended++;
-            ActionLibrary.AddAction(this);
         }
 
         public void Undo()

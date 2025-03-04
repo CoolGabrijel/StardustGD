@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Stardust
 {
@@ -8,6 +9,7 @@ namespace Stardust
     {
         public enum ObjectiveCardType { CourseCorrection, CockpitUpdate, WorkshopUpdate, AirFilters, DebrisFilters, Experiment, Pressure, ClearDebris, Recalibrations, Laundry, Recycling, Diagnostics }
         public enum MarsObjCardType { Flag, GullySample, CraterSample, PlainsSample, RidgeVideo, CraterVideo, Golf }
+        public static ReadOnlyCollection<Objective> Objectives => objectives.AsReadOnly();
         public static Objective CurrentObjective { get { return objectives[objectiveIndex]; } }
         public static Objective NextObjective
         {

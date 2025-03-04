@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://br7af73781a77"]
+[gd_scene load_steps=42 format=3 uid="uid://br7af73781a77"]
 
 [ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
 [ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://v5cdtrrcsk25" path="res://Textures/CaptainHoers/Background Bit Border Alternate.png" id="22_8pvfr"]
 [ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="23_7lgwt"]
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="24_40t65"]
+[ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="25_3p8ij"]
 
 [sub_resource type="Resource" id="Resource_inm74"]
 script = ExtResource("4_rkktj")
@@ -81,6 +82,17 @@ font = ExtResource("5_ueb33")
 font_size = 37
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qnbxx"]
+
+[sub_resource type="Gradient" id="Gradient_24w35"]
+offsets = PackedFloat32Array(0, 0.624473)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a7yvt"]
+gradient = SubResource("Gradient_24w35")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "header", "roomIconGraphic", "roomNameLabel", "slot1", "slot2", "activationButton")]
 texture = ExtResource("1_s0s7v")
@@ -384,7 +396,7 @@ label_settings = SubResource("LabelSettings_qah6t")
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Btn_Damage" type="Button" parent="Overlay" node_paths=PackedStringArray("roomGraphic", "damageLabel")]
+[node name="Btn_Damage" type="Button" parent="Overlay" node_paths=PackedStringArray("roomGraphic", "damageLabel", "flash")]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -404,6 +416,7 @@ flat = true
 script = ExtResource("5_wf81v")
 roomGraphic = NodePath("../..")
 damageLabel = NodePath("Amount")
+flash = NodePath("DamageFlash")
 
 [node name="BG" type="TextureRect" parent="Overlay/Btn_Damage"]
 self_modulate = Color(0.5, 0.06, 0.06, 1)
@@ -454,3 +467,25 @@ text = "x2"
 label_settings = SubResource("LabelSettings_qah6t")
 horizontal_alignment = 1
 vertical_alignment = 2
+
+[node name="DamageFlash" type="TextureRect" parent="Overlay/Btn_Damage"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.5
+offset_top = -64.0
+offset_right = 48.5
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5, 5)
+pivot_offset = Vector2(64, 64)
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_a7yvt")
+
+[node name="CenterPivot" type="Node" parent="Overlay/Btn_Damage/DamageFlash"]
+script = ExtResource("25_3p8ij")

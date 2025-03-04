@@ -54,14 +54,25 @@ namespace Stardust.Godot
 
         private void OnClick()
         {
-            if (GameStart.LocalPlayer.Room != roomGraphic.Room) return;
+            bool isPlayerInRoom = GameStart.LocalPlayer.Room == roomGraphic.Room;
+            bool doesPlayerHaveEnergy = GameStart.LocalPlayer.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy) > GameLogic.EnergyExpended;
+            bool isRoomOverCapacity = roomGraphic.Room.Pawns.Count > roomGraphic.Room.Capacity;
 
-            if (GameStart.LocalPlayer.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy) <= GameLogic.EnergyExpended) return;
+            if (!isPlayerInRoom || !doesPlayerHaveEnergy || isRoomOverCapacity)
+            {
+                GetViewport().GuiReleaseFocus();
+                return;
+            }
 
-            if (roomGraphic.Room.Pawns.Count > roomGraphic.Room.Capacity) return;
+            //if (GameStart.LocalPlayer.Room != roomGraphic.Room) return;
+
+            //if (GameStart.LocalPlayer.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy) <= GameLogic.EnergyExpended) return;
+
+            //if (roomGraphic.Room.Pawns.Count > roomGraphic.Room.Capacity) return;
 
             CompleteBaseTask action = new(roomGraphic.Room.RoomType);
             action.Do();
+            ActionLibrary.AddAction(action);
 
             ObjectiveHandler.CheckAllObjectivesCompleted();
         }

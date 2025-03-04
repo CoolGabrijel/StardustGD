@@ -8,14 +8,24 @@ namespace Stardust.Godot.UI
     {
         [Export] private Room2D roomGraphic;
         [Export] Label damageLabel;
+        [Export] TextureRect flash;
 
         Tween colorTween;
+        Tween flashTween;
 
         public override void _Ready()
 		{
 			Pressed += OnClicked;
             MouseEntered += OnMouseEntered;
             MouseExited += OnMouseExited;
+
+            if (flash != null)
+            {
+                flashTween = flash.CreateTween();
+                flashTween.TweenProperty(flash, "scale", Vector2.One * 5, 3f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Expo);
+                flashTween.TweenProperty(flash, "scale", Vector2.One * 2, 1f).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Quad);
+                flashTween.SetLoops();
+            }
         }
 
         public override void _PhysicsProcess(double delta)
@@ -23,13 +33,11 @@ namespace Stardust.Godot.UI
             if (roomGraphic.Room.DamageAmount > 0)
             {
                 damageLabel.Text = $"x{roomGraphic.Room.DamageAmount}";
-                //damageLabel.Show();
                 Show();
                 Disabled = false;
             }
             else
             {
-                //damageLabel.Hide();
                 Hide();
                 Disabled = true;
             }

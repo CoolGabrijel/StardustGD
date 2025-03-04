@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=25 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dx7yik4v2q2wg" path="res://Textures/CaptainHoers/Video icons/RW_FF.png" id="8_u05v0"]
 [ext_resource type="Texture2D" uid="uid://78bwjebsa1nx" path="res://Textures/CaptainHoers/Rooms/Airlock.png" id="9_p5cjo"]
 [ext_resource type="PackedScene" uid="uid://drnsv3rfbym4u" path="res://Prefabs/UI/Game/VictoryScreen.tscn" id="11_alr5n"]
+[ext_resource type="PackedScene" uid="uid://vsfjln1evw8f" path="res://Prefabs/UI/Game/ObjectiveDisplay.tscn" id="11_f8qgo"]
 [ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="12_l0nto"]
 [ext_resource type="Texture2D" uid="uid://cfid71506n7nl" path="res://Textures/CaptainHoers/Battery.png" id="13_pndv2"]
 [ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="14_x6gs1"]
@@ -368,7 +369,10 @@ stretch_mode = 5
 [node name="VictoryScreen" parent="HUD" instance=ExtResource("11_alr5n")]
 visible = false
 
+[node name="ObjectiveDisplay" parent="HUD" instance=ExtResource("11_f8qgo")]
+
 [node name="Objectives" type="Control" parent="HUD"]
+visible = false
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0

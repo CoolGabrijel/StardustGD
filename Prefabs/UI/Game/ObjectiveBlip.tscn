@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsguuy3l60gyh"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Game/ObjectiveBlip.cs" id="1_3ogi6"]
+[ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="1_f2pjq"]
+
+[node name="ObjectiveBlip" type="Control" node_paths=PackedStringArray("textureRect")]
+modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1267.0
+offset_bottom = -710.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_3ogi6")
+textureRect = NodePath("Texture")
+inactiveColor = Color(0.4, 0.4, 0.4, 1)
+completedColor = Color(0.215686, 0.27451, 0.4, 1)
+activeColor = Color(0.3834, 0.486823, 0.71, 1)
+marsCompletedColor = Color(0.4, 0.235294, 0.215686, 1)
+marsActiveColor = Color(0.71, 0.41606, 0.3834, 1)
+
+[node name="Texture" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_f2pjq")
+expand_mode = 1
