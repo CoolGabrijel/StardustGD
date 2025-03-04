@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=30 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -13,6 +13,8 @@
 [ext_resource type="Script" path="res://Scripts/2D/RoomSelection2D.cs" id="8_6w5tx"]
 [ext_resource type="Texture2D" uid="uid://dx7yik4v2q2wg" path="res://Textures/CaptainHoers/Video icons/RW_FF.png" id="8_u05v0"]
 [ext_resource type="Texture2D" uid="uid://78bwjebsa1nx" path="res://Textures/CaptainHoers/Rooms/Airlock.png" id="9_p5cjo"]
+[ext_resource type="Script" path="res://Scripts/UI/Game/TurnButtons.cs" id="9_yiud2"]
+[ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="10_t882l"]
 [ext_resource type="PackedScene" uid="uid://drnsv3rfbym4u" path="res://Prefabs/UI/Game/VictoryScreen.tscn" id="11_alr5n"]
 [ext_resource type="PackedScene" uid="uid://vsfjln1evw8f" path="res://Prefabs/UI/Game/ObjectiveDisplay.tscn" id="11_f8qgo"]
 [ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="12_l0nto"]
@@ -26,8 +28,19 @@ font_size = 21
 font_color = Color(0.215686, 0.27451, 0.4, 1)
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkc6v"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n4kwy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncifc"]
 bg_color = Color(0.894118, 0.890196, 0.921569, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.215686, 0.27451, 0.4, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="LabelSettings" id="LabelSettings_ic10b"]
 font = ExtResource("4_ypirp")
@@ -335,53 +348,84 @@ size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="NextTurnUndo" type="Control" parent="HUD"]
+[node name="TurnButtons" type="Control" parent="HUD" node_paths=PackedStringArray("nextTurnButton", "undoButton")]
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
+script = ExtResource("9_yiud2")
+nextTurnButton = NodePath("NextTurn")
+undoButton = NodePath("Undo")
 
-[node name="Button" type="Button" parent="HUD/NextTurnUndo"]
+[node name="NextTurn" type="Button" parent="HUD/TurnButtons"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -50.0
+offset_left = -63.0
+offset_top = -63.0
+offset_right = -13.0
+offset_bottom = -13.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_styles/normal = SubResource("StyleBoxFlat_mkc6v")
+tooltip_text = "Next turn"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_n4kwy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ncifc")
 
-[node name="BG" type="ColorRect" parent="HUD/NextTurnUndo/Button"]
-visible = false
+[node name="TextureRect" type="TextureRect" parent="HUD/TurnButtons/NextTurn"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TextureRect" type="TextureRect" parent="HUD/NextTurnUndo/Button"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 50.0
-offset_right = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 rotation = 1.5708
+pivot_offset = Vector2(25, 25)
 texture = ExtResource("8_u05v0")
 expand_mode = 3
 stretch_mode = 5
+
+[node name="CenterPivot" type="Node" parent="HUD/TurnButtons/NextTurn/TextureRect"]
+script = ExtResource("10_t882l")
+
+[node name="Undo" type="Button" parent="HUD/TurnButtons"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -58.0
+offset_right = -70.0
+offset_bottom = -18.0
+grow_horizontal = 0
+grow_vertical = 0
+tooltip_text = "Undo last turn"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_n4kwy")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ncifc")
+
+[node name="TextureRect" type="TextureRect" parent="HUD/TurnButtons/Undo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.5708
+pivot_offset = Vector2(20, 20)
+texture = ExtResource("8_u05v0")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="CenterPivot" type="Node" parent="HUD/TurnButtons/Undo/TextureRect"]
+script = ExtResource("10_t882l")
 
 [node name="VictoryScreen" parent="HUD" instance=ExtResource("11_alr5n")]
 visible = false
