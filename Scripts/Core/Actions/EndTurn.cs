@@ -23,22 +23,31 @@ namespace Stardust.Actions
                 exhaustedCard = GetLowestCard();
                 ExhaustLowestCard();
             }
-            GameLogic.DamageManager.Damage();
+
+            if (!StardustGameConfig.CurrentConfig.DamageDisabled)
+            {
+                GameLogic.DamageManager.Damage();
+                GameLogic.DamageManager.TurnIndex++;
+            }
+
             //if (DamagedRoom == null) DamagedRoom = GameLogic.GetRoomToDamage();
             //DamagedRoom.Damage();
 
             EnergyExpended = GameLogic.EnergyExpended;
             GameLogic.EndTurn();
-
-            GameLogic.DamageManager.TurnIndex++;
         }
 
         public void Undo()
         {
             //DamagedRoom.DamageAmount--;
             if (exhaustedCard != null) exhaustedCard.Exhausted = false;
-            GameLogic.DamageManager.TurnIndex--;
-            GameLogic.DamageManager.UndoDamage();
+
+            if (!StardustGameConfig.CurrentConfig.DamageDisabled)
+            {
+                GameLogic.DamageManager.TurnIndex--;
+                GameLogic.DamageManager.UndoDamage();
+            }
+
             GameLogic.EnergyExpended = EnergyExpended;
             GameLogic.TurnQueue.Previous();
         }

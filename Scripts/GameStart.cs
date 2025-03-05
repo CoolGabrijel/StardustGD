@@ -16,6 +16,12 @@ namespace Stardust.Godot
 
         public override void _Ready()
         {
+            StardustGameConfig config = new()
+            {
+                // For testing purposes feel free to place anything in here
+            };
+            StardustGameConfig.CurrentConfig = config;
+
             pawnToGraphic = new();
             GameLogic.BeginGame();
             roomGen.Generate(GameLogic.RoomManager);
