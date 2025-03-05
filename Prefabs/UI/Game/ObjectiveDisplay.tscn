@@ -222,7 +222,7 @@ label_settings = SubResource("LabelSettings_wmlw3")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Tasks" type="Panel" parent="." node_paths=PackedStringArray("taskContainer")]
+[node name="Tasks" type="Panel" parent="." node_paths=PackedStringArray("taskContainer", "separator")]
 layout_mode = 1
 anchors_preset = -1
 offset_left = -237.0
@@ -234,6 +234,7 @@ script = ExtResource("6_etlys")
 taskContainer = NodePath("VBoxContainer")
 taskPrefab = ExtResource("8_jpjdu")
 roomIcons = [SubResource("Resource_inm74"), SubResource("Resource_y2fpd"), SubResource("Resource_u2lfq"), SubResource("Resource_7nnbh"), SubResource("Resource_yvkab"), SubResource("Resource_wwo3x"), SubResource("Resource_v1rbk"), SubResource("Resource_tbuks")]
+separator = NodePath("VBoxContainer/HSeparator")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Tasks"]
 layout_mode = 1
@@ -248,6 +249,7 @@ offset_right = 106.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 script = ExtResource("6_y3anf")
 heightPadding = 14.0
 widthPadding = 15.0
@@ -262,7 +264,12 @@ theme_override_styles/separator = SubResource("StyleBoxLine_sv7fj")
 [node name="TaskGraphic2" parent="Tasks/VBoxContainer" instance=ExtResource("8_jpjdu")]
 layout_mode = 2
 
-[node name="Label" parent="Tasks/VBoxContainer/TaskGraphic2" index="0"]
-text = "Do Task - Solar Panels"
+[node name="Curtain" parent="Tasks/VBoxContainer/TaskGraphic2" index="2"]
+offset_left = -2.0
+offset_right = -2.0
+
+[node name="Flash" parent="Tasks/VBoxContainer/TaskGraphic2" index="3"]
+offset_left = -2.0
+offset_right = -2.0
 
 [editable path="Tasks/VBoxContainer/TaskGraphic2"]

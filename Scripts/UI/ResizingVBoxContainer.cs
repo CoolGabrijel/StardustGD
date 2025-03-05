@@ -28,5 +28,6 @@ public partial class ResizingVBoxContainer : VBoxContainer
 
         //Size = new Vector2(Size.X, totalHeight + heightPadding);
         parent.CustomMinimumSize = new Vector2(maxWidth + widthPadding, Size.Y + heightPadding);
+        parent.Size = CustomMinimumSize;
     }
 }
