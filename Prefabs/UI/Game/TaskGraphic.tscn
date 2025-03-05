@@ -11,7 +11,7 @@ script/source = "extends Node
 @onready var parent := $\"..\"
 @export var target: Control
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	parent.custom_minimum_size = target.size
 "
 

@@ -57,7 +57,7 @@ namespace Stardust
                     action = new Sleep(pawn);
                     break;
                 case RoomType.Comms:
-                    action = new RevealObjective();
+                    action = new RevealObjective(pawn);
                     break;
                 default:
                     break;

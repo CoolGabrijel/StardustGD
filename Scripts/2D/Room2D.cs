@@ -153,6 +153,7 @@ namespace Stardust.Godot
 			Pawn player = GameStart.LocalPlayer;
 
 			if (player.Room != Room || !Room.CanBeActivated) return;
+			if (GameLogic.EnergyExpended >= player.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy)) return;
 
             Room.ActivateAbility(player);
 
