@@ -9,7 +9,7 @@ namespace Stardust.Actions
         {
             foreach (Task task in ObjectiveHandler.CurrentObjective.Tasks)
             {
-                if (task.Room.RoomType == roomType) Task = task;
+                if (task.Room.RoomType == roomType && !task.Completed) Task = task;
             }
         }
 
