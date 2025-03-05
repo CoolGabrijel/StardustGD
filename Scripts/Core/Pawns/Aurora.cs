@@ -5,5 +5,12 @@
         public Aurora(PawnType type) : base(type)
         {
         }
+
+        public event System.Action OnDamageBlocked;
+
+        public void DamageBlocked()
+        {
+            OnDamageBlocked?.Invoke();
+        }
     }
 }

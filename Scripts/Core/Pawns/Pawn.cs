@@ -19,6 +19,7 @@ namespace Stardust
         }
 
         public event System.Action Moved;
+        public event System.Action OnDamageBlocked;
 
         public PawnType Type { get; private set; }
         public int OwnerId { get; private set; }
@@ -44,6 +45,11 @@ namespace Stardust
             Room = room;
             Room.Pawns.Add(this);
             Moved?.Invoke();
+        }
+
+        public void DamageBlocked()
+        {
+            OnDamageBlocked?.Invoke();
         }
 
         public int CalculateMoveCost(Room[] path)

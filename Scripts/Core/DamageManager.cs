@@ -34,12 +34,24 @@ namespace Stardust
                 roomsDamaged.Add(room.RoomType);
             }
 
-            room.Damage();
+            if (!IsAuroraInRoom(room))
+            {
+                room.Damage();
+            }
+            else
+            {
+                TryGetAuroraInRoom(room).DamageBlocked();
+            }
         }
 
         public void UndoDamage()
         {
-            roomManager.GetRoomByType(roomsDamaged[TurnIndex]).DamageAmount--;
+            Room room = roomManager.GetRoomByType(roomsDamaged[TurnIndex]);
+
+            if (!IsAuroraInRoom(room))
+                room.DamageAmount--;
+            else
+                TryGetAuroraInRoom(room).DamageBlocked();
         }
 
         public Room GetRoomToDamage()
@@ -57,6 +69,21 @@ namespace Stardust
             Room randRoom = rooms[randRoomIndex];
 
             return randRoom;
+        }
+
+        private bool IsAuroraInRoom(Room room)
+        {
+            return TryGetAuroraInRoom(room) != null;
+        }
+
+        private Pawn TryGetAuroraInRoom(Room room)
+        {
+            foreach (Pawn pawn in room.Pawns)
+            {
+                if (pawn.Type == PawnType.Aurora) return pawn;
+            }
+
+            return null;
         }
     } 
 }
