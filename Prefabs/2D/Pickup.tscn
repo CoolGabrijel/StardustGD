@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdh4tuj3126iq"]
+
+[ext_resource type="Texture2D" uid="uid://b0nkqaymk30wj" path="res://Textures/CaptainHoers/Rooms/Icons/Workshop Icon.png" id="1_yjpc6"]
+[ext_resource type="Script" path="res://Scripts/2D/Pickup.cs" id="2_ykf1p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bbqog"]
+radius = 37.054
+
+[node name="Pickup" type="Sprite2D" node_paths=PackedStringArray("area")]
+modulate = Color(0.215686, 0.27451, 0.4, 1)
+texture = ExtResource("1_yjpc6")
+script = ExtResource("2_ykf1p")
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_bbqog")

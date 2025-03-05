@@ -8,6 +8,8 @@ namespace Stardust.Godot
 	{
 		[Export] private Room2D roomGraphic;
         [Export] Label partsLabel;
+        [Export] PackedScene pickupPrefab;
+        [Export] Vector2 pickupSpawnOffset;
 
         Tween colorTween;
 
@@ -36,15 +38,39 @@ namespace Stardust.Godot
         private void OnClick()
         {
             Pawn player = GameStart.LocalPlayer;
-            if (!player.CanPickUp) return;
+            if (!CanPickup()) return;
 
-            PickUpPart PickupAction = new(player, roomGraphic.Room, roomGraphic.Room.GetItem(ItemType.Part));
+            Item item = roomGraphic.Room.GetItem(ItemType.Part);
+            PickUpPart PickupAction = new(player, roomGraphic.Room, item);
             PickupAction.Do();
             ActionLibrary.AddAction(PickupAction);
+
+            Pickup pickup = pickupPrefab.Instantiate<Pickup>();
+            pickup.Initialize(GameStart.GetPawnGraphic(player), roomGraphic.GlobalPosition + pickupSpawnOffset, item);
+            GetTree().Root.AddChild(pickup);
+            GetViewport().GuiReleaseFocus(); // Stops spacebar from activating button
+        }
+
+        private bool CanPickup()
+        {
+            Pawn player = GameStart.LocalPlayer;
+            bool playerHasInv = player.CanPickUp;
+            bool isInRoom = roomGraphic.Room.Pawns.Contains(player);
+            return playerHasInv && isInRoom;
         }
 
         private void OnMouseEntered()
         {
+            if (!CanPickup())
+            {
+                MouseDefaultCursorShape = CursorShape.Arrow;
+                return;
+            }
+            else
+            {
+                MouseDefaultCursorShape = CursorShape.PointingHand;
+            }
+
             colorTween?.Kill();
 
             colorTween = CreateTween();

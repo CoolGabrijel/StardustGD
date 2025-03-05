@@ -40,7 +40,20 @@ namespace Stardust
         public virtual bool CanBeActivated { get; }
         public List<Pawn> Pawns { get; set; } = new();
         public List<Item> Items { get; set; } = new();
-        public int Parts => Items.Where(i => i.Type == ItemType.Part).Count();
+        public int Parts
+        {
+            get
+            {
+                int counter = 0;
+                for (int i = 0; i < Items.Count; i++)
+                {
+                    if (Items == null) return 0;
+                    if (Items[i].Type == ItemType.Part) counter++;
+                }
+
+                return counter;
+            }
+        }
         public int DamageAmount { get; set; }
         public bool Broken => DamageAmount >= 3;
 
@@ -81,6 +94,8 @@ namespace Stardust
 
         public void AddItem(Item item)
         {
+            if (item == null) throw new Exception($"Attempted to add null item to {Name}.");
+
             Items.Add(item);
         }
 

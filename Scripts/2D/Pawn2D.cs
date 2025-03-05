@@ -31,6 +31,25 @@ namespace Stardust.Godot
 			}
 		}
 
+		public Vector2 GetFreeItemSlotPosition(Item item)
+		{
+			float segment = Mathf.Tau / Pawn.Inventory.Count;
+			float segmentPos = segment;
+			for (int i = 0; i < Pawn.Inventory.Count; i++)
+			{
+				if (Pawn.Inventory[i] == item)
+				{
+					segmentPos = (i+1) * segment;
+					break;
+				}
+			}
+			float timeOffset = Time.GetTicksMsec() / 4000f;
+
+			Vector2 direction = Vector2.Right.Rotated(segmentPos + timeOffset);
+
+            return GlobalPosition + direction * 150;
+		}
+
 		private void OnPawnMoved()
 		{
 			Node2D room = RoomGen2D.GetRoomNodeByType(Pawn.Room.RoomType);

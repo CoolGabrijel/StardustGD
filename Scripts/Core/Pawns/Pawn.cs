@@ -1,7 +1,7 @@
 using Godot;
 using Stardust.Actions;
+using System.Collections.Generic;
 using System.Linq;
-using static Godot.TextServer;
 
 namespace Stardust
 {
@@ -33,8 +33,9 @@ namespace Stardust
                 else return 1;
             }
         }
-        public bool CanPickUp => Parts < InventoryCapacity;
-        public int Parts = 0;
+        public bool CanPickUp => Inventory.Count < InventoryCapacity;
+        public int Parts => Inventory.Where((item) => item.Type == ItemType.Part).Count();
+        public List<Item> Inventory { get; private set; } = new();
 
         // Concorde specific
         public Direction LastMovementDirection { get; set; } = Direction.None;
@@ -50,6 +51,16 @@ namespace Stardust
         public void DamageBlocked()
         {
             OnDamageBlocked?.Invoke();
+        }
+
+        public void PickUpItem(Item item)
+        {
+            Inventory.Add(item);
+        }
+
+        public void DropItem(Item item)
+        {
+            Inventory.Remove(item);
         }
 
         public int CalculateMoveCost(Room[] path)

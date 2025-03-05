@@ -19,14 +19,14 @@ namespace Stardust.Actions
         public void Do()
         {
             Room.RemoveItem(Part);
-            Pawn.Parts++;
+            Pawn.PickUpItem(Part);
             GD.Print($"{Pawn}: Picked up part in {Room.Name}");
         }
 
         public void Undo()
         {
             Room.AddItem(Part);
-            Pawn.Parts--;
+            Pawn.DropItem(Part);
             GD.Print($"{Pawn}: Undone part pickup in {Room.Name}");
         }
     }

@@ -150,15 +150,26 @@ namespace Stardust.Godot
 
 		private void OnActivationClicked()
 		{
+			if (!CanActivate()) return;
+
 			Pawn player = GameStart.LocalPlayer;
 
-			if (player.Room != Room || !Room.CanBeActivated) return;
-			if (GameLogic.EnergyExpended >= player.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy)) return;
+			//if (player.Room != Room || !Room.CanBeActivated) return;
+			//if (GameLogic.EnergyExpended >= player.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy)) return;
 
             Room.ActivateAbility(player);
 
             // If you click on the button, you "focus" it and then space bar (the end turn button) pushes it again. Release focus to fix.
             GetViewport().GuiReleaseFocus();
+        }
+
+		private bool CanActivate()
+        {
+            Pawn player = GameStart.LocalPlayer;
+			bool isInRoom = player.Room == Room;
+			bool canBeActivated = Room.CanBeActivated;
+			bool hasEnergy = GameLogic.EnergyExpended < player.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy);
+			return isInRoom && canBeActivated && hasEnergy;
         }
 
         private void OnHovered()
@@ -189,6 +200,16 @@ namespace Stardust.Godot
 
         private void OnActivationMouseEntered()
         {
+            if (!CanActivate())
+            {
+                activationButton.MouseDefaultCursorShape = Control.CursorShape.Arrow;
+                return;
+            }
+            else
+            {
+                activationButton.MouseDefaultCursorShape = Control.CursorShape.PointingHand;
+            }
+
             activationHoverTween?.Kill();
 
             activationHoverTween = activationButton.CreateTween();

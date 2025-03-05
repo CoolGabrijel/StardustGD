@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://br7af73781a77"]
+[gd_scene load_steps=43 format=3 uid="uid://br7af73781a77"]
 
 [ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
 [ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://bnvi5k1dfyuq" path="res://Textures/CaptainHoers/Rooms/Icons/Habitation Icon.png" id="13_8w8f0"]
 [ext_resource type="Texture2D" uid="uid://v5cdtrrcsk25" path="res://Textures/CaptainHoers/Background Bit Border Alternate.png" id="22_8pvfr"]
 [ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="23_7lgwt"]
+[ext_resource type="PackedScene" uid="uid://cdh4tuj3126iq" path="res://Prefabs/2D/Pickup.tscn" id="23_iryuc"]
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="24_40t65"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="25_3p8ij"]
 
@@ -345,6 +346,8 @@ flat = true
 script = ExtResource("4_0uxpp")
 roomGraphic = NodePath("../..")
 partsLabel = NodePath("Amount")
+pickupPrefab = ExtResource("23_iryuc")
+pickupSpawnOffset = Vector2(-450, 250)
 
 [node name="BG" type="TextureRect" parent="Overlay/Btn_Parts"]
 self_modulate = Color(0.0588235, 0.341176, 0.498039, 1)

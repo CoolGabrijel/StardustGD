@@ -1,6 +1,6 @@
 using Godot;
 using Stardust.Actions;
-using System;
+using System.Collections.Generic;
 
 namespace Stardust.Godot
 {
@@ -12,8 +12,11 @@ namespace Stardust.Godot
         [Export] private Node pawnParent;
         [Export] private PackedScene pawnPrefab;
 
+        private static Dictionary<Pawn, Pawn2D> pawnToGraphic;
+
         public override void _Ready()
         {
+            pawnToGraphic = new();
             GameLogic.BeginGame();
             roomGen.Generate(GameLogic.RoomManager);
 
@@ -41,6 +44,11 @@ namespace Stardust.Godot
             }
 
             LocalPlayer = GameLogic.TurnQueue.CurrentPawn; // TODO: Delete later.
+        }
+
+        public static Pawn2D GetPawnGraphic(Pawn pawn)
+        {
+            return pawnToGraphic[pawn];
         }
 
         private void SpawnPawnGraphic(Pawn pawn)
@@ -73,6 +81,7 @@ namespace Stardust.Godot
             }
 
             graphic.Pawn.MoveTo(GameLogic.RoomManager.GetRoomByType(spawnRoom));
+            pawnToGraphic.Add(pawn, graphic);
         }
     } 
 }

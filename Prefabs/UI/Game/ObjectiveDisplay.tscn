@@ -264,12 +264,4 @@ theme_override_styles/separator = SubResource("StyleBoxLine_sv7fj")
 [node name="TaskGraphic2" parent="Tasks/VBoxContainer" instance=ExtResource("8_jpjdu")]
 layout_mode = 2
 
-[node name="Curtain" parent="Tasks/VBoxContainer/TaskGraphic2" index="2"]
-offset_left = -2.0
-offset_right = -2.0
-
-[node name="Flash" parent="Tasks/VBoxContainer/TaskGraphic2" index="3"]
-offset_left = -2.0
-offset_right = -2.0
-
 [editable path="Tasks/VBoxContainer/TaskGraphic2"]
