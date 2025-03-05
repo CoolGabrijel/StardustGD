@@ -1,10 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://vsfjln1evw8f"]
+[gd_scene load_steps=29 format=3 uid="uid://vsfjln1evw8f"]
 
 [ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="1_6lu3u"]
 [ext_resource type="Theme" uid="uid://dnrdk6b1gwj0e" path="res://Themes/GameUITheme.tres" id="1_20dkc"]
 [ext_resource type="Script" path="res://Scripts/UI/Game/ObjectiveDisplay.cs" id="1_sr80u"]
 [ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="2_kjpdo"]
 [ext_resource type="PackedScene" uid="uid://dsguuy3l60gyh" path="res://Prefabs/UI/Game/ObjectiveBlip.tscn" id="3_6r8y3"]
+[ext_resource type="Script" path="res://Scripts/UI/Game/TaskDisplay.cs" id="6_etlys"]
+[ext_resource type="Script" path="res://Scripts/UI/ResizingVBoxContainer.cs" id="6_y3anf"]
+[ext_resource type="Texture2D" uid="uid://dihf2cpnc3mbx" path="res://Textures/CaptainHoers/Rooms/Icons/Life Support Icon.png" id="7_8mgvg"]
+[ext_resource type="Texture2D" uid="uid://dgw655564qgxp" path="res://Textures/CaptainHoers/Rooms/Icons/Airlock Icon.png" id="7_j1h6w"]
+[ext_resource type="Texture2D" uid="uid://bskgw1ud0apmo" path="res://Textures/CaptainHoers/Rooms/Icons/Solar Panels Icon.png" id="8_hjpa2"]
+[ext_resource type="PackedScene" uid="uid://cr3bqpilxypa8" path="res://Prefabs/UI/Game/TaskGraphic.tscn" id="8_jpjdu"]
+[ext_resource type="Texture2D" uid="uid://dnhuffsfrmp3e" path="res://Textures/CaptainHoers/Rooms/Icons/Engines Icon.png" id="8_ma460"]
+[ext_resource type="Script" path="res://Scripts/2D/RoomIcon.cs" id="9_giyf4"]
+[ext_resource type="Texture2D" uid="uid://b0nkqaymk30wj" path="res://Textures/CaptainHoers/Rooms/Icons/Workshop Icon.png" id="10_74bbp"]
+[ext_resource type="Texture2D" uid="uid://bnvi5k1dfyuq" path="res://Textures/CaptainHoers/Rooms/Icons/Habitation Icon.png" id="11_503i1"]
+[ext_resource type="Texture2D" uid="uid://b8qsm2eig5hoj" path="res://Textures/CaptainHoers/Rooms/Icons/Comms Icon.png" id="15_2vfvk"]
+[ext_resource type="Texture2D" uid="uid://dgac5waojctfv" path="res://Textures/CaptainHoers/Rooms/Icons/Cockpit Icon.png" id="16_qnfwa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_363o7"]
 font = ExtResource("1_6lu3u")
@@ -16,6 +28,51 @@ outline_color = Color(0, 0, 0, 1)
 font = ExtResource("1_6lu3u")
 font_size = 12
 font_color = Color(0.215686, 0.27451, 0.4, 1)
+
+[sub_resource type="Resource" id="Resource_inm74"]
+script = ExtResource("9_giyf4")
+Icon = ExtResource("8_ma460")
+RoomType = 0
+
+[sub_resource type="Resource" id="Resource_y2fpd"]
+script = ExtResource("9_giyf4")
+Icon = ExtResource("10_74bbp")
+RoomType = 1
+
+[sub_resource type="Resource" id="Resource_u2lfq"]
+script = ExtResource("9_giyf4")
+Icon = ExtResource("11_503i1")
+RoomType = 2
+
+[sub_resource type="Resource" id="Resource_7nnbh"]
+script = ExtResource("9_giyf4")
+Icon = ExtResource("7_8mgvg")
+RoomType = 3
+
+[sub_resource type="Resource" id="Resource_yvkab"]
+script = ExtResource("9_giyf4")
+Icon = ExtResource("8_hjpa2")
+RoomType = 4
+
+[sub_resource type="Resource" id="Resource_wwo3x"]
+script = ExtResource("9_giyf4")
+Icon = ExtResource("7_j1h6w")
+RoomType = 5
+
+[sub_resource type="Resource" id="Resource_v1rbk"]
+script = ExtResource("9_giyf4")
+Icon = ExtResource("15_2vfvk")
+RoomType = 6
+
+[sub_resource type="Resource" id="Resource_tbuks"]
+script = ExtResource("9_giyf4")
+Icon = ExtResource("16_qnfwa")
+RoomType = 7
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sv7fj"]
+color = Color(0.215686, 0.27451, 0.4, 1)
+grow_begin = -50.0
+grow_end = -50.0
 
 [node name="ObjectiveDisplay" type="Control" node_paths=PackedStringArray("blipContainer")]
 layout_mode = 3
@@ -120,8 +177,9 @@ texture = ExtResource("2_kjpdo")
 expand_mode = 1
 
 [node name="Detailed" type="Panel" parent="."]
+visible = false
 layout_mode = 0
-offset_left = -250.0
+offset_left = -205.0
 offset_top = 60.0
 offset_right = -13.0
 offset_bottom = 83.0
@@ -136,14 +194,15 @@ offset_right = -6.0
 offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Do Objective - Life Support"
+text = "Do Task - Life Support"
 label_settings = SubResource("LabelSettings_wmlw3")
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="Detailed2" type="Panel" parent="."]
+visible = false
 layout_mode = 0
-offset_left = -256.0
+offset_left = -211.0
 offset_top = 87.0
 offset_right = -13.0
 offset_bottom = 110.0
@@ -158,7 +217,52 @@ offset_right = -6.0
 offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Do Objective - Solar Panels"
+text = "Do Task - Solar Panels"
 label_settings = SubResource("LabelSettings_wmlw3")
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="Tasks" type="Panel" parent="." node_paths=PackedStringArray("taskContainer")]
+layout_mode = 1
+anchors_preset = -1
+offset_left = -237.0
+offset_top = 60.0
+offset_right = -13.0
+offset_bottom = 112.0
+grow_horizontal = 0
+script = ExtResource("6_etlys")
+taskContainer = NodePath("VBoxContainer")
+taskPrefab = ExtResource("8_jpjdu")
+roomIcons = [SubResource("Resource_inm74"), SubResource("Resource_y2fpd"), SubResource("Resource_u2lfq"), SubResource("Resource_7nnbh"), SubResource("Resource_yvkab"), SubResource("Resource_wwo3x"), SubResource("Resource_v1rbk"), SubResource("Resource_tbuks")]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tasks"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -20.0
+offset_right = 106.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_y3anf")
+heightPadding = 14.0
+widthPadding = 15.0
+
+[node name="TaskGraphic" parent="Tasks/VBoxContainer" instance=ExtResource("8_jpjdu")]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Tasks/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_sv7fj")
+
+[node name="TaskGraphic2" parent="Tasks/VBoxContainer" instance=ExtResource("8_jpjdu")]
+layout_mode = 2
+
+[node name="Label" parent="Tasks/VBoxContainer/TaskGraphic2" index="0"]
+text = "Do Task - Solar Panels"
+
+[editable path="Tasks/VBoxContainer/TaskGraphic2"]
