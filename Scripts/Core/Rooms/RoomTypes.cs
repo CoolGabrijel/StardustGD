@@ -18,6 +18,7 @@
         Plains,
         Peak,
         Gully,
-        Crater
+        Crater,
+        AirlockExpanded
     }
 }

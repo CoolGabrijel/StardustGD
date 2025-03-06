@@ -1,15 +1,40 @@
-using Godot;
-using System;
-
-public partial class LaunchLander : Node
+namespace Stardust.Actions
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-	}
+    public class LaunchLander : IUndoableAction
+    {
+        Room airlock = GameLogic.RoomManager.GetRoomByType(RoomType.Airlock);
+        Room lander = GameLogic.RoomManager.GetRoomByType(RoomType.Lander);
+        Room[] marsTiles = new Room[]
+        {
+                GameLogic.RoomManager.GetRoomByType(RoomType.Gully),
+                GameLogic.RoomManager.GetRoomByType(RoomType.Peak),
+                GameLogic.RoomManager.GetRoomByType(RoomType.Crater),
+                GameLogic.RoomManager.GetRoomByType(RoomType.Plains),
+                GameLogic.RoomManager.GetRoomByType(RoomType.Ridge),
+        };
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+        public void Do()
+        {
+            airlock.Neighbours.Add((Direction.South, lander));
+            lander.Neighbours.Add((Direction.North, airlock));
+
+            foreach (Room marsTile in marsTiles)
+            {
+                marsTile.Neighbours.Remove((Direction.None, lander));
+                lander.Neighbours.Remove((Direction.None, marsTile));
+            }
+        }
+
+        public void Undo()
+        {
+            airlock.Neighbours.Remove((Direction.South, lander));
+            lander.Neighbours.Remove((Direction.North, airlock));
+
+            foreach (Room marsTile in marsTiles)
+            {
+                marsTile.Neighbours.Add((Direction.None, lander));
+                lander.Neighbours.Add((Direction.None, marsTile));
+            }
+        }
+    }
 }

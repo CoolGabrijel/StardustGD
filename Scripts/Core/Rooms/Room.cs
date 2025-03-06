@@ -72,8 +72,11 @@ namespace Stardust
                 case RoomType.Comms:
                     action = new RevealObjective(pawn);
                     break;
-                case RoomType.Lander:
+                case RoomType.Airlock:
                     action = new DropLander();
+                    break;
+                case RoomType.Lander:
+                    action = new LaunchLander();
                     break;
                 default:
                     break;

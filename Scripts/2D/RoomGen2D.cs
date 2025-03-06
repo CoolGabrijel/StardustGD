@@ -36,7 +36,7 @@ namespace Stardust.Godot
 		public void Generate(RoomManager rm)
 		{
 			this.rm = rm;
-			rm.GenerateRooms();
+			//rm.GenerateRooms();
 			RemoveChildren();
 			GetRoomResources();
 			GenerateSprites();
@@ -122,6 +122,8 @@ namespace Stardust.Godot
 		private Texture2D RoomToSprite(Room room)
 		{
 			if (rr2d == null) return null;
+
+			if (room.RoomType == RoomType.Airlock && StardustGameConfig.CurrentConfig.FirstStepsEnabled) return rr2d[RoomType.AirlockExpanded].Texture;
 
 			return rr2d[room.RoomType].Texture;
 		}

@@ -87,7 +87,20 @@ namespace Stardust
                             break;
                         }
                     }
-                    break;
+                    //break;
+                }
+                else
+                {
+                    // We gotta find rooms neighbouring airlock and replace their neighbours.
+                    for (int j = 0; j < rooms[i].Neighbours.Count; j++)
+                    {
+                        var neighbour = rooms[i].Neighbours[j];
+                        if (neighbour.Item2.RoomType == RoomType.Airlock)
+                        {
+                            rooms[i].Neighbours.Remove(neighbour);
+                            rooms[i].Neighbours.Add((neighbour.Item1, newAirlock));
+                        }
+                    }
                 }
             }
 

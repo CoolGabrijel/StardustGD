@@ -6,4 +6,4 @@
 [resource]
 script = ExtResource("1_j2m5n")
 Texture = ExtResource("1_gpa7u")
-Type = 5
+Type = 14
