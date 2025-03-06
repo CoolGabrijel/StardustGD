@@ -1,4 +1,6 @@
-﻿namespace Stardust
+﻿using System.Collections.Generic;
+
+namespace Stardust
 {
     public class RoomManager
     {
@@ -6,13 +8,13 @@
 
         public Room[] Rooms;
 
-        private RoomGenerator[] generators = new RoomGenerator[]
-        {
-                RoomGenerators.GenerateBaseRooms
-        };
-
         public void GenerateRooms()
         {
+            List<RoomGenerator> generators = new();
+            generators.Add(RoomGenerators.GenerateBaseRooms);
+
+            if (StardustGameConfig.CurrentConfig.FirstStepsEnabled) generators.Add(RoomGenerators.GenerateFirstStepsRooms);
+
             foreach (RoomGenerator gen in generators)
             {
                 Rooms = gen(Rooms);

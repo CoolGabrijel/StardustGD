@@ -20,6 +20,9 @@ font = ExtResource("1_885lw")
 font_size = 12
 font_color = Color(0.215686, 0.27451, 0.4, 1)
 
+[sub_resource type="Animation" id="Animation_scy12"]
+resource_name = "Idle"
+
 [sub_resource type="Animation" id="Animation_58pm0"]
 resource_name = "OnActivate"
 tracks/0/type = "value"
@@ -70,9 +73,6 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(48, 0), Vector2(210, 0)]
 }
-
-[sub_resource type="Animation" id="Animation_scy12"]
-resource_name = "Idle"
 
 [sub_resource type="Animation" id="Animation_b7rs6"]
 resource_name = "OnDeactivate"

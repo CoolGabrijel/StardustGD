@@ -66,29 +66,35 @@ namespace Stardust.Godot
 					x--;
 				}
 
-				//switch (room.RoomType)
-				//{
-				//    case Room.RoomTypes.Lander:
-				//        GO.transform.position = new Vector2(airlockPos.x, -1f);
-				//        break;
-				//    case Room.RoomTypes.Ridge:
-				//        GO.transform.position = new Vector2(airlockPos.x, -3f);
-				//        break;
-				//    case Room.RoomTypes.Plains:
-				//        GO.transform.position = new Vector2(airlockPos.x + 1f, -3f);
-				//        break;
-				//    case Room.RoomTypes.Peak:
-				//        GO.transform.position = new Vector2(airlockPos.x - 1f, -3f);
-				//        break;
-				//    case Room.RoomTypes.Gully:
-				//        GO.transform.position = new Vector2(airlockPos.x - 1f, -2f);
-				//        break;
-				//    case Room.RoomTypes.Crater:
-				//        GO.transform.position = new Vector2(airlockPos.x + 1f, -2f);
-				//        break;
-				//    default:
-				//        break;
-				//}
+				if (room.RoomType == RoomType.Lander)
+                {
+                    roomInstance.GlobalPosition = new Vector2(airlockPos.X, 1f * sizeOffset);
+                }
+
+				switch (room.RoomType)
+				{
+					case RoomType.Lander:
+                        roomInstance.GlobalPosition = new Vector2(airlockPos.X, 1f * sizeOffset);
+                        break;
+					case RoomType.Ridge:
+                        roomInstance.GlobalPosition = new Vector2(airlockPos.X, 3f * sizeOffset);
+						GD.Print(airlockPos.X);
+                        break;
+					case RoomType.Plains:
+                        roomInstance.GlobalPosition = new Vector2(airlockPos.X + sizeOffset, 3f * sizeOffset);
+                        break;
+					case RoomType.Peak:
+                        roomInstance.GlobalPosition = new Vector2(airlockPos.X - sizeOffset, 3f * sizeOffset);
+                        break;
+					case RoomType.Gully:
+                        roomInstance.GlobalPosition = new Vector2(airlockPos.X - sizeOffset, 2f * sizeOffset);
+                        break;
+					case RoomType.Crater:
+                        roomInstance.GlobalPosition = new Vector2(airlockPos.X + sizeOffset, 2f * sizeOffset);
+                        break;
+					default:
+						break;
+				}
 
 				x++;
 			}

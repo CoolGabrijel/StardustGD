@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RoomRes2D" load_steps=3 format=3 uid="uid://yuvvk6himcvw"]
+
+[ext_resource type="Script" path="res://Scripts/2D/RoomRes2D.cs" id="1_c41fk"]
+[ext_resource type="Texture2D" uid="uid://wneqxqu8rf48" path="res://Textures/CaptainHoers/Rooms/Ridge.tres" id="1_yxpsu"]
+
+[resource]
+script = ExtResource("1_c41fk")
+Texture = ExtResource("1_yxpsu")
+Type = 9

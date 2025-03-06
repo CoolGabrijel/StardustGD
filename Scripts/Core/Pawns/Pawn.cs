@@ -69,11 +69,22 @@ namespace Stardust
             {
                 return CalculateMoveCostConcorde(path);
             }
+            else if (Room is MarsTile && (path[^1] is MarsTile || path[^1].RoomType == RoomType.Lander)) // Uuuuugh this is a bit of a bandaid but my pathfinding implementation suuuuucks.
+            {
+                foreach (var neighbour in Room.Neighbours)
+                {
+                    if (neighbour.Item2 == path[^1]) return 1;
+                }
+                return 2;
+            }
             else return path.Length;
         }
 
         private int CalculateMoveCostConcorde(Room[] path)
         {
+            if ((path[0] is Lander || path[0] is MarsTile) && (path[^1] is Lander || path[^1] is MarsTile))
+                return 1;
+
             int cost = 0;
             Room previousRoom = Room;
 

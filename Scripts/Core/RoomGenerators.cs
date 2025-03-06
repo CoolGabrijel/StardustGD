@@ -63,5 +63,63 @@ namespace Stardust
 
             return staticRooms.ToArray();
         }
+
+        public static Room[] GenerateFirstStepsRooms(Room[] rooms)
+        {
+            AirlockExpanded newAirlock = new();
+
+            // Find the base airlock and replace it
+            for (int i = 0; i < rooms.Length; i++)
+            {
+                if (rooms[i].RoomType == RoomType.Airlock)
+                {
+                    newAirlock.Neighbours = rooms[i].Neighbours;
+                    rooms[i] = newAirlock;
+
+                    for (int j = 0; j < rooms.Length; j++)
+                    {
+                        if (rooms[j].RoomType == RoomType.SolarPanels)
+                        {
+                            Room solar = rooms[j];
+                            //newAirlock.Neighbours.Add((Direction.North, solar));
+                            solar.Neighbours.Clear();
+                            solar.Neighbours.Add((Direction.South, newAirlock));
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+
+            List<Room> newRooms = new(rooms);
+
+            Lander lander = new();
+            newAirlock.Neighbours.Add((Direction.South, lander));
+            lander.Neighbours.Add((Direction.North, newAirlock));
+            newRooms.Add(lander);
+
+            MarsTile gully = new(RoomType.Gully);
+            MarsTile peak = new(RoomType.Peak);
+            MarsTile crater = new(RoomType.Crater);
+            MarsTile plains = new(RoomType.Plains);
+            MarsTile ridge = new(RoomType.Ridge);
+
+            gully.Neighbours.Add((Direction.South, peak));
+            peak.Neighbours.Add((Direction.North, gully));
+            peak.Neighbours.Add((Direction.East, ridge));
+            ridge.Neighbours.Add((Direction.West, peak));
+            ridge.Neighbours.Add((Direction.East, plains));
+            plains.Neighbours.Add((Direction.West, ridge));
+            plains.Neighbours.Add((Direction.North, crater));
+            crater.Neighbours.Add((Direction.South, plains));
+
+            newRooms.Add(gully);
+            newRooms.Add(peak);
+            newRooms.Add(crater);
+            newRooms.Add(plains);
+            newRooms.Add(ridge);
+
+            return newRooms.ToArray();
+        }
     }
 }

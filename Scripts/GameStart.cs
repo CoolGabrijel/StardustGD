@@ -19,6 +19,7 @@ namespace Stardust.Godot
             StardustGameConfig config = new()
             {
                 // For testing purposes feel free to place anything in here
+                FirstStepsEnabled = true,
             };
             StardustGameConfig.CurrentConfig = config;
 
