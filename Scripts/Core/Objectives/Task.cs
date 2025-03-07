@@ -23,7 +23,7 @@ namespace Stardust
             StatusChange?.Invoke();
         }
 
-        public void UndoComplete()
+        public virtual void UndoComplete()
         {
             Completed = false;
 

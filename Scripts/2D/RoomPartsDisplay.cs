@@ -1,6 +1,7 @@
 using Godot;
 using Stardust.Actions;
 using System;
+using System.Linq;
 
 namespace Stardust.Godot
 {
@@ -10,6 +11,7 @@ namespace Stardust.Godot
         [Export] Label partsLabel;
         [Export] PackedScene pickupPrefab;
         [Export] Vector2 pickupSpawnOffset;
+        [Export] ItemType pickupType;
 
         Tween colorTween;
 
@@ -22,10 +24,12 @@ namespace Stardust.Godot
 
         public override void _Process(double delta)
         {
-            if (roomGraphic.Room.Parts > 0)
+            int itemAmount = roomGraphic.Room.Items.Where((i) => i.Type == pickupType).Count();
+
+            if (itemAmount > 0)
             {
                 Show();
-                partsLabel.Text = $"x{roomGraphic.Room.Parts}";
+                partsLabel.Text = $"x{itemAmount}";
                 Disabled = false;
             }
             else
@@ -40,15 +44,15 @@ namespace Stardust.Godot
             Pawn player = GameStart.LocalPlayer;
             if (!CanPickup()) return;
 
-            Item item = roomGraphic.Room.GetItem(ItemType.Part);
+            Item item = roomGraphic.Room.GetItem(pickupType);
             PickUpPart PickupAction = new(player, roomGraphic.Room, item);
             PickupAction.Do();
             ActionLibrary.AddAction(PickupAction);
 
-            Pickup pickup = pickupPrefab.Instantiate<Pickup>();
-            pickup.Initialize(GameStart.GetPawnGraphic(player), roomGraphic.GlobalPosition + pickupSpawnOffset, item);
-            GetTree().Root.AddChild(pickup);
-            GetViewport().GuiReleaseFocus(); // Stops spacebar from activating button
+            //Pickup pickup = pickupPrefab.Instantiate<Pickup>();
+            //pickup.Initialize(GameStart.GetPawnGraphic(player), roomGraphic.GlobalPosition + pickupSpawnOffset, item);
+            //GetTree().Root.AddChild(pickup);
+            //GetViewport().GuiReleaseFocus(); // Stops spacebar from activating button
         }
 
         private bool CanPickup()

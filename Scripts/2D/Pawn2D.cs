@@ -13,8 +13,9 @@ namespace Stardust.Godot
 		[Export] private Sprite2D auroraFlash;
 		[Export] private ShaderMaterial[] shaders;
 		[Export] private Texture2D[] textures;
+        [Export] PackedScene pickupPrefab;
 
-		Tween moveTween;
+        Tween moveTween;
 		Tween auroraFlashTween;
 
 		public void SetPawn(Pawn pawn)
@@ -25,6 +26,8 @@ namespace Stardust.Godot
 			charSprite.Material = shaders[(int)Pawn.Type];
 
 			pawn.Moved += OnPawnMoved;
+			pawn.OnItemPickedUp += OnItemPickedUp;
+
 			if (pawn.Type == PawnType.Aurora)
 			{
                 pawn.OnDamageBlocked += OnAuroraBlock;
@@ -65,6 +68,14 @@ namespace Stardust.Godot
 			moveTween.TweenProperty(this, "global_position", slot.GlobalPosition, .25f).SetTrans(Tween.TransitionType.Spring);
 			//GlobalPosition = room.Position;
 		}
+
+		private void OnItemPickedUp(Item item)
+        {
+            Pickup pickup = pickupPrefab.Instantiate<Pickup>();
+			Vector2 mousePos = GetGlobalMousePosition();
+            pickup.Initialize(this, mousePos, item);
+            GetTree().Root.AddChild(pickup);
+        }
 
 		private void OnAuroraBlock()
 		{

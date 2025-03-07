@@ -111,31 +111,34 @@ namespace Stardust
                 objectives.Add(Objective.CreateObjective(type));
             }
 
-            // If we have the First Steps Expansion
-            //if (Config.FirstStepsExpansionEnabled)
-            //{
-            //    // Get Mars Objectives
-            //    List<MarsObjCardType> allMarsObj = new List<MarsObjCardType>();
-            //    allMarsObj.AddRange((IEnumerable<MarsObjCardType>)Enum.GetValues(typeof(MarsObjCardType)));
-            //    List<MarsObjCardType> marsObjectives = new List<MarsObjCardType>();
+            //If we have the First Steps Expansion
+            if (StardustGameConfig.CurrentConfig.FirstStepsEnabled)
+            {
+                // Get Mars Objectives
+                List<MarsObjCardType> allMarsObj = new();
+                allMarsObj.AddRange((IEnumerable<MarsObjCardType>)Enum.GetValues(typeof(MarsObjCardType)));
+                List<MarsObjCardType> marsObjectives = new();
 
-            //    int marsObjAmount = 3;
-            //    if (Config.Difficulty == Difficulty.Hard) marsObjAmount = 4;
+                int marsObjAmount = 3;
+                if (StardustGameConfig.CurrentConfig.Difficulty == StardustGameConfig.GameDifficulty.Hard) marsObjAmount = 4;
 
-            //    for (int i = 0; i < marsObjAmount; i++)
-            //    {
-            //        int randNum = rng.Next(allMarsObj.Count);
-            //        MarsObjCardType randObjective = allMarsObj[randNum];
-            //        allMarsObj.Remove(randObjective);
-            //        marsObjectives.Add(randObjective);
-            //    }
+                for (int i = 0; i < marsObjAmount; i++)
+                {
+                    int randNum = rng.Next(allMarsObj.Count);
+                    MarsObjCardType randObjective = allMarsObj[randNum];
+                    allMarsObj.Remove(randObjective);
+                    marsObjectives.Add(randObjective);
+                }
 
-            //    foreach (MarsObjCardType objType in marsObjectives)
-            //    {
-            //        Objective objective = Objective.CreateObjective(objType);
-            //        objectives.Insert(objectives.Count / 2, objective);
-            //    }
-            //}
+                marsObjectives = new() { MarsObjCardType.Flag }; // testing only.
+
+                foreach (MarsObjCardType objType in marsObjectives)
+                {
+                    Objective objective = Objective.CreateObjective(objType);
+                    //objectives.Insert(objectives.Count / 2, objective);
+                    objectives.Insert(1, objective); // Testing only
+                }
+            }
 
             objectiveIndex = 0;
 

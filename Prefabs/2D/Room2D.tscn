@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://br7af73781a77"]
+[gd_scene load_steps=44 format=3 uid="uid://br7af73781a77"]
 
 [ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
 [ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="23_7lgwt"]
 [ext_resource type="PackedScene" uid="uid://cdh4tuj3126iq" path="res://Prefabs/2D/Pickup.tscn" id="23_iryuc"]
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="24_40t65"]
+[ext_resource type="Texture2D" uid="uid://be8stm1mh1362" path="res://Textures/CaptainHoers/Flag.png" id="24_oe6lm"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="25_3p8ij"]
 
 [sub_resource type="Resource" id="Resource_inm74"]
@@ -329,27 +330,31 @@ label_settings = SubResource("LabelSettings_qah6t")
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Btn_Parts" type="Button" parent="Overlay" node_paths=PackedStringArray("roomGraphic", "partsLabel")]
+[node name="Items" type="HBoxContainer" parent="Overlay"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 25.0
 offset_top = -345.0
-offset_right = 179.0
+offset_right = 573.0
 offset_bottom = -249.0
 grow_vertical = 0
+
+[node name="Btn_Parts" type="Button" parent="Overlay/Items" node_paths=PackedStringArray("roomGraphic", "partsLabel")]
+custom_minimum_size = Vector2(154, 96)
+layout_mode = 2
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_qnbxx")
 flat = true
 script = ExtResource("4_0uxpp")
-roomGraphic = NodePath("../..")
+roomGraphic = NodePath("../../..")
 partsLabel = NodePath("Amount")
 pickupPrefab = ExtResource("23_iryuc")
 pickupSpawnOffset = Vector2(-450, 250)
 
-[node name="BG" type="TextureRect" parent="Overlay/Btn_Parts"]
+[node name="BG" type="TextureRect" parent="Overlay/Items/Btn_Parts"]
 self_modulate = Color(0.0588235, 0.341176, 0.498039, 1)
 layout_mode = 1
 anchors_preset = 8
@@ -365,7 +370,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("22_8pvfr")
 
-[node name="Icon" type="TextureRect" parent="Overlay/Btn_Parts"]
+[node name="Icon" type="TextureRect" parent="Overlay/Items/Btn_Parts"]
 self_modulate = Color(0, 0.647059, 1, 1)
 layout_mode = 1
 anchors_preset = -1
@@ -381,7 +386,70 @@ texture = ExtResource("5_8w6hf")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Amount" type="Label" parent="Overlay/Btn_Parts"]
+[node name="Amount" type="Label" parent="Overlay/Items/Btn_Parts"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -109.5
+offset_top = -48.5
+offset_right = -52.5
+offset_bottom = -7.5
+grow_horizontal = 0
+grow_vertical = 0
+text = "x2"
+label_settings = SubResource("LabelSettings_qah6t")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Btn_Flag" type="Button" parent="Overlay/Items" node_paths=PackedStringArray("roomGraphic", "partsLabel")]
+custom_minimum_size = Vector2(154, 96)
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_qnbxx")
+flat = true
+script = ExtResource("4_0uxpp")
+roomGraphic = NodePath("../../..")
+partsLabel = NodePath("Amount")
+pickupPrefab = ExtResource("23_iryuc")
+pickupSpawnOffset = Vector2(-450, 250)
+pickupType = 2
+
+[node name="BG" type="TextureRect" parent="Overlay/Items/Btn_Flag"]
+self_modulate = Color(0.28, 0.06, 0.5, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.5
+offset_top = -47.5
+offset_right = 76.5
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("22_8pvfr")
+
+[node name="Icon" type="TextureRect" parent="Overlay/Items/Btn_Flag"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 14.0
+offset_right = -3.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("24_oe6lm")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Amount" type="Label" parent="Overlay/Items/Btn_Flag"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

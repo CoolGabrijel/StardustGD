@@ -19,6 +19,8 @@ namespace Stardust
         }
 
         public event System.Action Moved;
+        public event System.Action<Item> OnItemPickedUp;
+        public event System.Action<Pawn, Item> OnItemDropped;
         public event System.Action OnDamageBlocked;
 
         public PawnType Type { get; private set; }
@@ -56,11 +58,13 @@ namespace Stardust
         public void PickUpItem(Item item)
         {
             Inventory.Add(item);
+            OnItemPickedUp?.Invoke(item);
         }
 
         public void DropItem(Item item)
         {
             Inventory.Remove(item);
+            OnItemDropped?.Invoke(this, item);
         }
 
         public int CalculateMoveCost(Room[] path)

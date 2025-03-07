@@ -7,16 +7,20 @@ namespace Stardust
             Description = "Plant a Flag on $Peak";
         }
 
-        Item flag;
+        Item flag = new(ItemType.Flag);
+        Room peak = GameLogic.RoomManager.GetRoomByType(RoomType.Peak);
+        Pawn[] pawns;
 
         public override void Activate()
         {
+            pawns = GameLogic.TurnQueue.Pawns;
             Room lander = GameLogic.RoomManager.GetRoomByType(RoomType.Lander);
-            flag = new Item(ItemType.Flag);
             lander.AddItem(flag);
 
-            Room peak = GameLogic.RoomManager.GetRoomByType(RoomType.Peak);
-            peak.OnItemDrop += OnItemDropped;
+            foreach (Pawn pawn in pawns)
+            {
+                pawn.OnItemDropped += OnItemDropped;
+            }
         }
 
         public override void UndoActivate()
@@ -26,15 +30,44 @@ namespace Stardust
                 if (room.GetItem(ItemType.Flag) != null)
                 {
                     room.RemoveItem(flag);
-                    Room peak = GameLogic.RoomManager.GetRoomByType(RoomType.Peak);
-                    peak.OnItemDrop -= OnItemDropped;
+                    foreach (Pawn pawn in pawns)
+                    {
+                        pawn.OnItemDropped -= OnItemDropped;
+                    }
                 }
             }
         }
 
+        void OnItemDropped(Pawn dropper, Item item)
+        {
+            if (item.Type != ItemType.Flag && dropper.Room.RoomType != RoomType.Peak) return;
+
+            peak.RemoveItem(item);
+
+            foreach (Pawn pawn in pawns)
+            {
+                pawn.OnItemDropped -= OnItemDropped;
+                pawn.OnItemPickedUp += OnItemPickedUp;
+            }
+
+            Complete();
+        }
+
+        void OnItemPickedUp(Item item)
+        {
+            if (item.Type != ItemType.Flag) return;
+
+            foreach (Pawn pawn in pawns)
+            {
+                pawn.OnItemPickedUp -= OnItemPickedUp;
+                pawn.OnItemDropped += OnItemDropped;
+            }
+
+            UndoComplete();
+        }
+
         void OnItemDropped()
         {
-            Room peak = GameLogic.RoomManager.GetRoomByType(RoomType.Peak);
             Item flag = peak.GetItem(ItemType.Flag);
 
             if (flag == null) return;
@@ -42,13 +75,5 @@ namespace Stardust
             peak.RemoveItem(flag);
             Complete();
         }
-
-        //void OnFlagPlanted(Item _flag)
-        //{
-        //    Room peak = GameLogic.RoomManager.GetRoomByType(RoomType.Peak);
-        //    peak.OnFlagDrop -= OnFlagPlanted;
-        //    peak.RemoveItem(_flag);
-        //    Complete();
-        //}
     }
 }

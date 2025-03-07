@@ -21,14 +21,14 @@ namespace Stardust.Actions
         {
             Pawn.DropItem(Part);
             Room.AddItem(Part);
-            GD.Print($"{Pawn}: Dropped Part in {Room.Name}");
+            GD.Print($"{Pawn.Type}: Dropped {Part.Type} in {Room.Name}");
         }
 
         public void Undo()
         {
             Room.RemoveItem(Part);
             Pawn.PickUpItem(Part);
-            GD.Print($"{Pawn}: Undone Part Drop in {Room.Name}");
+            GD.Print($"{Pawn.Type}: Undone {Part.Type} Drop in {Room.Name}");
         }
     } 
 }

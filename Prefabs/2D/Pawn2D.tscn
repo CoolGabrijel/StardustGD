@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dd12b25ehcgfr"]
+[gd_scene load_steps=17 format=3 uid="uid://dd12b25ehcgfr"]
 
 [ext_resource type="Script" path="res://Scripts/2D/Pawn2D.cs" id="1_2s7n1"]
 [ext_resource type="Texture2D" uid="uid://bn8evfrs86315" path="res://Textures/Other/HD Circle.png" id="1_400ln"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bikvdx5le53qr" path="res://Textures/CaptainHoers/Horse cards/Rosetta.png" id="4_bxnp0"]
 [ext_resource type="Texture2D" uid="uid://cpk05b2mm7bje" path="res://Textures/CaptainHoers/Horse cards/Aurora.png" id="4_hta4c"]
 [ext_resource type="Texture2D" uid="uid://dsthg2hdprrio" path="res://Textures/CaptainHoers/Horse cards/Zambuko.png" id="4_y410x"]
+[ext_resource type="PackedScene" uid="uid://cdh4tuj3126iq" path="res://Prefabs/2D/Pickup.tscn" id="12_m4vaj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hkkdo"]
 radius = 70.0
@@ -32,6 +33,7 @@ charSprite = NodePath("CharSprite")
 auroraFlash = NodePath("AuroraFlash")
 shaders = Array[ShaderMaterial]([ExtResource("3_xvb6n"), ExtResource("3_61e12"), ExtResource("3_5r0bn"), ExtResource("3_3v1r2"), ExtResource("3_b8qih")])
 textures = Array[Texture2D]([ExtResource("1_qgbsi"), ExtResource("4_hta4c"), ExtResource("4_y410x"), ExtResource("4_bxnp0"), ExtResource("4_355nh")])
+pickupPrefab = ExtResource("12_m4vaj")
 
 [node name="Area2D" type="Area2D" parent="."]
 

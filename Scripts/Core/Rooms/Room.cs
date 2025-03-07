@@ -100,6 +100,7 @@ namespace Stardust
             if (item == null) throw new Exception($"Attempted to add null item to {Name}.");
 
             Items.Add(item);
+            OnItemDrop?.Invoke();
         }
 
         public Item GetItem(ItemType type)
