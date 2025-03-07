@@ -61,7 +61,15 @@ namespace Stardust
                 return roomManager.GetRoomByType(roomsDamaged[TurnIndex]);
             }
 
-            List<Room> rooms = new List<Room>(roomManager.Rooms);
+            List<Room> rooms = new();
+
+            foreach (Room room in roomManager.Rooms)
+            {
+                if (room is not MarsTile)
+                {
+                    rooms.Add(room);
+                }
+            }
 
             if (previouslyDamagedRoom != null) rooms.Remove(previouslyDamagedRoom);
 

@@ -1,8 +1,6 @@
-using Godot;
 using Stardust.Actions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Stardust
 {
@@ -81,7 +79,6 @@ namespace Stardust
                 default:
                     break;
             }
-            GD.Print(RoomType);
             if (action == null) return;
 
             action.Do();
