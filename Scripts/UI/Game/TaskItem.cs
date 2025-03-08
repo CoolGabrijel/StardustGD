@@ -83,6 +83,8 @@ namespace Stardust.Godot.UI
 			{
 				if (task is FlagTask) return $"Plant Flag - Peak";
 				else if (task is SampleTask) return $"Bring Samples to Lander";
+				else if (task is VideoTask) return $"Film video - {task.Room.Name}";
+				else if (task is GolfTask) return $"Play Golf - {task.Room.Name}";
 			}
 
 			return "Unidentified Task";

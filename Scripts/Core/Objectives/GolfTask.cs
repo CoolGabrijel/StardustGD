@@ -13,32 +13,10 @@ namespace Stardust
 
         public override void Activate()
         {
-            Room lander = GameLogic.RoomManager.GetRoomByType(RoomType.Lander);
-            lander.AddItem(new Item(ItemType.Objective));
-
-            room.OnItemDrop += OnRoomGetItem;
         }
 
         public override void UndoActivate()
         {
-            throw new System.NotImplementedException();
-        }
-
-        void OnRoomGetItem()
-        {
-            foreach (Item item in room.Items)
-            {
-                if (item.Type == ItemType.Objective)
-                {
-                    room.RemoveItem(item);
-
-                    room.OnItemDrop -= OnRoomGetItem;
-
-                    Complete();
-
-                    return;
-                }
-            }
         }
     }
 }

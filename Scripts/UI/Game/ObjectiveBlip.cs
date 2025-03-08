@@ -28,16 +28,25 @@ namespace Stardust.Godot.UI
 			{
 				activeTween?.Kill();
 				activeTween = null;
-				Modulate = completedColor;
+				if (objective.Tasks[0].Tag == "FirstSteps") Modulate = marsCompletedColor;
+				else Modulate = completedColor;
 				return;
 			}
 			else if (ObjectiveHandler.CurrentObjective == objective)
 			{
 				if (activeTween == null)
 				{
+					Color color = activeColor;
+					Color compColor = completedColor;
+					if (objective.Tasks[0].Tag == "FirstSteps")
+					{
+						color = marsActiveColor;
+						compColor = marsCompletedColor;
+					}
+
 					activeTween = CreateTween();
-					activeTween.TweenProperty(this, "modulate", activeColor, 1f);
-					activeTween.TweenProperty(this, "modulate", completedColor, 1f);
+					activeTween.TweenProperty(this, "modulate", color, 1f);
+					activeTween.TweenProperty(this, "modulate", compColor, 1f);
 					activeTween.SetLoops();
 				}
 				//Modulate = activeColor;
@@ -45,6 +54,7 @@ namespace Stardust.Godot.UI
 			}
 
             activeTween?.Kill();
+            activeTween = null;
             Modulate = inactiveColor;
         }
     } 

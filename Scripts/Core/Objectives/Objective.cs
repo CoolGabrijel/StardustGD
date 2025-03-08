@@ -100,16 +100,24 @@ namespace Stardust
                     tasks[1] = new SampleTask(RoomType.Gully);
                     break;
                 case ObjectiveHandler.MarsObjCardType.CraterSample:
+                    tasks = new Task[2];
                     tasks[0] = new SampleTask(RoomType.Crater);
+                    tasks[1] = new SampleTask(RoomType.Crater);
                     break;
                 case ObjectiveHandler.MarsObjCardType.PlainsSample:
+                    tasks = new Task[2];
                     tasks[0] = new SampleTask(RoomType.Plains);
+                    tasks[1] = new SampleTask(RoomType.Plains);
                     break;
                 case ObjectiveHandler.MarsObjCardType.RidgeVideo:
+                    tasks = new Task[2];
                     tasks[0] = new VideoTask(RoomType.Ridge);
+                    tasks[1] = new VideoTask(RoomType.Ridge);
                     break;
                 case ObjectiveHandler.MarsObjCardType.CraterVideo:
+                    tasks = new Task[2];
                     tasks[0] = new VideoTask(RoomType.Crater);
+                    tasks[1] = new VideoTask(RoomType.Crater);
                     break;
                 case ObjectiveHandler.MarsObjCardType.Golf:
                     tasks[0] = new GolfTask(RoomType.Plains);

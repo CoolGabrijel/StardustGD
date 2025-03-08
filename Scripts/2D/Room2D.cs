@@ -110,18 +110,6 @@ namespace Stardust.Godot
 
 				Direction movDir = GameStart.LocalPlayer.LastMovementDirection;
 				Room[] path = Pathfinding.GetPath(Room, GameStart.LocalPlayer);
-				GD.Print("-----------");
-				GD.Print($"From {GameStart.LocalPlayer.Room.Name}");
-				foreach (Room room in path)
-				{
-					GD.Print($"{room.Name}:");
-					foreach (var neighbour in room.Neighbours)
-					{
-						GD.Print($"({neighbour.Item1}, {neighbour.Item2.Name})");
-					}
-
-					if (room is Airlock) GD.Print("the devil exists");
-				}
 				int cost = GameStart.LocalPlayer.CalculateMoveCost(path);
 
 				int localMaxEnergy = GameStart.LocalPlayer.EnergyCards.Where((c) => !c.Exhausted).Max(x => x.Energy);

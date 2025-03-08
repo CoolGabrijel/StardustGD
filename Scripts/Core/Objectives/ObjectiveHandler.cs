@@ -130,13 +130,13 @@ namespace Stardust
                     marsObjectives.Add(randObjective);
                 }
 
-                marsObjectives = new() { MarsObjCardType.GullySample, MarsObjCardType.Flag }; // testing only.
+                //marsObjectives = new() { MarsObjCardType.Golf }; // testing only.
 
                 foreach (MarsObjCardType objType in marsObjectives)
                 {
                     Objective objective = Objective.CreateObjective(objType);
-                    //objectives.Insert(objectives.Count / 2, objective);
-                    objectives.Insert(1, objective); // Testing only
+                    objectives.Insert(objectives.Count / 2, objective);
+                    //objectives.Insert(1, objective); // Testing only
                 }
             }
 

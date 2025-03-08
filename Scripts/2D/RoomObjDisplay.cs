@@ -1,6 +1,5 @@
 using Godot;
 using Stardust.Actions;
-using System;
 using System.Linq;
 
 namespace Stardust.Godot
@@ -23,7 +22,12 @@ namespace Stardust.Godot
         {
             if (ObjectiveHandler.CurrentObjective == null) return;
             //if (ObjectiveHandler.CurrentObjective.Tasks[0].Tag != "Base") return;
-            if (!ObjectiveHandler.CurrentObjective.Tasks[0].CanUseActionToComplete) return;
+            if (!ObjectiveHandler.CurrentObjective.Tasks[0].CanUseActionToComplete)
+            {
+                Hide();
+                Disabled = true;
+                return;
+            }
 
             Objective obj = ObjectiveHandler.CurrentObjective;
 
@@ -36,6 +40,7 @@ namespace Stardust.Godot
                 if (task.Room.RoomType == roomGraphic.Room.RoomType)
                 {
                     taskCount++;
+                    //GD.Print(task.Description);
                 }
             }
 
@@ -66,17 +71,21 @@ namespace Stardust.Godot
                 return;
             }
 
-            //if (GameStart.LocalPlayer.Room != roomGraphic.Room) return;
+            IUndoableAction action = null;
+            if (ObjectiveHandler.CurrentObjective.Tasks[0].Tag == "FirstSteps")
+            {
+                action = new CompleteMarsTask(GameStart.LocalPlayer);
+            }
+            else
+            {
+                action = new CompleteBaseTask(roomGraphic.Room.RoomType);
+            }
 
-            //if (GameStart.LocalPlayer.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy) <= GameLogic.EnergyExpended) return;
-
-            //if (roomGraphic.Room.Pawns.Count > roomGraphic.Room.Capacity) return;
-
-            CompleteBaseTask action = new(roomGraphic.Room.RoomType);
             action.Do();
             ActionLibrary.AddAction(action);
 
             ObjectiveHandler.CheckAllObjectivesCompleted();
+            GetViewport().GuiReleaseFocus();
         }
 
         private void OnMouseEntered()
