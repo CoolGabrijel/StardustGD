@@ -1,6 +1,3 @@
-using Stardust.Godot;
-using System.Linq;
-
 namespace Stardust
 {
     public class SampleTask : MarsTask
@@ -11,6 +8,8 @@ namespace Stardust
 
             Description = "Gather samples to the $Lander";
         }
+
+        public override bool CanUseActionToComplete => false;
 
         Item sample = new(ItemType.Sample);
         RoomType roomType;

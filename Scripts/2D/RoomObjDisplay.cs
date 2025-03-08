@@ -22,7 +22,8 @@ namespace Stardust.Godot
         public override void _Process(double delta)
         {
             if (ObjectiveHandler.CurrentObjective == null) return;
-            if (ObjectiveHandler.CurrentObjective.Tasks[0].Tag != "Base") return;
+            //if (ObjectiveHandler.CurrentObjective.Tasks[0].Tag != "Base") return;
+            if (!ObjectiveHandler.CurrentObjective.Tasks[0].CanUseActionToComplete) return;
 
             Objective obj = ObjectiveHandler.CurrentObjective;
 

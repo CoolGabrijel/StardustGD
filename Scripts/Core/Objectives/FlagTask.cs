@@ -1,5 +1,3 @@
-using Godot;
-
 namespace Stardust
 {
     public class FlagTask : MarsTask
@@ -8,6 +6,8 @@ namespace Stardust
         {
             Description = "Plant a Flag on $Peak";
         }
+
+        public override bool CanUseActionToComplete => false;
 
         Item flag = new(ItemType.Flag);
 

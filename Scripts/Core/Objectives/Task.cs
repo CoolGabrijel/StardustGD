@@ -15,6 +15,7 @@ namespace Stardust
         public string Description { get; internal set; }
 
         public bool Completed;
+        public virtual bool CanUseActionToComplete => true;
 
         public virtual void Complete()
         {
