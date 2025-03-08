@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crhr4x1jqu6c8"
-path="res://.godot/imported/Lander.png-15de00e7e9cb86a30319bf50929e2b73.ctex"
+uid="uid://kqimgfxek071"
+path="res://.godot/imported/Lander Activation.png-246cbe094c75dad1008db6304496de8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/CaptainHoers/Rooms/Lander.png"
-dest_files=["res://.godot/imported/Lander.png-15de00e7e9cb86a30319bf50929e2b73.ctex"]
+source_file="res://Textures/CaptainHoers/Rooms/Overlays/Lander Activation.png"
+dest_files=["res://.godot/imported/Lander Activation.png-246cbe094c75dad1008db6304496de8c.ctex"]
 
 [params]
 

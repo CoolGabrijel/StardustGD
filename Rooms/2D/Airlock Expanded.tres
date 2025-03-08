@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="RoomRes2D" load_steps=3 format=3 uid="uid://db7yxdvtqbon1"]
+[gd_resource type="Resource" script_class="RoomRes2D" load_steps=4 format=3 uid="uid://db7yxdvtqbon1"]
 
-[ext_resource type="Texture2D" uid="uid://d0rmfro04bdpg" path="res://Textures/CaptainHoers/Rooms/AirlockExpansion.png" id="1_gpa7u"]
+[ext_resource type="Texture2D" uid="uid://dfx5661impf5i" path="res://Textures/CaptainHoers/Rooms/Overlays/Airlock Activation.png" id="1_7wclt"]
 [ext_resource type="Script" path="res://Scripts/2D/RoomRes2D.cs" id="1_j2m5n"]
+[ext_resource type="Texture2D" uid="uid://dv3mb0b867ym6" path="res://Textures/CaptainHoers/Rooms/Airlock Expanded.png" id="2_076ey"]
 
 [resource]
 script = ExtResource("1_j2m5n")
-Texture = ExtResource("1_gpa7u")
+Texture = ExtResource("2_076ey")
 Type = 14
+Tex_Activation = ExtResource("1_7wclt")

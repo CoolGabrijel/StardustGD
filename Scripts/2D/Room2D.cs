@@ -3,7 +3,6 @@ using Godot.Collections;
 using Stardust.Actions;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
 namespace Stardust.Godot
@@ -29,11 +28,15 @@ namespace Stardust.Godot
         [Export] Control slot2;
 		[ExportCategory("Buttons")]
 		[Export] Button activationButton;
+		[ExportCategory("First Steps Extra")]
+		[Export] Texture2D landerOrbit;
+		[Export] Texture2D landerMars;
 
         Tween colorTween;
 		Tween activationMoveTween;
 		Tween activationHoverTween;
 		Tween headerTween;
+		Tween movementTween;
 
 		public override void _Ready()
 		{
@@ -81,7 +84,15 @@ namespace Stardust.Godot
 						break;
                     }
                 }
-			}
+            }
+
+            if (Room is Lander lander) lander.LanderMoved += OnLanderMoved;
+            else if (Room is MarsTile)
+            {
+				slot1.Hide();
+				slot2.Hide();
+				header.Hide();
+            }
         }
 
 		public PawnSlot2D GetVacantSlot()
@@ -154,9 +165,6 @@ namespace Stardust.Godot
 
 			Pawn player = GameStart.LocalPlayer;
 
-			//if (player.Room != Room || !Room.CanBeActivated) return;
-			//if (GameLogic.EnergyExpended >= player.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy)) return;
-
             Room.ActivateAbility(player);
 
             // If you click on the button, you "focus" it and then space bar (the end turn button) pushes it again. Release focus to fix.
@@ -222,6 +230,29 @@ namespace Stardust.Godot
 
             activationHoverTween = activationButton.CreateTween();
             activationHoverTween.TweenProperty(activationButton, "modulate", Colors.White, .2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Cubic);
+        }
+
+        private void OnLanderMoved()
+        {
+			Lander lander = Room as Lander;
+			movementTween?.Kill();
+
+			Vector2 endPosition;
+			if (lander.HasLanded)
+            {
+                endPosition = new Vector2(GlobalPosition.X, 1125 * 2);
+				Texture = landerMars;
+            }
+            else
+            {
+                endPosition = new Vector2(GlobalPosition.X, 1125);
+                Texture = landerOrbit;
+            }
+
+            movementTween = CreateTween();
+			movementTween.SetEase(Tween.EaseType.Out);
+			movementTween.SetTrans(Tween.TransitionType.Quad);
+			movementTween.TweenProperty(this, "global_position", endPosition, 1f);
         }
 
         private void OnDamaged()

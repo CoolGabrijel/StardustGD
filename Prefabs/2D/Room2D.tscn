@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://br7af73781a77"]
+[gd_scene load_steps=49 format=3 uid="uid://br7af73781a77"]
 
 [ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
 [ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
@@ -19,8 +19,11 @@
 [ext_resource type="Texture2D" uid="uid://b8qsm2eig5hoj" path="res://Textures/CaptainHoers/Rooms/Icons/Comms Icon.png" id="10_tiuw3"]
 [ext_resource type="Texture2D" uid="uid://dgac5waojctfv" path="res://Textures/CaptainHoers/Rooms/Icons/Cockpit Icon.png" id="11_a501l"]
 [ext_resource type="Texture2D" uid="uid://cbgowem1d5i6r" path="res://Textures/CaptainHoers/Rooms/Overlays/Slot2.png" id="11_dqrou"]
+[ext_resource type="Texture2D" uid="uid://dyj7ouoty8pyw" path="res://Textures/CaptainHoers/Rooms/Icons/Lander Icon.png" id="12_p8nb1"]
 [ext_resource type="Texture2D" uid="uid://ck7p0bxabtlnt" path="res://Textures/CaptainHoers/Rooms/Overlays/Header Overlay.png" id="12_xgir8"]
+[ext_resource type="Texture2D" uid="uid://cxmq8cdi8lrt1" path="res://Textures/CaptainHoers/Rooms/Lander Space.png" id="13_2klqp"]
 [ext_resource type="Texture2D" uid="uid://bnvi5k1dfyuq" path="res://Textures/CaptainHoers/Rooms/Icons/Habitation Icon.png" id="13_8w8f0"]
+[ext_resource type="Texture2D" uid="uid://2yxt521c4iar" path="res://Textures/CaptainHoers/Rooms/Lander Mars.png" id="14_1ww6x"]
 [ext_resource type="Texture2D" uid="uid://v5cdtrrcsk25" path="res://Textures/CaptainHoers/Background Bit Border Alternate.png" id="22_8pvfr"]
 [ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="23_7lgwt"]
 [ext_resource type="PackedScene" uid="uid://cdh4tuj3126iq" path="res://Prefabs/2D/Pickup.tscn" id="23_iryuc"]
@@ -69,6 +72,11 @@ script = ExtResource("4_rkktj")
 Icon = ExtResource("11_a501l")
 RoomType = 7
 
+[sub_resource type="Resource" id="Resource_vkd7j"]
+script = ExtResource("4_rkktj")
+Icon = ExtResource("12_p8nb1")
+RoomType = 8
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_31hmr"]
 size = Vector2(1125, 1125)
 
@@ -108,11 +116,13 @@ extraSlot = NodePath("PawnSlots/Extra")
 activationGraphic = NodePath("Overlay/Btn_Activate/Activation")
 header = NodePath("Overlay/Header")
 roomIconGraphic = NodePath("Overlay/Header/RoomIcon")
-roomIcons = [SubResource("Resource_inm74"), SubResource("Resource_y2fpd"), SubResource("Resource_u2lfq"), SubResource("Resource_7nnbh"), SubResource("Resource_yvkab"), SubResource("Resource_wwo3x"), SubResource("Resource_v1rbk"), SubResource("Resource_tbuks")]
+roomIcons = [SubResource("Resource_inm74"), SubResource("Resource_y2fpd"), SubResource("Resource_u2lfq"), SubResource("Resource_7nnbh"), SubResource("Resource_yvkab"), SubResource("Resource_wwo3x"), SubResource("Resource_v1rbk"), SubResource("Resource_tbuks"), SubResource("Resource_vkd7j")]
 roomNameLabel = NodePath("Overlay/Header/RoomName")
 slot1 = NodePath("Overlay/Slot1")
 slot2 = NodePath("Overlay/Slot2")
 activationButton = NodePath("Overlay/Btn_Activate")
+landerOrbit = ExtResource("13_2klqp")
+landerMars = ExtResource("14_1ww6x")
 
 [node name="Area2D" type="Area2D" parent="."]
 

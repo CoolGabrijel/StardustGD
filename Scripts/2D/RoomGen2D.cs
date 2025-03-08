@@ -104,7 +104,10 @@ namespace Stardust.Godot
 		{
 			Room2D roomNode = roomPrefab.Instantiate<Room2D>();
 			roomNode.Name = room.Name;
-			roomNode.Initialize(room, RoomToSprite(room), rr2d[room.RoomType].Tex_Activation);
+			Texture2D texActivation = rr2d[room.RoomType].Tex_Activation;
+			if (room.RoomType == RoomType.Airlock && StardustGameConfig.CurrentConfig.FirstStepsEnabled) texActivation = rr2d[RoomType.AirlockExpanded].Tex_Activation;
+
+            roomNode.Initialize(room, RoomToSprite(room), texActivation);
 			AddChild(roomNode);
 
 

@@ -1,6 +1,7 @@
 using Godot;
 using Stardust.Actions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Stardust.Godot
 {
@@ -49,7 +50,15 @@ namespace Stardust.Godot
             }
             if (Input.IsActionJustPressed("ActivateRoom"))
             {
-                if (LocalPlayer.Room.CanBeActivated) LocalPlayer.Room.ActivateAbility(LocalPlayer);
+                if (LocalPlayer.Room.CanBeActivated)
+                {
+                    bool canBeActivated = LocalPlayer.Room.CanBeActivated;
+                    bool hasEnergy = GameLogic.EnergyExpended < LocalPlayer.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy);
+
+                    if (!canBeActivated || !hasEnergy) return;
+
+                    LocalPlayer.Room.ActivateAbility(LocalPlayer);
+                }
             }
             if (Input.IsActionJustPressed("NextTurn"))
             {

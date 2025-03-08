@@ -120,7 +120,8 @@ namespace Stardust
                 List<MarsObjCardType> marsObjectives = new();
 
                 int marsObjAmount = 3;
-                if (StardustGameConfig.CurrentConfig.Difficulty == StardustGameConfig.GameDifficulty.Hard) marsObjAmount = 4;
+                if (StardustGameConfig.CurrentConfig.Difficulty == StardustGameConfig.GameDifficulty.Normal) marsObjAmount = 4;
+                else if (StardustGameConfig.CurrentConfig.Difficulty == StardustGameConfig.GameDifficulty.Hard) marsObjAmount = 5;
 
                 for (int i = 0; i < marsObjAmount; i++)
                 {

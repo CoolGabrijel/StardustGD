@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="RoomRes2D" load_steps=3 format=3 uid="uid://cdx6genjb8d5w"]
 
-[ext_resource type="Texture2D" uid="uid://dar45vg2vpec4" path="res://Textures/CaptainHoers/Rooms/Peak.tres" id="1_4iqnx"]
 [ext_resource type="Script" path="res://Scripts/2D/RoomRes2D.cs" id="1_4pd7v"]
+[ext_resource type="Texture2D" uid="uid://dpq4rmcooqdx0" path="res://Textures/CaptainHoers/Rooms/Peak.png" id="1_8i8mr"]
 
 [resource]
 script = ExtResource("1_4pd7v")
-Texture = ExtResource("1_4iqnx")
+Texture = ExtResource("1_8i8mr")
 Type = 11

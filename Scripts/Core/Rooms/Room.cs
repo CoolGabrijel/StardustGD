@@ -31,6 +31,9 @@ namespace Stardust
                 // Hab, Comms and Workshop have a higher capacity when player count is 3 or more
                 if (RoomType == RoomType.Habitation || RoomType == RoomType.Comms || RoomType == RoomType.Workshop && GameLogic.TurnQueue.Pawns.Length > 2)
                     return 2;
+                // Lander always has 2
+                if (RoomType == RoomType.Lander)
+                    return 2;
                 return 1;
             }
         }

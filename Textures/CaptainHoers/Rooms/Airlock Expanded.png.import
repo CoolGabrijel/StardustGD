@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0rmfro04bdpg"
-path="res://.godot/imported/AirlockExpansion.png-c4cec3a684e585a9a2289da068270b5c.ctex"
+uid="uid://dv3mb0b867ym6"
+path="res://.godot/imported/Airlock Expanded.png-07512826d99b6836f444435999150af0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/CaptainHoers/Rooms/AirlockExpansion.png"
-dest_files=["res://.godot/imported/AirlockExpansion.png-c4cec3a684e585a9a2289da068270b5c.ctex"]
+source_file="res://Textures/CaptainHoers/Rooms/Airlock Expanded.png"
+dest_files=["res://.godot/imported/Airlock Expanded.png-07512826d99b6836f444435999150af0.ctex"]
 
 [params]
 

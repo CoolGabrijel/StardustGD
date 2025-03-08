@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="RoomRes2D" load_steps=3 format=3 uid="uid://bdtau3170none"]
 
-[ext_resource type="Texture2D" uid="uid://djlx7dkcgltve" path="res://Textures/CaptainHoers/Rooms/Crater.tres" id="1_e7pwa"]
+[ext_resource type="Texture2D" uid="uid://cnviejqpxbvrf" path="res://Textures/CaptainHoers/Rooms/Crater.png" id="1_5l4pu"]
 [ext_resource type="Script" path="res://Scripts/2D/RoomRes2D.cs" id="1_ye1il"]
 
 [resource]
 script = ExtResource("1_ye1il")
-Texture = ExtResource("1_e7pwa")
+Texture = ExtResource("1_5l4pu")
 Type = 13

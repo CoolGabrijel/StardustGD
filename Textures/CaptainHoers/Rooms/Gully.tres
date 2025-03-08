@@ -1,7 +1,0 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://d0edowtkfrbjl"]
-
-[ext_resource type="Texture2D" uid="uid://dkonqyqcgjktc" path="res://Textures/CaptainHoers/Rooms/MarsTiles.png" id="1_o6p5t"]
-
-[resource]
-atlas = ExtResource("1_o6p5t")
-region = Rect2(410, 0, 410, 410)
