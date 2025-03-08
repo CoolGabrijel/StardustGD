@@ -1,14 +1,13 @@
 using Godot;
 using Stardust.Actions;
-using System;
-using System.Linq;
-using System.Reflection.PortableExecutable;
 
 namespace Stardust.Godot
 {
 	public partial class Pickup : Sprite2D
 	{
 		[Export] Area2D area;
+        [Export] Texture2D sparePartTexture;
+        [Export] Texture2D flagTexture;
 
 		private Pawn2D pawn;
         private Item item;
@@ -21,6 +20,7 @@ namespace Stardust.Godot
 			pawn = holder;
             item = itemToPickup;
 			GlobalPosition = globalPos;
+            SetTexture();
             area.InputEvent += OnInput;
             area.MouseEntered += OnHovered;
             area.MouseExited += OnMouseExit;
@@ -31,7 +31,6 @@ namespace Stardust.Godot
         {
             if (!circleAroundGraphic) return;
 
-            //GlobalPosition = pawn.GetFreeItemSlotPosition(item);
             Vector2 destination = pawn.GetFreeItemSlotPosition(item);
             float distance = GlobalPosition.DistanceTo(destination);
             GlobalPosition = GlobalPosition.MoveToward(destination, .05f * distance);
@@ -43,7 +42,6 @@ namespace Stardust.Godot
 			moveTween?.Kill();
 			moveTween = CreateTween();
             moveTween.TweenProperty(this, "scale", Vector2.One, .25f).SetTrans(Tween.TransitionType.Bounce);
-			//moveTween.TweenProperty(this, "global_position", pawn.GlobalPosition, 1f);
             moveTween.TweenCallback(Callable.From(() => circleAroundGraphic = true));
         }
 
@@ -61,7 +59,31 @@ namespace Stardust.Godot
 
         private void DropItem()
         {
-            IUndoableAction action = new DropItem(pawn.Pawn, pawn.Pawn.Room, item);
+            IUndoableAction action = null;
+
+            switch (item.Type)
+            {
+                case ItemType.Part:
+                    action = new DropItem(pawn.Pawn, pawn.Pawn.Room, item);
+                    break;
+                case ItemType.Sample:
+                    if (pawn.Pawn.Room.RoomType == RoomType.Lander)
+                        action = new CompleteMarsTask(pawn.Pawn, item);
+                    else
+                        action = new DropItem(pawn.Pawn, pawn.Pawn.Room, item);
+                    break;
+                case ItemType.Flag:
+                    if (pawn.Pawn.Room.RoomType == RoomType.Peak)
+                        action = new CompleteMarsTask(pawn.Pawn, item);
+                    else
+                        action = new DropItem(pawn.Pawn, pawn.Pawn.Room, item);
+                    break;
+                case ItemType.Objective:
+                    break;
+                default:
+                    break;
+            }
+
             action.Do();
             ActionLibrary.AddAction(action);
 
@@ -87,7 +109,26 @@ namespace Stardust.Godot
         {
             if (!CanDrop()) return;
 
-            Modulate = new Color("374666");
+            if (item.Type == ItemType.Part) Modulate = new Color("374666");
+            else Modulate = Colors.White;
+        }
+
+        private void SetTexture()
+        {
+            switch (item.Type)
+            {
+                case ItemType.Part:
+                    break;
+                case ItemType.Sample:
+                    break;
+                case ItemType.Flag:
+                    Texture = flagTexture;
+                    break;
+                case ItemType.Objective:
+                    break;
+                default:
+                    break;
+            }
         }
     } 
 }

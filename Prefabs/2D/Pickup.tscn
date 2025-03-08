@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdh4tuj3126iq"]
+[gd_scene load_steps=5 format=3 uid="uid://cdh4tuj3126iq"]
 
 [ext_resource type="Texture2D" uid="uid://b0nkqaymk30wj" path="res://Textures/CaptainHoers/Rooms/Icons/Workshop Icon.png" id="1_yjpc6"]
 [ext_resource type="Script" path="res://Scripts/2D/Pickup.cs" id="2_ykf1p"]
+[ext_resource type="Texture2D" uid="uid://be8stm1mh1362" path="res://Textures/CaptainHoers/Flag.png" id="3_wv0aa"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbqog"]
 radius = 37.054
@@ -11,6 +12,8 @@ modulate = Color(0.215686, 0.27451, 0.4, 1)
 texture = ExtResource("1_yjpc6")
 script = ExtResource("2_ykf1p")
 area = NodePath("Area2D")
+sparePartTexture = ExtResource("1_yjpc6")
+flagTexture = ExtResource("3_wv0aa")
 
 [node name="Area2D" type="Area2D" parent="."]
 

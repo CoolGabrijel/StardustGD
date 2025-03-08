@@ -130,7 +130,7 @@ namespace Stardust
                     marsObjectives.Add(randObjective);
                 }
 
-                marsObjectives = new() { MarsObjCardType.Flag }; // testing only.
+                marsObjectives = new() { MarsObjCardType.GullySample, MarsObjCardType.Flag }; // testing only.
 
                 foreach (MarsObjCardType objType in marsObjectives)
                 {

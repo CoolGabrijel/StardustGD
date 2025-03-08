@@ -27,6 +27,7 @@ namespace Stardust.Godot.UI
 			if (objective.Completed)
 			{
 				activeTween?.Kill();
+				activeTween = null;
 				Modulate = completedColor;
 				return;
 			}

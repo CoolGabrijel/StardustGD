@@ -95,7 +95,9 @@ namespace Stardust
                     tasks[0] = new FlagTask(RoomType.Lander);
                     break;
                 case ObjectiveHandler.MarsObjCardType.GullySample:
+                    tasks = new Task[2];
                     tasks[0] = new SampleTask(RoomType.Gully);
+                    tasks[1] = new SampleTask(RoomType.Gully);
                     break;
                 case ObjectiveHandler.MarsObjCardType.CraterSample:
                     tasks[0] = new SampleTask(RoomType.Crater);
