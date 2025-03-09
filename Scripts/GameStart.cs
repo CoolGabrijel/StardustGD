@@ -20,7 +20,7 @@ namespace Stardust.Godot
             StardustGameConfig config = new()
             {
                 // For testing purposes feel free to place anything in here
-                DamageDisabled = true,
+                DamageDisabled = false,
                 FirstStepsEnabled = true,
             };
             StardustGameConfig.CurrentConfig = config;

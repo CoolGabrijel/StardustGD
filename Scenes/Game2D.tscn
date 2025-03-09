@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=33 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/2D/RoomSelection2D.cs" id="8_6w5tx"]
 [ext_resource type="Texture2D" uid="uid://dx7yik4v2q2wg" path="res://Textures/CaptainHoers/Video icons/RW_FF.png" id="8_u05v0"]
 [ext_resource type="Texture2D" uid="uid://78bwjebsa1nx" path="res://Textures/CaptainHoers/Rooms/Airlock.png" id="9_p5cjo"]
+[ext_resource type="PackedScene" uid="uid://nmik5oau663j" path="res://Prefabs/UI/Game/DamageIndicator.tscn" id="9_phcxd"]
 [ext_resource type="Script" path="res://Scripts/UI/Game/TurnButtons.cs" id="9_yiud2"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="10_t882l"]
 [ext_resource type="PackedScene" uid="uid://drnsv3rfbym4u" path="res://Prefabs/UI/Game/VictoryScreen.tscn" id="11_alr5n"]
@@ -93,7 +94,8 @@ anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="DamageIndicator" type="Control" parent="HUD" node_paths=PackedStringArray("tickParent")]
+[node name="DamageIndicatorLegacy" type="Control" parent="HUD" node_paths=PackedStringArray("tickParent")]
+visible = false
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
@@ -108,7 +110,7 @@ healthyColor = Color(0.494118, 0.494118, 0.494118, 1)
 damagedColor = Color(0.819608, 0.239216, 0.258824, 1)
 tickParent = NodePath("DamageTicks/BG/Ticks")
 
-[node name="DmgIndicatorBG" type="TextureRect" parent="HUD/DamageIndicator"]
+[node name="DmgIndicatorBG" type="TextureRect" parent="HUD/DamageIndicatorLegacy"]
 self_modulate = Color(0.215686, 0.27451, 0.4, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -121,7 +123,7 @@ pivot_offset = Vector2(111.67, 0)
 texture = ExtResource("6_k5505")
 expand_mode = 3
 
-[node name="DmgIndicatorFG" type="TextureRect" parent="HUD/DamageIndicator"]
+[node name="DmgIndicatorFG" type="TextureRect" parent="HUD/DamageIndicatorLegacy"]
 self_modulate = Color(0.894118, 0.890196, 0.921569, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -132,7 +134,7 @@ grow_vertical = 2
 texture = ExtResource("6_k5505")
 expand_mode = 3
 
-[node name="Ticks" type="HBoxContainer" parent="HUD/DamageIndicator/DmgIndicatorFG"]
+[node name="Ticks" type="HBoxContainer" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG"]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -146,57 +148,57 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="DamageTick" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+[node name="DamageTick" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick2" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+[node name="DamageTick2" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick3" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+[node name="DamageTick3" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick4" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+[node name="DamageTick4" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick5" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+[node name="DamageTick5" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick6" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+[node name="DamageTick6" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick7" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+[node name="DamageTick7" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick8" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+[node name="DamageTick8" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick9" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+[node name="DamageTick9" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick10" type="ColorRect" parent="HUD/DamageIndicator/DmgIndicatorFG/Ticks"]
+[node name="DamageTick10" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DmgIndicatorFG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageText" type="Label" parent="HUD/DamageIndicator"]
+[node name="DamageText" type="Label" parent="HUD/DamageIndicatorLegacy"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -206,7 +208,7 @@ text = "Total Damage"
 label_settings = SubResource("LabelSettings_2v04b")
 horizontal_alignment = 1
 
-[node name="DamageTicks" type="Control" parent="HUD/DamageIndicator"]
+[node name="DamageTicks" type="Control" parent="HUD/DamageIndicatorLegacy"]
 clip_contents = true
 layout_mode = 1
 anchor_top = 0.5
@@ -220,7 +222,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="BG" type="TextureRect" parent="HUD/DamageIndicator/DamageTicks"]
+[node name="BG" type="TextureRect" parent="HUD/DamageIndicatorLegacy/DamageTicks"]
 self_modulate = Color(0.215686, 0.27451, 0.4, 1)
 clip_children = 2
 clip_contents = true
@@ -236,7 +238,7 @@ texture = ExtResource("6_k5505")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Ticks" type="HBoxContainer" parent="HUD/DamageIndicator/DamageTicks/BG"]
+[node name="Ticks" type="HBoxContainer" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -248,95 +250,100 @@ grow_vertical = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="DamageTick" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick2" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick2" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick3" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick3" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick4" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick4" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick5" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick5" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick6" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick6" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick7" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick7" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick8" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick8" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick9" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick9" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick10" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick10" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick11" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick11" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick12" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick12" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick13" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick13" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick14" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick14" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
 
-[node name="DamageTick15" type="ColorRect" parent="HUD/DamageIndicator/DamageTicks/BG/Ticks"]
+[node name="DamageTick15" type="ColorRect" parent="HUD/DamageIndicatorLegacy/DamageTicks/BG/Ticks"]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 color = Color(0.615686, 0.611765, 0.65098, 1)
+
+[node name="DamageIndicator" parent="HUD" instance=ExtResource("9_phcxd")]
+custom_minimum_size = Vector2(234, 50)
+offset_top = 13.0
+offset_bottom = 63.0
 
 [node name="TurnButtons" type="Control" parent="HUD" node_paths=PackedStringArray("nextTurnButton", "undoButton")]
 layout_mode = 3
