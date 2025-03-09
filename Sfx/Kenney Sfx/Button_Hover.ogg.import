@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://djwkl73sys1xk"
+path="res://.godot/imported/Button_Hover.ogg-de56d1e9f52e37aa443d56451ab77357.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sfx/Kenney Sfx/Button_Hover.ogg"
+dest_files=["res://.godot/imported/Button_Hover.ogg-de56d1e9f52e37aa443d56451ab77357.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

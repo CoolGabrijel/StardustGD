@@ -19,6 +19,10 @@ boot_splash/fullsize=false
 boot_splash/use_filter=false
 config/icon="res://Textures/CaptainHoers/StardustLogo.PNG"
 
+[audio]
+
+buses/default_bus_layout="res://Sfx/AudioBus.tres"
+
 [autoload]
 
 SplashScreen="*res://Scripts/UI/SplashScreen.cs"

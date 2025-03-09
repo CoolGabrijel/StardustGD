@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace Stardust.Godot
 {
@@ -10,7 +9,9 @@ namespace Stardust.Godot
 
         [Export] int spriteSize = 410;
         [Export] int sheenThickness = 20;
+        [Export] AudioStreamPlayer audioPlayer;
 
+        RandomNumberGenerator rng = new();
         Tween moveTween;
 
         public override void _Ready()
@@ -20,10 +21,16 @@ namespace Stardust.Godot
 
         public void SetPos(Vector2 pos)
         {
-            if (moveTween != null) moveTween.Kill();
+            moveTween?.Kill();
 
             moveTween = CreateTween();
             moveTween.TweenProperty(this, "global_position", pos, .1f);
+
+            if (pos != GlobalPosition)
+            {
+                audioPlayer.PitchScale = rng.RandfRange(0.9f, 1.1f);
+                audioPlayer.Play();
+            }
         }
     } 
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://br7af73781a77"]
+[gd_scene load_steps=50 format=3 uid="uid://br7af73781a77"]
 
 [ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
 [ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://be8stm1mh1362" path="res://Textures/CaptainHoers/Flag.png" id="24_oe6lm"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="25_3p8ij"]
 [ext_resource type="Texture2D" uid="uid://defq6ia742nep" path="res://Textures/Other/Hex.png" id="25_nat5u"]
+[ext_resource type="AudioStream" uid="uid://bvipnp56jmhm8" path="res://Sfx/Kenney Sfx/Room_Hover.ogg" id="32_sohkl"]
 
 [sub_resource type="Resource" id="Resource_inm74"]
 script = ExtResource("4_rkktj")
@@ -270,6 +271,7 @@ offset_left = 706.5
 offset_top = 78.5
 offset_right = 824.5
 offset_bottom = 149.5
+mouse_filter = 2
 texture = ExtResource("13_8w8f0")
 
 [node name="Btn_Obj" type="Button" parent="Overlay" node_paths=PackedStringArray("roomGraphic", "objLabel")]
@@ -635,3 +637,6 @@ texture = SubResource("GradientTexture2D_a7yvt")
 
 [node name="CenterPivot" type="Node" parent="Overlay/Btn_Damage/DamageFlash"]
 script = ExtResource("25_3p8ij")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("32_sohkl")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=32 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -21,7 +21,10 @@
 [ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="12_l0nto"]
 [ext_resource type="Script" path="res://Scripts/UI/Game/EnergyDisplay.cs" id="13_ghygi"]
 [ext_resource type="Texture2D" uid="uid://cfid71506n7nl" path="res://Textures/CaptainHoers/Battery.png" id="13_pndv2"]
+[ext_resource type="AudioStream" uid="uid://djwkl73sys1xk" path="res://Sfx/Kenney Sfx/Button_Hover.ogg" id="13_vipu5"]
+[ext_resource type="Script" path="res://Scripts/UI/ButtonHoverSfx.cs" id="14_4iwk4"]
 [ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="14_x6gs1"]
+[ext_resource type="AudioStream" uid="uid://bvipnp56jmhm8" path="res://Sfx/Kenney Sfx/Room_Hover.ogg" id="22_n1cgi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2v04b"]
 font = ExtResource("4_ypirp")
@@ -363,6 +366,7 @@ offset_bottom = -13.0
 grow_horizontal = 0
 grow_vertical = 0
 tooltip_text = "Next turn"
+mouse_default_cursor_shape = 2
 
 [node name="TextureRect" type="TextureRect" parent="HUD/TurnButtons/NextTurn"]
 layout_mode = 1
@@ -380,6 +384,13 @@ stretch_mode = 5
 [node name="CenterPivot" type="Node" parent="HUD/TurnButtons/NextTurn/TextureRect"]
 script = ExtResource("10_t882l")
 
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="HUD/TurnButtons/NextTurn"]
+stream = ExtResource("13_vipu5")
+bus = &"ButtonHover"
+script = ExtResource("14_4iwk4")
+pitchRandomMax = 0.9
+pitchRandomMin = 0.7
+
 [node name="Undo" type="Button" parent="HUD/TurnButtons"]
 layout_mode = 1
 anchors_preset = -1
@@ -394,6 +405,7 @@ offset_bottom = -18.0
 grow_horizontal = 0
 grow_vertical = 0
 tooltip_text = "Undo last turn"
+mouse_default_cursor_shape = 2
 
 [node name="TextureRect" type="TextureRect" parent="HUD/TurnButtons/Undo"]
 layout_mode = 1
@@ -410,6 +422,13 @@ stretch_mode = 5
 
 [node name="CenterPivot" type="Node" parent="HUD/TurnButtons/Undo/TextureRect"]
 script = ExtResource("10_t882l")
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="HUD/TurnButtons/Undo"]
+stream = ExtResource("13_vipu5")
+bus = &"ButtonHover"
+script = ExtResource("14_4iwk4")
+pitchRandomMax = 0.9
+pitchRandomMin = 0.7
 
 [node name="VictoryScreen" parent="HUD" instance=ExtResource("11_alr5n")]
 visible = false
@@ -777,12 +796,17 @@ label_settings = SubResource("LabelSettings_0djhh")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Selection" type="Sprite2D" parent="."]
+[node name="Selection" type="Sprite2D" parent="." node_paths=PackedStringArray("audioPlayer")]
 z_index = 1
 material = SubResource("ShaderMaterial_4pipj")
 texture = ExtResource("9_p5cjo")
 script = ExtResource("8_6w5tx")
 spriteSize = 1125
+audioPlayer = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Selection"]
+stream = ExtResource("22_n1cgi")
+bus = &"Sfx"
 
 [node name="Space" type="ColorRect" parent="."]
 z_index = -100
