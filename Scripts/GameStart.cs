@@ -35,11 +35,6 @@ namespace Stardust.Godot
             }
 
             LocalPlayer = GameLogic.TurnQueue.CurrentPawn;
-
-            foreach (Objective objective in ObjectiveHandler.Objectives)
-            {
-                GD.Print(objective.Name);
-            }
         }
 
         public override void _Process(double delta)

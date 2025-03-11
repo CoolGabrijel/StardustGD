@@ -78,6 +78,7 @@ movementSpeed = 30.0
 zoomSpeed = 0.05
 maxZoom = 0.4
 minZoom = 0.15
+boundaries = Vector2(5000, 3000)
 
 [node name="GameStart" type="Node" parent="." node_paths=PackedStringArray("roomGen", "pawnParent")]
 script = ExtResource("5_dg8px")

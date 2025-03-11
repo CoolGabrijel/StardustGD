@@ -9,6 +9,7 @@ namespace Stardust.Godot
         [Export] private float zoomSpeed { get; set; }
         [Export] private float maxZoom { get; set; }
         [Export] private float minZoom { get; set; }
+        [Export] private Vector2 boundaries { get; set; }
 
         private Vector3 input;
         private float desiredZoom;
@@ -25,6 +26,7 @@ namespace Stardust.Godot
 
             Vector2 movement = new(input.X, input.Y);
             Translate(movement * movementSpeed);
+            GlobalPosition = new Vector2(Mathf.Clamp(GlobalPosition.X, -boundaries.X, boundaries.X), Mathf.Clamp(GlobalPosition.Y, -boundaries.Y, boundaries.Y));
         }
 
         private void GetMovementInput()
