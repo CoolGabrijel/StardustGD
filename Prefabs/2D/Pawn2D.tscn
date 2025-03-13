@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dd12b25ehcgfr"]
+[gd_scene load_steps=21 format=3 uid="uid://dd12b25ehcgfr"]
 
 [ext_resource type="Script" path="res://Scripts/2D/Pawn2D.cs" id="1_2s7n1"]
 [ext_resource type="Texture2D" uid="uid://bn8evfrs86315" path="res://Textures/Other/HD Circle.png" id="1_400ln"]
@@ -13,6 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://cpk05b2mm7bje" path="res://Textures/CaptainHoers/Horse cards/Aurora.png" id="4_hta4c"]
 [ext_resource type="Texture2D" uid="uid://dsthg2hdprrio" path="res://Textures/CaptainHoers/Horse cards/Zambuko.png" id="4_y410x"]
 [ext_resource type="PackedScene" uid="uid://cdh4tuj3126iq" path="res://Prefabs/2D/Pickup.tscn" id="12_m4vaj"]
+[ext_resource type="Texture2D" uid="uid://cfid71506n7nl" path="res://Textures/CaptainHoers/Battery.png" id="14_4summ"]
+[ext_resource type="Texture2D" uid="uid://jnptibdxkwur" path="res://Textures/CaptainHoers/Video icons/Plus.png" id="15_rbygt"]
+[ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="15_ywbbs"]
+[ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="16_e2e0q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hkkdo"]
 radius = 70.0
@@ -27,10 +31,13 @@ gradient = SubResource("Gradient_nobyt")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="Pawn2D" type="Node2D" node_paths=PackedStringArray("charSprite", "auroraFlash")]
+[node name="Pawn2D" type="Node2D" node_paths=PackedStringArray("area", "charSprite", "energyCardContainer", "auroraFlash", "wolframAbilityNode")]
 script = ExtResource("1_2s7n1")
+area = NodePath("Area2D")
 charSprite = NodePath("CharSprite")
+energyCardContainer = NodePath("EnergyCards")
 auroraFlash = NodePath("AuroraFlash")
+wolframAbilityNode = NodePath("WolframAddCard")
 shaders = Array[ShaderMaterial]([ExtResource("3_xvb6n"), ExtResource("3_61e12"), ExtResource("3_5r0bn"), ExtResource("3_3v1r2"), ExtResource("3_b8qih")])
 textures = Array[Texture2D]([ExtResource("1_qgbsi"), ExtResource("4_hta4c"), ExtResource("4_y410x"), ExtResource("4_bxnp0"), ExtResource("4_355nh")])
 pickupPrefab = ExtResource("12_m4vaj")
@@ -39,6 +46,151 @@ pickupPrefab = ExtResource("12_m4vaj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_hkkdo")
+
+[node name="EnergyCards" type="Node2D" parent="."]
+
+[node name="Card" type="Node2D" parent="EnergyCards"]
+scale = Vector2(0.75, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnergyCards/Card"]
+position = Vector2(0, -225)
+rotation = -1.5708
+texture = ExtResource("14_4summ")
+
+[node name="Label" type="Label" parent="EnergyCards/Card"]
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -273.333
+offset_right = 40.0
+offset_bottom = -141.333
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("15_ywbbs")
+theme_override_font_sizes/font_size = 100
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Card2" type="Node2D" parent="EnergyCards"]
+rotation = 0.523599
+scale = Vector2(0.75, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnergyCards/Card2"]
+position = Vector2(0, -225)
+rotation = -1.5708
+texture = ExtResource("14_4summ")
+
+[node name="Label" type="Label" parent="EnergyCards/Card2"]
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -273.333
+offset_right = 40.0
+offset_bottom = -141.333
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("15_ywbbs")
+theme_override_font_sizes/font_size = 100
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Card3" type="Node2D" parent="EnergyCards"]
+rotation = 1.0472
+scale = Vector2(0.75, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnergyCards/Card3"]
+position = Vector2(0, -225)
+rotation = -1.5708
+texture = ExtResource("14_4summ")
+
+[node name="Label" type="Label" parent="EnergyCards/Card3"]
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -273.333
+offset_right = 40.0
+offset_bottom = -141.333
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("15_ywbbs")
+theme_override_font_sizes/font_size = 100
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Card4" type="Node2D" parent="EnergyCards"]
+rotation = -0.523599
+scale = Vector2(0.75, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnergyCards/Card4"]
+position = Vector2(0, -225)
+rotation = -1.5708
+texture = ExtResource("14_4summ")
+
+[node name="Label" type="Label" parent="EnergyCards/Card4"]
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -273.333
+offset_right = 40.0
+offset_bottom = -141.333
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("15_ywbbs")
+theme_override_font_sizes/font_size = 100
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Card5" type="Node2D" parent="EnergyCards"]
+rotation = -1.0472
+scale = Vector2(0.75, 0.75)
+
+[node name="Sprite2D" type="Sprite2D" parent="EnergyCards/Card5"]
+position = Vector2(0, -225)
+rotation = -1.5708
+texture = ExtResource("14_4summ")
+
+[node name="Label" type="Label" parent="EnergyCards/Card5"]
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -273.333
+offset_right = 40.0
+offset_bottom = -141.333
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("15_ywbbs")
+theme_override_font_sizes/font_size = 100
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WolframAddCard" type="Sprite2D" parent="."]
+position = Vector2(189, 145)
+texture = ExtResource("14_4summ")
+
+[node name="Plus" type="Sprite2D" parent="WolframAddCard"]
+position = Vector2(50, 42)
+scale = Vector2(0.145, 0.145)
+texture = ExtResource("15_rbygt")
+
+[node name="Bolt" type="Sprite2D" parent="WolframAddCard"]
+self_modulate = Color(0.215686, 0.27451, 0.4, 1)
+position = Vector2(-16, 1)
+texture = ExtResource("16_e2e0q")
 
 [node name="BGSprite" type="Sprite2D" parent="."]
 self_modulate = Color(0, 0, 0, 1)
