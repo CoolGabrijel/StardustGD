@@ -91,7 +91,8 @@ namespace Stardust
                 PawnType.Concorde,
                 PawnType.Zambuko,
                 PawnType.Rosetta,
-                PawnType.Aurora
+                PawnType.Aurora,
+                PawnType.Wolfram,
             };
 
             List<Pawn> pawns = new();

@@ -1,6 +1,9 @@
 using Godot;
+using Stardust.Actions;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Stardust.Godot
 {
@@ -23,7 +26,7 @@ namespace Stardust.Godot
 
         Tween moveTween;
 		Tween auroraFlashTween;
-		Tween wolframTween;
+		Tween hoverTween;
 
 		public void SetPawn(Pawn pawn)
 		{
@@ -51,6 +54,7 @@ namespace Stardust.Godot
 
             area.MouseEntered += OnMouseEnter;
             area.MouseExited += OnMouseExited;
+            area.InputEvent += OnMouseClicked;
 		}
 
         public Vector2 GetFreeItemSlotPosition(Item item)
@@ -89,18 +93,48 @@ namespace Stardust.Godot
 				angle += angleSegment;
 				cardToNode.Add(card, dupe);
 			}
-		}
+        }
+
+		// This is mainly just so wolfram can restore energy
+        private void OnMouseClicked(Node viewport, InputEvent @event, long shapeIdx)
+        {
+			if (GameStart.LocalPlayer.Type != PawnType.Wolfram) return;
+            if (@event is not InputEventMouseButton mouseEvent) return;
+
+            if (mouseEvent.ButtonMask == MouseButtonMask.Left)
+            {
+                // Check if we already have used the ability
+                if (!CanWolframRestore()) return;
+
+                int localMaxEnergy = GameStart.LocalPlayer.EnergyCards.Where((c) => !c.Exhausted).Max(x => x.Energy);
+                if (GameLogic.EnergyExpended + 1 > localMaxEnergy) return; // Check if we have spare energy for the action
+
+                IUndoableAction restoreAction = new WolframHeal(Pawn);
+
+                restoreAction.Do();
+                ActionLibrary.AddAction(restoreAction);
+
+                foreach (KeyValuePair<EnergyCard, Node2D> pair in cardToNode)
+                {
+                    if (pair.Key.Exhausted) pair.Value.Modulate = Colors.White / 2;
+                    else pair.Value.Modulate = Colors.White;
+                }
+            }
+        }
 
         private void OnMouseEnter()
         {
-			wolframTween?.Kill();
+			hoverTween?.Kill();
+            hoverTween = wolframAbilityNode.CreateTween();
+            hoverTween.SetEase(Tween.EaseType.Out);
+            hoverTween.SetTrans(Tween.TransitionType.Circ);
 
-			wolframTween = wolframAbilityNode.CreateTween();
-			wolframTween.SetEase(Tween.EaseType.Out);
-			wolframTween.SetTrans(Tween.TransitionType.Circ);
-			wolframTween.TweenProperty(wolframAbilityNode, "position", wolframNodePosition, .5f);
-			wolframTween.Parallel().TweenProperty(wolframAbilityNode, "scale", Vector2.One, .5f);
-			wolframTween.Parallel().TweenProperty(wolframAbilityNode, "modulate", Colors.White, .5f);
+			if (GameStart.LocalPlayer.Type == PawnType.Wolfram && Pawn.Type != PawnType.Wolfram && CanWolframRestore())
+            {
+                hoverTween.TweenProperty(wolframAbilityNode, "position", wolframNodePosition, .5f);
+                hoverTween.Parallel().TweenProperty(wolframAbilityNode, "scale", Vector2.One, .5f);
+                hoverTween.Parallel().TweenProperty(wolframAbilityNode, "modulate", Colors.White, .5f);
+            }
 
 			foreach (KeyValuePair<EnergyCard, Node2D> pair in cardToNode)
 			{
@@ -108,23 +142,23 @@ namespace Stardust.Godot
 				else pair.Value.Modulate = Colors.White;
 			}
 
-            wolframTween.Parallel().TweenProperty(energyCardContainer, "scale", Vector2.One, .5f);
-            wolframTween.Parallel().TweenProperty(energyCardContainer, "modulate", Colors.White, .5f);
+            hoverTween.Parallel().TweenProperty(energyCardContainer, "scale", Vector2.One, .5f);
+            hoverTween.Parallel().TweenProperty(energyCardContainer, "modulate", Colors.White, .5f);
         }
 
         private void OnMouseExited()
         {
-            wolframTween?.Kill();
+            hoverTween?.Kill();
 
-            wolframTween = wolframAbilityNode.CreateTween();
-            wolframTween.SetEase(Tween.EaseType.Out);
-            wolframTween.SetTrans(Tween.TransitionType.Circ);
-            wolframTween.TweenProperty(wolframAbilityNode, "position", Vector2.Zero, .75f);
-            wolframTween.Parallel().TweenProperty(wolframAbilityNode, "scale", Vector2.Zero, .75f);
-            wolframTween.Parallel().TweenProperty(wolframAbilityNode, "modulate", Colors.Transparent, .75f);
+            hoverTween = wolframAbilityNode.CreateTween();
+            hoverTween.SetEase(Tween.EaseType.Out);
+            hoverTween.SetTrans(Tween.TransitionType.Circ);
+            hoverTween.TweenProperty(wolframAbilityNode, "position", Vector2.Zero, .75f);
+            hoverTween.Parallel().TweenProperty(wolframAbilityNode, "scale", Vector2.Zero, .75f);
+            hoverTween.Parallel().TweenProperty(wolframAbilityNode, "modulate", Colors.Transparent, .75f);
 
-            wolframTween.Parallel().TweenProperty(energyCardContainer, "scale", Vector2.Zero, .75f);
-            wolframTween.Parallel().TweenProperty(energyCardContainer, "modulate", Colors.Transparent, .75f);
+            hoverTween.Parallel().TweenProperty(energyCardContainer, "scale", Vector2.Zero, .75f);
+            hoverTween.Parallel().TweenProperty(energyCardContainer, "modulate", Colors.Transparent, .75f);
         }
 
         private void OnPawnMoved()
@@ -160,5 +194,17 @@ namespace Stardust.Godot
 
             GD.Print($"Aurora blocked damage in {Pawn.Room.Name}");
         }
+
+		private bool CanWolframRestore()
+		{
+			for (int i = ActionLibrary.Actions.Count-1; i >= 0; i--)
+			{
+				IUndoableAction action = ActionLibrary.Actions[i];
+                if (action is WolframHeal) return false;
+                if (action is EndTurn || action is Sleep) return true;
+            }
+
+			return true;
+		}
 	} 
 }
