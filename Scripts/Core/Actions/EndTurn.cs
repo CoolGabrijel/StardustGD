@@ -18,6 +18,8 @@ namespace Stardust.Actions
 
         public void Do()
         {
+            EnergyExpended = GameLogic.EnergyExpended;
+
             if (!SkipActionCardExhaustion)
             {
                 exhaustedCard = GetLowestCard();
@@ -33,7 +35,6 @@ namespace Stardust.Actions
             //if (DamagedRoom == null) DamagedRoom = GameLogic.GetRoomToDamage();
             //DamagedRoom.Damage();
 
-            EnergyExpended = GameLogic.EnergyExpended;
             GameLogic.EndTurn();
         }
 

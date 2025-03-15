@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace Stardust.Godot
+namespace Stardust.Godot.UI
 {
 	public partial class DamageIndicator : Control
 	{
@@ -9,6 +9,11 @@ namespace Stardust.Godot
 		[Export] Color damagedColor;
 		[ExportCategory("References")]
 		[Export] Control tickParent;
+
+        public override void _Ready()
+        {
+			InstantiateTicks();
+        }
 
         public override void _Process(double delta)
         {
@@ -30,6 +35,18 @@ namespace Stardust.Godot
 			}
 
 			return damage;
+		}
+
+		private void InstantiateTicks()
+		{
+			Node dupe = tickParent.GetChild(0).Duplicate();
+			tickParent.FreeChildren();
+
+			for (int i = 0; i < GameLogic.MaxDamage; i++)
+			{
+				Node instance = dupe.Duplicate();
+				tickParent.AddChild(instance);
+			}
 		}
     } 
 }

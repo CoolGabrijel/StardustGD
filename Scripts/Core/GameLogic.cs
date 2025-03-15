@@ -8,7 +8,7 @@ namespace Stardust
 	public static class GameLogic
     {
         /// <summary>
-        /// Fired when the players win or lose. Boolean represents that.
+        /// Fired when the players win or lose. True if Victory.
         /// </summary>
         public static event Action<bool> OnGameFinished;
 
@@ -17,48 +17,53 @@ namespace Stardust
         public static TurnQueue TurnQueue { get; private set; }
         public static DamageManager DamageManager { get; private set; } = new(RoomManager);
 
-        public static void BeginGame()
+        /// <summary>
+        /// Station can handle up to (including) this much damage.
+        /// </summary>
+        public static int MaxDamage
+        {
+            get
+            {
+                if (StardustGameConfig.CurrentConfig.FirstStepsEnabled) return 17;
+                else return 15;
+            }
+        }
+
+        public static void BeginGame(PawnType[] pawns)
         {
             RoomManager.GenerateRooms();
             ObjectiveHandler.Initialize(6);
-            SpawnPawns();
+            SpawnPawns(pawns);
         }
 
-		public static void EndTurn(bool skipExhaustion = false)
+		public static void EndTurn()
 		{
-            //int randRoomIndex = rng.Next(RoomManager.Rooms.Length);
-            //Room randRoom = RoomManager.Rooms[randRoomIndex];
-            //randRoom.Damage();
+            TurnQueue.Next();
 
             if (CheckFailState()) AnnounceGameEnd(false);
 
-            //if (!skipExhaustion) ExhaustPawn(TurnQueue.CurrentPawn);
-
-            TurnQueue.Next();
-
             EnergyExpended = 0;
-		}
+        }
 
+        /// <summary>
+        /// Call to signal the game ended and at which state.
+        /// </summary>
+        /// <param name="v">True for Victory, False for Defeat.</param>
+        public static void AnnounceGameEnd(bool v)
+        {
+            OnGameFinished?.Invoke(v);
+        }
+
+        /// <returns>True if current pawn is fully exhausted or damage exceeds max.</returns>
         private static bool CheckFailState()
         {
             bool fullyExhausted = ExhaustedCheck();
             bool damaged = DamageCheck();
 
             return fullyExhausted || damaged;
-
         }
 
-        private static void ExhaustPawn(Pawn pawn)
-        {
-            EnergyCard card = pawn.EnergyCards.Where((x) => !x.Exhausted).Where((x) => x.Energy >= EnergyExpended).FirstOrDefault();
-
-            if (card == null) return;
-
-            card.Exhausted = true;
-            GD.Print($"GameLogic :: Exhausting {card.Energy} Energy");
-        }
-
-        /// <returns>True if current pawn is fully exhausted (No cards can be activated)</returns>
+        /// <returns>True if current pawn is fully exhausted (No cards can be activated).</returns>
         private static bool ExhaustedCheck()
         {
             foreach (EnergyCard card in TurnQueue.CurrentPawn.EnergyCards)
@@ -72,7 +77,7 @@ namespace Stardust
             return true;
         }
 
-        /// <returns>True if station damage reaches above a certain point</returns>
+        /// <returns>True if station damage reaches above a certain point.</returns>
         private static bool DamageCheck()
         {
             int accumulatedDamage = 0;
@@ -81,41 +86,46 @@ namespace Stardust
                 accumulatedDamage += room.DamageAmount;
             }
 
-            return accumulatedDamage > 15;
+            return accumulatedDamage > MaxDamage;
         }
 
-        private static void SpawnPawns()
+        /// <summary>
+        /// Creates the Pawn objects, assigns them energy cards and adds them to the turn queue.
+        /// </summary>
+        /// <param name="pawnTypes">Characters that will be in the game.</param>
+        private static void SpawnPawns(PawnType[] pawnTypes)
         {
-            PawnType[] pawnTypes = new PawnType[]
-            {
-                PawnType.Concorde,
-                PawnType.Zambuko,
-                PawnType.Rosetta,
-                PawnType.Aurora,
-                PawnType.Wolfram,
-            };
-
             List<Pawn> pawns = new();
 
             foreach (PawnType type in pawnTypes)
             {
-                EnergyCard[] cards = new EnergyCard[5];
-                cards[0] = new(3);
-                cards[1] = new(3);
-                cards[2] = new(4);
-                cards[3] = new(4);
-                cards[4] = new(5);
+                EnergyCard[] cards;
+
+                if (pawnTypes.Length >= 4)
+                {
+                    cards = new EnergyCard[5];
+                    cards[0] = new(3);
+                    cards[1] = new(3);
+                    cards[2] = new(4);
+                    cards[3] = new(4);
+                    cards[4] = new(5);
+                }
+                else
+                {
+                    cards = new EnergyCard[6];
+                    cards[0] = new(3);
+                    cards[1] = new(3);
+                    cards[2] = new(4);
+                    cards[3] = new(4);
+                    cards[4] = new(5);
+                    cards[5] = new(5);
+                }
 
                 Pawn pawn = new(type, cards);
                 pawns.Add(pawn);
             }
 
             TurnQueue = new(pawns.ToArray());
-        }
-
-        public static void AnnounceGameEnd(bool v)
-        {
-            OnGameFinished?.Invoke(v);
         }
     } 
 }

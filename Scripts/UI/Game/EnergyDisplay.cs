@@ -15,7 +15,7 @@ namespace Stardust.Godot.UI
 		public override void _Ready()
 		{
 			previousPawn = GameStart.LocalPlayer;
-			AssignCards(GameStart.LocalPlayer);
+			InstantiateCards(GameStart.LocalPlayer);
         }
 
 		public override void _Process(double delta)
@@ -45,6 +45,8 @@ namespace Stardust.Godot.UI
             {
                 // Card that will be exhausted
                 EnergyCard card = GameStart.LocalPlayer.EnergyCards.Where((x) => !x.Exhausted).Where((x) => x.Energy >= GameLogic.EnergyExpended).FirstOrDefault();
+				if (card == null) return; // When every card is depleted, card will be null
+
 				// Visualize it
                 cardToPanel[card].Modulate = new Color(2, 2, 2);
             }
@@ -59,5 +61,20 @@ namespace Stardust.Godot.UI
                 cardToPanel.Add(pawn.EnergyCards[i], actionCardContainer.GetChild<Panel>(i));
             }
         }
+
+		private void InstantiateCards(Pawn pawn)
+		{
+			Node cardGraphicPrefab = actionCardContainer.GetChild(0).Duplicate();
+
+			actionCardContainer.FreeChildren();
+
+			foreach (EnergyCard card in pawn.EnergyCards)
+			{
+				Node instance = cardGraphicPrefab.Duplicate();
+				instance.GetNode<Label>("Label").Text = card.Energy.ToString();
+				actionCardContainer.AddChild(instance);
+				cardToPanel.Add(card, instance as Panel);
+			}
+		}
 	} 
 }

@@ -25,8 +25,15 @@ namespace Stardust.Godot
             };
             StardustGameConfig.CurrentConfig = config;
 
+            PawnType[] pawns = new PawnType[]
+            {
+                PawnType.Concorde,
+                PawnType.Zambuko,
+                PawnType.Rosetta,
+            };
+
             pawnToGraphic = new();
-            GameLogic.BeginGame();
+            GameLogic.BeginGame(pawns);
             roomGen.Generate(GameLogic.RoomManager);
 
             foreach (Pawn pawn in GameLogic.TurnQueue.Pawns)
