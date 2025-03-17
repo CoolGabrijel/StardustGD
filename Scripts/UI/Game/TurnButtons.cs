@@ -35,7 +35,9 @@ namespace Stardust.Godot.UI
         {
 			if (!CanNextTurn) return;
 
-            EndTurn action = new EndTurn();
+			IUndoableAction action;
+			if (GameStart.LocalPlayer.Type == PawnType.Zambuko) action = new ZambukoEndTurn();
+			else action = new EndTurn();
 			action.Do();
             ActionLibrary.AddAction(action);
         }
