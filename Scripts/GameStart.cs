@@ -28,8 +28,7 @@ namespace Stardust.Godot
             PawnType[] pawns = new PawnType[]
             {
                 PawnType.Concorde,
-                PawnType.Zambuko,
-                PawnType.Rosetta,
+                PawnType.Aurora,
             };
 
             pawnToGraphic = new();

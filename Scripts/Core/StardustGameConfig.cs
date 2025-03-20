@@ -10,8 +10,9 @@ namespace Stardust
 		public static StardustGameConfig CurrentConfig { get; set; }
 
 
-		public bool DamageDisabled { get; set; } = false;
 		public bool FirstStepsEnabled { get; set; } = false;
 		public GameDifficulty Difficulty { get; set; } = GameDifficulty.Easy;
-	} 
+        public bool DamageDisabled { get; set; } = false;
+		public bool FailStateDisabled { get; set; } = false;
+    } 
 }

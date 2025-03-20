@@ -51,6 +51,7 @@ namespace Stardust
         /// <param name="v">True for Victory, False for Defeat.</param>
         public static void AnnounceGameEnd(bool v)
         {
+            if (!v && StardustGameConfig.CurrentConfig.FailStateDisabled) return;
             OnGameFinished?.Invoke(v);
         }
 

@@ -119,6 +119,13 @@ namespace Stardust.Godot
 				//GD.Print($"{Room.Name}: Left click");
 				if (GameLogic.TurnQueue.CurrentPawn.Room == Room) return; // We don't want to move to the Room we're already in.
 
+				// If Airlock is broken, we shouldn't be able to get to or leave solar panels.
+				if (Room.RoomType == RoomType.SolarPanels || GameStart.LocalPlayer.Room.RoomType == RoomType.SolarPanels)
+                {
+                    Room airlock = GameLogic.RoomManager.GetRoomByType(RoomType.Airlock);
+					if (airlock.Broken) return;
+                }
+
 				Direction movDir = GameStart.LocalPlayer.LastMovementDirection;
 				Room[] path = Pathfinding.GetPath(Room, GameStart.LocalPlayer);
 				int cost = GameStart.LocalPlayer.CalculateMoveCost(path);
