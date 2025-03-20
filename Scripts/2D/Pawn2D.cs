@@ -21,6 +21,7 @@ namespace Stardust.Godot
 		[Export] private Texture2D[] textures;
         [Export] PackedScene pickupPrefab;
 
+		PawnSlot2D assignedSlot;
 		Vector2 wolframNodePosition;
 		Dictionary<EnergyCard, Node2D> cardToNode = new();
 
@@ -56,6 +57,14 @@ namespace Stardust.Godot
             area.MouseExited += OnMouseExited;
             area.InputEvent += OnMouseClicked;
 		}
+
+		// This is mostly here because Lander moves and we need to follow it.
+        public override void _Process(double delta)
+        {
+			if (moveTween != null && moveTween.IsRunning()) return;
+
+			GlobalPosition = assignedSlot.GlobalPosition;
+        }
 
         public Vector2 GetFreeItemSlotPosition(Item item)
 		{
@@ -166,6 +175,7 @@ namespace Stardust.Godot
 			Node2D room = RoomGen2D.GetRoomNodeByType(Pawn.Room.RoomType);
 			PawnSlot2D slot = ((Room2D)room).GetVacantSlot();
 			slot.AssignPawn(Pawn);
+			assignedSlot = slot;
 
 			moveTween?.Kill();
 
