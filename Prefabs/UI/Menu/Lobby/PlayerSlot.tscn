@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cwnns2jklwavn"]
+[gd_scene load_steps=22 format=3 uid="uid://cwnns2jklwavn"]
 
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_8pbng"]
 [ext_resource type="Script" path="res://Scripts/UI/Menu/PlayerSlot.cs" id="1_boct3"]
@@ -10,13 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dxw4c53leeyvu" path="res://Textures/CaptainHoers/Horse cards/Wolfram.png" id="6_46rq7"]
 [ext_resource type="Texture2D" uid="uid://but26v3hn718u" path="res://Textures/Other/LobbyFrame.png" id="7_d1nhi"]
 [ext_resource type="Texture2D" uid="uid://2via82jj3s0v" path="res://Textures/Kenney/Particles/circle_05.png" id="8_e5you"]
-
-[sub_resource type="Gradient" id="Gradient_m6c2l"]
-colors = PackedColorArray(0.4278, 0.457853, 0.46, 1, 0.807843, 0.866667, 0.870588, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_y8h1g"]
-gradient = SubResource("Gradient_m6c2l")
-fill_to = Vector2(0, 1)
+[ext_resource type="Texture2D" uid="uid://4qydkeog265d" path="res://Textures/Other/Lobby_Frame_New.png" id="9_ibks8"]
 
 [sub_resource type="Gradient" id="Gradient_jcr57"]
 offsets = PackedFloat32Array(0.223629, 1)
@@ -25,6 +19,42 @@ colors = PackedColorArray(0, 0, 0, 0.733333, 0, 0, 0, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ry8s3"]
 gradient = SubResource("Gradient_jcr57")
 fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_5103j"]
+offsets = PackedFloat32Array(0, 0.388186)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ttpjg"]
+gradient = SubResource("Gradient_5103j")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_23nr6"]
+offsets = PackedFloat32Array(0.907173, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.466667)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jyntr"]
+gradient = SubResource("Gradient_23nr6")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_7aaou"]
+offsets = PackedFloat32Array(0, 0.793249)
+colors = PackedColorArray(0, 0, 0, 0.54902, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ka4bk"]
+gradient = SubResource("Gradient_7aaou")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+
+[sub_resource type="Gradient" id="Gradient_62b6i"]
+offsets = PackedFloat32Array(0, 0.464135)
+colors = PackedColorArray(0, 0, 0, 0.443137, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1efue"]
+gradient = SubResource("Gradient_62b6i")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
 
 [node name="PlayerSlot" type="Control" node_paths=PackedStringArray("portrait", "nameplate")]
 custom_minimum_size = Vector2(180, 0)
@@ -46,7 +76,7 @@ portraits = {
 "Zambuko": ExtResource("4_yh51v")
 }
 
-[node name="Frame" type="Control" parent="."]
+[node name="NewFrame" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,53 +84,292 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Mid" type="ColorRect" parent="Frame"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -3.0
-offset_right = 3.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.8091, 0.864925, 0.87, 1)
-
-[node name="Top" type="ColorRect" parent="Frame"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 0.2
-offset_left = -5.0
-offset_top = -3.0
-offset_right = 5.0
-grow_horizontal = 2
-color = Color(0.8091, 0.864925, 0.87, 1)
-
-[node name="TextureRect" type="TextureRect" parent="Frame/Top"]
+[node name="NinePatchRect" type="NinePatchRect" parent="NewFrame"]
+self_modulate = Color(0.92, 0.941333, 1, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -24.0
+offset_right = 8.0
+offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_y8h1g")
-expand_mode = 1
+texture = ExtResource("9_ibks8")
+patch_margin_left = 8
+patch_margin_top = 78
+patch_margin_right = 65
+patch_margin_bottom = 61
 
-[node name="Bot" type="ColorRect" parent="Frame"]
-visible = false
+[node name="RAM2" type="Control" parent="NewFrame/NinePatchRect"]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.8
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -5.0
-offset_right = 5.0
-offset_bottom = 3.0
+offset_left = 10.0
+offset_right = -10.0
+offset_bottom = 9.0
 grow_horizontal = 2
 grow_vertical = 0
-color = Color(0.8091, 0.864925, 0.87, 1)
+
+[node name="Bind" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0313726, 0.0666667, 0.0745098, 1)
+
+[node name="Left" type="Control" parent="NewFrame/NinePatchRect/RAM2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -69.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1148, 0.241453, 0.28, 1)
+
+[node name="Pins" type="HBoxContainer" parent="NewFrame/NinePatchRect/RAM2/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Pin" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin2" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin3" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin4" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin5" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin6" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin7" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin8" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin9" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin10" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin11" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin12" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin13" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin14" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin15" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Left/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Shadow" type="TextureRect" parent="NewFrame/NinePatchRect/RAM2/Left"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ry8s3")
+expand_mode = 1
+
+[node name="Right" type="Control" parent="NewFrame/NinePatchRect/RAM2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.113725, 0.243137, 0.278431, 1)
+
+[node name="Pins" type="HBoxContainer" parent="NewFrame/NinePatchRect/RAM2/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="Pin" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin2" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin3" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin4" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin5" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin6" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin7" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin8" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin9" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Pin10" type="ColorRect" parent="NewFrame/NinePatchRect/RAM2/Right/Pins"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.768627, 0.788235, 0.14902, 1)
+
+[node name="Shadow" type="TextureRect" parent="NewFrame/NinePatchRect/RAM2/Right"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ry8s3")
+expand_mode = 1
+
+[node name="ReadyLabel2" type="Label" parent="NewFrame/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -58.0
+offset_top = -1.0
+offset_right = -3.0
+offset_bottom = 18.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.194349, 0.194349, 0.194349, 1)
+theme_override_font_sizes/font_size = 9
+text = "READY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReadyLight2" type="TextureRect" parent="NewFrame/NinePatchRect"]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -21.0
+offset_top = -4.0
+offset_right = 6.0
+offset_bottom = 22.0
+grow_horizontal = 0
+texture = SubResource("GradientTexture2D_ttpjg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Frame" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Frame"]
 self_modulate = Color(0.921569, 0.992157, 1, 1)
@@ -409,6 +678,15 @@ texture = ExtResource("1_ndgp0")
 expand_mode = 3
 stretch_mode = 4
 
+[node name="Shadow" type="TextureRect" parent="PortraitWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_jyntr")
+
 [node name="NamePlate" type="Control" parent="."]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 1
@@ -471,6 +749,71 @@ grow_vertical = 2
 text = "NOT READY"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Slot" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 30.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="Slot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.192157, 0.192157, 0.192157, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Slot"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.02
+anchor_top = 0.5
+anchor_right = 0.98
+anchor_bottom = 0.5
+offset_top = -7.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.281187, 0.281187, 0.281187, 1)
+
+[node name="Shadow" type="TextureRect" parent="Slot/ColorRect2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_ka4bk")
+expand_mode = 1
+
+[node name="ColorRect3" type="ColorRect" parent="Slot"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 19.0
+offset_right = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.192157, 0.192157, 0.192157, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Slot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_1efue")
+expand_mode = 1
 
 [node name="Fade" type="ColorRect" parent="."]
 visible = false
