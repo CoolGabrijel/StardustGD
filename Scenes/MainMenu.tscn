@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=24 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cj2uv7qqst7ee" path="res://Textures/Other/SmoothDrawer.png" id="6_03cc2"]
 [ext_resource type="PackedScene" uid="uid://7ky63yvh43nu" path="res://Prefabs/UI/Menu/Lobby/LobbySelectableChar.tscn" id="6_56qg5"]
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="7_af3c0"]
+[ext_resource type="Script" path="res://Scripts/UI/AdvancedPivot.cs" id="7_mpixp"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="9_r72vk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqfu"]
@@ -28,13 +29,53 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="Gradient" id="Gradient_n42we"]
+[sub_resource type="Gradient" id="Gradient_nlbla"]
 offsets = PackedFloat32Array(0.489451, 1)
 colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 0.368627)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_fnjlc"]
-gradient = SubResource("Gradient_n42we")
+gradient = SubResource("Gradient_nlbla")
 fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l31we"]
+bg_color = Color(1.89891e-08, 0.0387635, 0.00165541, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Gradient" id="Gradient_lsbwr"]
+offsets = PackedFloat32Array(0.405063, 0.578059, 0.767932)
+colors = PackedColorArray(1, 1, 1, 0, 0.004, 0.06, 0, 0.117647, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_736v6"]
+gradient = SubResource("Gradient_lsbwr")
+width = 16
+height = 8
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_gnrup"]
+offsets = PackedFloat32Array(0.687764, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.372549)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4dp3w"]
+gradient = SubResource("Gradient_gnrup")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gh10y"]
+bg_color = Color(0.172833, 0.61, 0, 0.647059)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0428011, 0.340489, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+expand_margin_left = 5.0
+expand_margin_right = 5.0
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -323,46 +364,10 @@ anchor_top = 0.2
 anchor_right = 0.5
 anchor_bottom = 0.75
 offset_left = -533.0
-offset_top = -20.0
+offset_top = 430.0
 offset_right = 533.0
-offset_bottom = 20.0
+offset_bottom = 470.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_a4e60")
-
-[node name="Players" type="Control" parent="LobbyScreen/Panel"]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -178.0
-offset_bottom = 184.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="LobbyScreen/Panel/Players"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="PlayerSlot" parent="LobbyScreen/Panel/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
-layout_mode = 2
-
-[node name="PlayerSlot4" parent="LobbyScreen/Panel/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
-layout_mode = 2
-
-[node name="PlayerSlot5" parent="LobbyScreen/Panel/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
-layout_mode = 2
-
-[node name="PlayerSlot2" parent="LobbyScreen/Panel/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
-layout_mode = 2
-
-[node name="PlayerSlot3" parent="LobbyScreen/Panel/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
-layout_mode = 2
 
 [node name="CharSelectDrawer" type="NinePatchRect" parent="LobbyScreen/Panel"]
 self_modulate = Color(0.913725, 0.913725, 0.913725, 1)
@@ -438,32 +443,111 @@ flip_v = true
 [node name="CenterPivot" type="Node" parent="LobbyScreen/Panel/Label"]
 script = ExtResource("9_r72vk")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LobbyScreen"]
+[node name="Panel" type="Panel" parent="LobbyScreen/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l31we")
+
+[node name="Scanlines" type="TextureRect" parent="LobbyScreen/Panel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_736v6")
+stretch_mode = 1
+
+[node name="Shadow" type="TextureRect" parent="LobbyScreen/Panel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_4dp3w")
+
+[node name="Players" type="Control" parent="LobbyScreen"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -9.0
+offset_top = -196.0
+offset_right = -9.0
+offset_bottom = 166.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.855, 0.855)
+pivot_offset = Vector2(640, 414.128)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LobbyScreen/Players"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="PlayerSlot" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+layout_mode = 2
+
+[node name="PlayerSlot4" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+layout_mode = 2
+
+[node name="PlayerSlot5" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+layout_mode = 2
+IsLocal = true
+
+[node name="PlayerSlot2" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+layout_mode = 2
+
+[node name="PlayerSlot3" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+layout_mode = 2
+
+[node name="AdvancedPivot" type="Node" parent="LobbyScreen/Players"]
+script = ExtResource("7_mpixp")
+pivot = Vector2(0.5, 1.144)
+
+[node name="Buttons" type="HBoxContainer" parent="LobbyScreen"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.426
 anchor_top = 0.824
 anchor_right = 0.574
 anchor_bottom = 0.879
-offset_left = -0.280029
+offset_left = -21.78
 offset_top = -0.280029
-offset_right = 0.280029
-offset_bottom = 0.119934
+offset_right = 56.412
+offset_bottom = 2.83997
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Button" type="Button" parent="LobbyScreen/HBoxContainer"]
+[node name="Button" type="Button" parent="LobbyScreen/Buttons"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Leave"
 
-[node name="Button2" type="Button" parent="LobbyScreen/HBoxContainer"]
+[node name="Button2" type="Button" parent="LobbyScreen/Buttons"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_gh10y")
 text = "READY"
 
-[node name="Button3" type="Button" parent="LobbyScreen/HBoxContainer"]
+[node name="Button3" type="Button" parent="LobbyScreen/Buttons"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Options"

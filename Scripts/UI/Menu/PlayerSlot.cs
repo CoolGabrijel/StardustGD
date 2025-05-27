@@ -5,9 +5,11 @@ namespace Stardust.Godot.UI
 {
 	public partial class PlayerSlot : Control
 	{
+		[Export] bool IsLocal;
 		[Export] TextureRect portrait;
 		[Export] Label nameplate;
 		[Export] ShaderMaterial greyscaleShader;
+		[Export] Control characterSelectDrawer;
 
 		[Export] Dictionary<string, Texture2D> portraits;
 
@@ -15,6 +17,7 @@ namespace Stardust.Godot.UI
 		private string selectedChar = "Random";
 		private int randIndex = 0;
 		private Tween randCycleTween;
+		private Tween charDrawerTween;
 
 		public override void _Ready()
 		{
@@ -28,18 +31,49 @@ namespace Stardust.Godot.UI
 			};
 			GenerateSelectableChars(pawns);
 			ChangePortrait(selectedChar);
+
+			if (!IsLocal)
+			{
+				characterSelectDrawer.QueueFree();
+				portrait.GetParent<Control>().MouseFilter = MouseFilterEnum.Ignore;
+				MouseFilter = MouseFilterEnum.Ignore;
+			}
+			else
+			{
+				ZIndex += 1;
+                MouseEntered += OnMouseEntered;
+                MouseExited += OnMouseExited;
+			}
 		}
 
-		public override void _Process(double delta)
+        public override void _Process(double delta)
 		{
 
 			if (Input.IsKeyPressed(Key.H))
 			{
 				ChangePortrait("Zambuko");
 			}
-		}
+        }
 
-		public void GenerateSelectableChars(PawnType[] chars)
+        private void OnMouseEntered()
+        {
+			charDrawerTween?.Kill();
+
+			charDrawerTween = CreateTween();
+			charDrawerTween.SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.Out);
+			charDrawerTween.TweenProperty(characterSelectDrawer, "position", Vector2.Right * 75, .25f);
+        }
+
+        private void OnMouseExited()
+        {
+            charDrawerTween?.Kill();
+
+            charDrawerTween = CreateTween();
+            charDrawerTween.SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.In);
+            charDrawerTween.TweenProperty(characterSelectDrawer, "position", Vector2.Zero, .25f);
+        }
+
+        public void GenerateSelectableChars(PawnType[] chars)
 		{
 			selectableChars = new string[chars.Length + 1];
 			selectableChars[0] = "Random";
