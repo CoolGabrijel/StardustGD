@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=27 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -63,6 +63,32 @@ gradient = SubResource("Gradient_gnrup")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7gwlm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0snk2"]
+bg_color = Color(0.243667, 0.86, 0, 0.647059)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0428011, 0.340489, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yyds3"]
+bg_color = Color(0.283333, 1, 0, 0.647059)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0428011, 0.340489, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gh10y"]
 bg_color = Color(0.172833, 0.61, 0, 0.647059)
 border_width_left = 2
@@ -74,8 +100,6 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
-expand_margin_left = 5.0
-expand_margin_right = 5.0
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -544,8 +568,11 @@ text = "Leave"
 [node name="Button2" type="Button" parent="LobbyScreen/Buttons"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7gwlm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0snk2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yyds3")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gh10y")
-text = "READY"
+text = " READY "
 
 [node name="Button3" type="Button" parent="LobbyScreen/Buttons"]
 layout_mode = 2
