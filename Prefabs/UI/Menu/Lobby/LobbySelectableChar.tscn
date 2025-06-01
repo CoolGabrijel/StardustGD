@@ -155,3 +155,5 @@ stretch_mode = 4
 
 [node name="CenterPivot" type="Node" parent="Mask"]
 script = ExtResource("10_ciy2j")
+
+[connection signal="pressed" from="Button" to="." method="OnClicked"]

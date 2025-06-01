@@ -225,26 +225,26 @@ mouse_filter = 2
 theme_override_constants/separation = -20
 alignment = 1
 
-[node name="LobbySelectableChar" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
+[node name="Random" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
 layout_mode = 2
 isRandom = true
 
-[node name="LobbySelectableChar6" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
+[node name="Concorde" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
 layout_mode = 2
 
-[node name="LobbySelectableChar2" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
+[node name="Aurora" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
 layout_mode = 2
 PawnType = 1
 
-[node name="LobbySelectableChar3" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
+[node name="Zambuko" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
 layout_mode = 2
 PawnType = 2
 
-[node name="LobbySelectableChar4" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
+[node name="Rosetta" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
 layout_mode = 2
 PawnType = 3
 
-[node name="LobbySelectableChar5" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
+[node name="Wolfram" parent="CharSelect/CharacterSelection/VBoxContainer" instance=ExtResource("13_oa10e")]
 layout_mode = 2
 PawnType = 4
 
@@ -254,7 +254,9 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 19.0
 offset_right = 43.0
+offset_bottom = -19.0
 grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 2
@@ -1031,3 +1033,10 @@ grow_vertical = 2
 [node name="AdvancedPivot" type="Node" parent="."]
 script = ExtResource("12_3ogi6")
 pivot = Vector2(0.5, 1.143)
+
+[connection signal="OnPressed" from="CharSelect/CharacterSelection/VBoxContainer/Random" to="." method="ChangePortrait"]
+[connection signal="OnPressed" from="CharSelect/CharacterSelection/VBoxContainer/Concorde" to="." method="ChangePortrait"]
+[connection signal="OnPressed" from="CharSelect/CharacterSelection/VBoxContainer/Aurora" to="." method="ChangePortrait"]
+[connection signal="OnPressed" from="CharSelect/CharacterSelection/VBoxContainer/Zambuko" to="." method="ChangePortrait"]
+[connection signal="OnPressed" from="CharSelect/CharacterSelection/VBoxContainer/Rosetta" to="." method="ChangePortrait"]
+[connection signal="OnPressed" from="CharSelect/CharacterSelection/VBoxContainer/Wolfram" to="." method="ChangePortrait"]

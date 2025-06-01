@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=28 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cwnns2jklwavn" path="res://Prefabs/UI/Menu/Lobby/PlayerSlot.tscn" id="5_m4o33"]
 [ext_resource type="Texture2D" uid="uid://cj2uv7qqst7ee" path="res://Textures/Other/SmoothDrawer.png" id="6_03cc2"]
 [ext_resource type="PackedScene" uid="uid://7ky63yvh43nu" path="res://Prefabs/UI/Menu/Lobby/LobbySelectableChar.tscn" id="6_56qg5"]
+[ext_resource type="Script" path="res://Scripts/UI/Menu/LobbyScreen.cs" id="6_xtkv1"]
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="7_af3c0"]
 [ext_resource type="Script" path="res://Scripts/UI/AdvancedPivot.cs" id="7_mpixp"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="9_r72vk"]
@@ -372,15 +373,18 @@ label_settings = SubResource("LabelSettings_ok7yy")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LobbyScreen" type="Control" parent="."]
+[node name="LobbyScreen" type="Control" parent="." node_paths=PackedStringArray("backBtn", "lobbyBtns")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("6_xtkv1")
+backBtn = NodePath("LobbySettings/LobbyButtons/Btn_Back")
+lobbyBtns = [NodePath("LobbySettings/LobbyButtons/Btn_Leave"), NodePath("LobbySettings/LobbyButtons/Btn_Ready"), NodePath("LobbySettings/LobbyButtons/Btn_Options")]
 
-[node name="Panel" type="Panel" parent="LobbyScreen"]
+[node name="LobbySettings" type="Panel" parent="LobbyScreen"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -390,10 +394,10 @@ anchor_bottom = 0.75
 offset_left = -533.0
 offset_top = 430.0
 offset_right = 533.0
-offset_bottom = 470.0
+offset_bottom = 564.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_a4e60")
 
-[node name="CharSelectDrawer" type="NinePatchRect" parent="LobbyScreen/Panel"]
+[node name="CharSelectDrawer" type="NinePatchRect" parent="LobbyScreen/LobbySettings"]
 self_modulate = Color(0.913725, 0.913725, 0.913725, 1)
 show_behind_parent = true
 clip_children = 2
@@ -415,7 +419,7 @@ texture = ExtResource("6_03cc2")
 patch_margin_left = 76
 patch_margin_right = 78
 
-[node name="Shadow" type="TextureRect" parent="LobbyScreen/Panel/CharSelectDrawer"]
+[node name="Shadow" type="TextureRect" parent="LobbyScreen/LobbySettings/CharSelectDrawer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -424,7 +428,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_fnjlc")
 
-[node name="Label" type="Label" parent="LobbyScreen/Panel"]
+[node name="Label" type="Label" parent="LobbyScreen/LobbySettings"]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -442,7 +446,7 @@ pivot_offset = Vector2(99, 11.5)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "CHARACTER SELECT"
 
-[node name="TextureRect" type="TextureRect" parent="LobbyScreen/Panel/Label"]
+[node name="TextureRect" type="TextureRect" parent="LobbyScreen/LobbySettings/Label"]
 modulate = Color(0.190762, 0.190762, 0.190762, 1)
 layout_mode = 0
 offset_left = -23.29
@@ -453,7 +457,7 @@ texture = ExtResource("7_af3c0")
 expand_mode = 4
 flip_v = true
 
-[node name="TextureRect2" type="TextureRect" parent="LobbyScreen/Panel/Label"]
+[node name="TextureRect2" type="TextureRect" parent="LobbyScreen/LobbySettings/Label"]
 modulate = Color(0.190762, 0.190762, 0.190762, 1)
 layout_mode = 0
 offset_left = 204.0
@@ -464,10 +468,10 @@ texture = ExtResource("7_af3c0")
 expand_mode = 4
 flip_v = true
 
-[node name="CenterPivot" type="Node" parent="LobbyScreen/Panel/Label"]
+[node name="CenterPivot" type="Node" parent="LobbyScreen/LobbySettings/Label"]
 script = ExtResource("9_r72vk")
 
-[node name="Panel" type="Panel" parent="LobbyScreen/Panel"]
+[node name="Panel" type="Panel" parent="LobbyScreen/LobbySettings"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -480,7 +484,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_l31we")
 
-[node name="Scanlines" type="TextureRect" parent="LobbyScreen/Panel/Panel"]
+[node name="Scanlines" type="TextureRect" parent="LobbyScreen/LobbySettings/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -490,7 +494,7 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_736v6")
 stretch_mode = 1
 
-[node name="Shadow" type="TextureRect" parent="LobbyScreen/Panel/Panel"]
+[node name="Shadow" type="TextureRect" parent="LobbyScreen/LobbySettings/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -498,6 +502,43 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_4dp3w")
+
+[node name="LobbyButtons" type="HBoxContainer" parent="LobbyScreen/LobbySettings"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 375.0
+offset_top = 32.0
+offset_right = -375.0
+offset_bottom = 71.0
+grow_horizontal = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Btn_Back" type="Button" parent="LobbyScreen/LobbySettings/LobbyButtons"]
+visible = false
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = " < Back "
+
+[node name="Btn_Leave" type="Button" parent="LobbyScreen/LobbySettings/LobbyButtons"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = " Leave "
+
+[node name="Btn_Ready" type="Button" parent="LobbyScreen/LobbySettings/LobbyButtons"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7gwlm")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0snk2")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yyds3")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gh10y")
+text = " READY "
+
+[node name="Btn_Options" type="Button" parent="LobbyScreen/LobbySettings/LobbyButtons"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = " Options "
 
 [node name="Players" type="Control" parent="LobbyScreen"]
 layout_mode = 1
@@ -543,41 +584,6 @@ layout_mode = 2
 [node name="AdvancedPivot" type="Node" parent="LobbyScreen/Players"]
 script = ExtResource("7_mpixp")
 pivot = Vector2(0.5, 1.144)
-
-[node name="LobbyButtons" type="HBoxContainer" parent="LobbyScreen"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.426
-anchor_top = 0.824
-anchor_right = 0.574
-anchor_bottom = 0.879
-offset_left = -21.78
-offset_top = -0.280029
-offset_right = 56.412
-offset_bottom = 2.83997
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="Button" type="Button" parent="LobbyScreen/LobbyButtons"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-text = "Leave"
-
-[node name="Button2" type="Button" parent="LobbyScreen/LobbyButtons"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_7gwlm")
-theme_override_styles/hover = SubResource("StyleBoxFlat_0snk2")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_yyds3")
-theme_override_styles/normal = SubResource("StyleBoxFlat_gh10y")
-text = " READY "
-
-[node name="Button3" type="Button" parent="LobbyScreen/LobbyButtons"]
-layout_mode = 2
-mouse_default_cursor_shape = 2
-text = "Options"
 
 [node name="HeaderLabel" type="Label" parent="LobbyScreen"]
 layout_mode = 1
@@ -643,3 +649,7 @@ PawnType = 3
 [node name="LobbySelectableChar5" parent="LobbyScreen/CharacterSelection/VBoxContainer" instance=ExtResource("6_56qg5")]
 layout_mode = 2
 PawnType = 4
+
+[connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Back" to="LobbyScreen" method="OnBackClicked"]
+[connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Ready" to="LobbyScreen" method="OnReadyClicked"]
+[connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Options" to="LobbyScreen" method="OnSettingsClicked"]

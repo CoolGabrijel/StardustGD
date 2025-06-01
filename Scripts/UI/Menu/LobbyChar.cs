@@ -7,6 +7,8 @@ namespace Stardust.Godot.UI
 	{
         public static LobbyChar LocalLobbyChar { get; set; }
 
+        [Signal] public delegate void OnPressedEventHandler(string charName);
+        
         [Export] PawnType PawnType { get; set; }
         [Export] bool isRandom;
 
@@ -61,6 +63,12 @@ namespace Stardust.Godot.UI
             randCycleTween.TweenProperty(curPortrait, "modulate", new Color(1, 1, 1, 1f), 2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Circ);
             randCycleTween.TweenProperty(curPortrait, "modulate", new Color(1, 1, 1, 0f), 2f).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Circ);
             randCycleTween.Finished += PlayRandomCycle;
+        }
+
+        private void OnClicked()
+        {
+            if (isRandom) EmitSignal(SignalName.OnPressed, "Random");
+            else EmitSignal(SignalName.OnPressed, PawnType.ToString());
         }
 
         private void OnMouseEntered()
