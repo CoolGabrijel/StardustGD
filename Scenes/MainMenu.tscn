@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=29 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="7_af3c0"]
 [ext_resource type="Script" path="res://Scripts/UI/AdvancedPivot.cs" id="7_mpixp"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="9_r72vk"]
+[ext_resource type="Texture2D" uid="uid://tpwbkgjvq3q1" path="res://Textures/CaptainHoers/Silica_Logo_Mono.png" id="10_2681s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqfu"]
 bg_color = Color(0.827451, 0.827451, 0.827451, 1)
@@ -483,6 +484,19 @@ offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_l31we")
+
+[node name="TextureRect" type="TextureRect" parent="LobbyScreen/LobbySettings/Panel"]
+self_modulate = Color(0.82, 1, 0.823, 0.298039)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -73.0
+offset_right = 73.0
+grow_vertical = 0
+texture = ExtResource("10_2681s")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Scanlines" type="TextureRect" parent="LobbyScreen/LobbySettings/Panel"]
 layout_mode = 1
