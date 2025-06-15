@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=33 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -13,6 +13,10 @@
 [ext_resource type="Script" path="res://Scripts/UI/AdvancedPivot.cs" id="7_mpixp"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="9_r72vk"]
 [ext_resource type="Texture2D" uid="uid://tpwbkgjvq3q1" path="res://Textures/CaptainHoers/Silica_Logo_Mono.png" id="10_2681s"]
+[ext_resource type="Script" path="res://Scripts/MusicController.cs" id="14_n5bsh"]
+[ext_resource type="AudioStream" uid="uid://b1hsomfqc00pe" path="res://Sfx/Music/SDG - Main Menu - Intro.ogg" id="15_n2lqf"]
+[ext_resource type="AudioStream" uid="uid://bh2nv2euevdgj" path="res://Sfx/Music/SDG - Main Menu - Lobby.ogg" id="16_g5wr7"]
+[ext_resource type="AudioStream" uid="uid://c7fffyka4qmcl" path="res://Sfx/Music/SDG - Main Menu - Ready.ogg" id="17_2wdfa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqfu"]
 bg_color = Color(0.827451, 0.827451, 0.827451, 1)
@@ -663,6 +667,16 @@ PawnType = 3
 [node name="LobbySelectableChar5" parent="LobbyScreen/CharacterSelection/VBoxContainer" instance=ExtResource("6_56qg5")]
 layout_mode = 2
 PawnType = 4
+
+[node name="MusicController" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("14_n5bsh")
+player = NodePath("AudioStreamPlayer")
+menuMusic = ExtResource("15_n2lqf")
+lobbyMusic = ExtResource("16_g5wr7")
+readyMusic = ExtResource("17_2wdfa")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicController"]
+bus = &"Music"
 
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Back" to="LobbyScreen" method="OnBackClicked"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Ready" to="LobbyScreen" method="OnReadyClicked"]

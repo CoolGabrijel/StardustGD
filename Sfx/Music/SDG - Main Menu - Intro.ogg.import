@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b1hsomfqc00pe"
+path="res://.godot/imported/SDG - Main Menu - Intro.ogg-08654b8cf42048da1dde1a16b819c599.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sfx/Music/SDG - Main Menu - Intro.ogg"
+dest_files=["res://.godot/imported/SDG - Main Menu - Intro.ogg-08654b8cf42048da1dde1a16b819c599.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

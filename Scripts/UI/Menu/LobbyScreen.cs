@@ -12,7 +12,8 @@ namespace Stardust.Godot.UI
 
 		private void OnReadyClicked()
 		{
-			GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
+			//GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
+			MusicController.Instance.OnPlayerReady();
 		}
 		
 		private void OnSettingsClicked()
