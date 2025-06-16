@@ -393,13 +393,13 @@ lobbyBtns = [NodePath("LobbySettings/LobbyButtons/Btn_Leave"), NodePath("LobbySe
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 0.2
+anchor_top = 0.797
 anchor_right = 0.5
-anchor_bottom = 0.75
+anchor_bottom = 1.533
 offset_left = -533.0
-offset_top = 430.0
+offset_top = 0.159973
 offset_right = 533.0
-offset_bottom = 564.0
+offset_bottom = 0.239868
 theme_override_styles/panel = SubResource("StyleBoxFlat_a4e60")
 
 [node name="CharSelectDrawer" type="NinePatchRect" parent="LobbyScreen/LobbySettings"]
@@ -560,7 +560,6 @@ text = " Options "
 
 [node name="Players" type="Control" parent="LobbyScreen"]
 layout_mode = 1
-anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
