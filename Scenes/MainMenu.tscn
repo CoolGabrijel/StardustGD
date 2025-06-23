@@ -44,7 +44,7 @@ gradient = SubResource("Gradient_nlbla")
 fill_to = Vector2(0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l31we"]
-bg_color = Color(1.89891e-08, 0.0387635, 0.00165541, 1)
+bg_color = Color(0.04, 0.0233333, 0, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -52,7 +52,7 @@ corner_radius_bottom_left = 4
 
 [sub_resource type="Gradient" id="Gradient_lsbwr"]
 offsets = PackedFloat32Array(0.405063, 0.578059, 0.767932)
-colors = PackedColorArray(1, 1, 1, 0, 0.004, 0.06, 0, 0.117647, 1, 1, 1, 0)
+colors = PackedColorArray(1, 1, 1, 0, 0.06, 0.033, 0, 0.117647, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_736v6"]
 gradient = SubResource("Gradient_lsbwr")
@@ -72,36 +72,36 @@ fill_from = Vector2(0.5, 0.5)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7gwlm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0snk2"]
-bg_color = Color(0.243667, 0.86, 0, 0.647059)
+bg_color = Color(0.86, 0.602, 0, 0.647059)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.0428011, 0.340489, 0, 1)
+border_color = Color(0.341176, 0.239216, 0, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yyds3"]
-bg_color = Color(0.283333, 1, 0, 0.647059)
+bg_color = Color(1, 0.7, 0, 0.647059)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.0428011, 0.340489, 0, 1)
+border_color = Color(0.341176, 0.239216, 0, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gh10y"]
-bg_color = Color(0.172833, 0.61, 0, 0.647059)
+bg_color = Color(0.61, 0.427, 0, 0.647059)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(0.0428011, 0.340489, 0, 1)
+border_color = Color(0.34, 0.238, 0, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -490,7 +490,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_l31we")
 
 [node name="TextureRect" type="TextureRect" parent="LobbyScreen/LobbySettings/Panel"]
-self_modulate = Color(0.82, 1, 0.823, 0.298039)
+self_modulate = Color(1, 0.907, 0.82, 0.298039)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -560,6 +560,7 @@ text = " Options "
 
 [node name="Players" type="Control" parent="LobbyScreen"]
 layout_mode = 1
+anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
