@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=38 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -14,8 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="7_corte"]
 [ext_resource type="Script" path="res://Scripts/UI/AdvancedPivot.cs" id="7_mpixp"]
 [ext_resource type="Script" path="res://Scripts/UI/Menu/MainMenuButton.cs" id="8_glfwl"]
+[ext_resource type="AudioStream" uid="uid://djwkl73sys1xk" path="res://Sfx/Kenney Sfx/Button_Hover.ogg" id="9_moa28"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="9_r72vk"]
 [ext_resource type="Texture2D" uid="uid://tpwbkgjvq3q1" path="res://Textures/CaptainHoers/Silica_Logo_Mono.png" id="10_2681s"]
+[ext_resource type="Script" path="res://Scripts/UI/ButtonHoverSfx.cs" id="10_tvdmg"]
 [ext_resource type="Script" path="res://Scripts/MusicController.cs" id="14_n5bsh"]
 [ext_resource type="AudioStream" uid="uid://b1hsomfqc00pe" path="res://Sfx/Music/SDG - Main Menu - Intro.ogg" id="15_n2lqf"]
 [ext_resource type="AudioStream" uid="uid://bh2nv2euevdgj" path="res://Sfx/Music/SDG - Main Menu - Lobby.ogg" id="16_g5wr7"]
@@ -481,6 +483,11 @@ label_settings = SubResource("LabelSettings_ok7yy")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="MenuButtons3/Btn_SP"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
 [node name="Btn_MP" type="Button" parent="MenuButtons3" node_paths=PackedStringArray("ButtonBase", "Graphics")]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -565,6 +572,11 @@ text = "Multiplayer"
 label_settings = SubResource("LabelSettings_ok7yy")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="MenuButtons3/Btn_MP"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
 
 [node name="Btn_Settings" type="Button" parent="MenuButtons3" node_paths=PackedStringArray("ButtonBase", "Graphics")]
 custom_minimum_size = Vector2(0, 50)
@@ -651,6 +663,11 @@ label_settings = SubResource("LabelSettings_ok7yy")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="MenuButtons3/Btn_Settings"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
 [node name="Btn_Credits" type="Button" parent="MenuButtons3" node_paths=PackedStringArray("ButtonBase", "Graphics")]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -736,6 +753,11 @@ label_settings = SubResource("LabelSettings_ok7yy")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="MenuButtons3/Btn_Credits"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
 [node name="Btn_Exit" type="Button" parent="MenuButtons3" node_paths=PackedStringArray("ButtonBase", "Graphics")]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -820,6 +842,11 @@ text = "Exit"
 label_settings = SubResource("LabelSettings_ok7yy")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="MenuButtons3/Btn_Exit"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
 
 [node name="LobbyScreen" type="Control" parent="." node_paths=PackedStringArray("backBtn", "lobbyBtns")]
 visible = false
