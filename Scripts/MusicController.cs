@@ -15,8 +15,14 @@ namespace Stardust.Godot
         public override void _Ready()
         {
 			Instance = this;
-			player.Stream = lobbyMusic;
+			player.Stream = menuMusic;
 			player.Play();
+        }
+
+		public void PlayLobbyMusic()
+        {
+            player.Stream = lobbyMusic;
+            player.Play();
         }
 
 		public void OnPlayerReady()

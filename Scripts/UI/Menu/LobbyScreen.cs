@@ -45,5 +45,10 @@ namespace Stardust.Godot.UI
 			}
 			backBtn.Hide();
 		}
+
+		private void OnLeaveClicked()
+		{
+			MainMenuScreen.Instance.ShowMainMenu();
+		}
 	}
 }

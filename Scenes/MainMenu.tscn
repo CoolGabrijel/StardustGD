@@ -1,16 +1,19 @@
-[gd_scene load_steps=33 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=36 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
 [ext_resource type="Texture2D" uid="uid://ck7ktofpuetwx" path="res://Textures/CaptainHoers/BoxCoverNoSubtitle.png" id="1_oa4bt"]
 [ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="2_3emmv"]
+[ext_resource type="Script" path="res://Scripts/UI/Menu/MainMenuScreen.cs" id="2_08cdx"]
 [ext_resource type="Texture2D" uid="uid://dl06m7xjhkwqh" path="res://Textures/Other/Sci fi UI Element with Border.png" id="4_vuvsy"]
 [ext_resource type="PackedScene" uid="uid://cwnns2jklwavn" path="res://Prefabs/UI/Menu/Lobby/PlayerSlot.tscn" id="5_m4o33"]
 [ext_resource type="Texture2D" uid="uid://cj2uv7qqst7ee" path="res://Textures/Other/SmoothDrawer.png" id="6_03cc2"]
 [ext_resource type="PackedScene" uid="uid://7ky63yvh43nu" path="res://Prefabs/UI/Menu/Lobby/LobbySelectableChar.tscn" id="6_56qg5"]
 [ext_resource type="Script" path="res://Scripts/UI/Menu/LobbyScreen.cs" id="6_xtkv1"]
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="7_af3c0"]
+[ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="7_corte"]
 [ext_resource type="Script" path="res://Scripts/UI/AdvancedPivot.cs" id="7_mpixp"]
+[ext_resource type="Script" path="res://Scripts/UI/Menu/MainMenuButton.cs" id="8_glfwl"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="9_r72vk"]
 [ext_resource type="Texture2D" uid="uid://tpwbkgjvq3q1" path="res://Textures/CaptainHoers/Silica_Logo_Mono.png" id="10_2681s"]
 [ext_resource type="Script" path="res://Scripts/MusicController.cs" id="14_n5bsh"]
@@ -107,7 +110,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("LobbyScreen", "MenuButtons", "BoxCover")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -115,6 +118,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_lhprw")
+script = ExtResource("2_08cdx")
+LobbyScreen = NodePath("LobbyScreen")
+MenuButtons = NodePath("MenuButtons3")
+BoxCover = NodePath("BoxCover")
 
 [node name="BG" type="ColorRect" parent="."]
 material = ExtResource("1_7dcey")
@@ -127,7 +134,6 @@ grow_vertical = 2
 color = Color(0.0117647, 0, 0.0901961, 1)
 
 [node name="BoxCover" type="TextureRect" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -378,7 +384,445 @@ label_settings = SubResource("LabelSettings_ok7yy")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="MenuButtons3" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 150.0
+offset_top = -183.0
+offset_right = 429.0
+offset_bottom = 183.0
+grow_vertical = 2
+alignment = 1
+
+[node name="Btn_SP" type="Button" parent="MenuButtons3" node_paths=PackedStringArray("ButtonBase", "Graphics")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+flat = true
+script = ExtResource("8_glfwl")
+ButtonBase = NodePath("Graphics/ButtonBase")
+Graphics = NodePath("Graphics")
+
+[node name="Highlight" type="TextureRect" parent="MenuButtons3/Btn_SP"]
+modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 83.0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Graphics" type="Control" parent="MenuButtons3/Btn_SP"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ButtonBase" type="Control" parent="MenuButtons3/Btn_SP/Graphics"]
+modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Middle" type="ColorRect" parent="MenuButtons3/Btn_SP/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_right = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="EdgeLeft" type="TextureRect" parent="MenuButtons3/Btn_SP/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 83.0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="EdgeRight" type="TextureRect" parent="MenuButtons3/Btn_SP/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MenuButtons3/Btn_SP/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Singleplayer"
+label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Btn_MP" type="Button" parent="MenuButtons3" node_paths=PackedStringArray("ButtonBase", "Graphics")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+flat = true
+script = ExtResource("8_glfwl")
+ButtonBase = NodePath("Graphics/ButtonBase")
+Graphics = NodePath("Graphics")
+
+[node name="Highlight" type="TextureRect" parent="MenuButtons3/Btn_MP"]
+modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 83.0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Graphics" type="Control" parent="MenuButtons3/Btn_MP"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ButtonBase" type="Control" parent="MenuButtons3/Btn_MP/Graphics"]
+modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Middle" type="ColorRect" parent="MenuButtons3/Btn_MP/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_right = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="EdgeLeft" type="TextureRect" parent="MenuButtons3/Btn_MP/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 83.0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="EdgeRight" type="TextureRect" parent="MenuButtons3/Btn_MP/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MenuButtons3/Btn_MP/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Multiplayer"
+label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Btn_Settings" type="Button" parent="MenuButtons3" node_paths=PackedStringArray("ButtonBase", "Graphics")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+flat = true
+script = ExtResource("8_glfwl")
+ButtonBase = NodePath("Graphics/ButtonBase")
+Graphics = NodePath("Graphics")
+
+[node name="Highlight" type="TextureRect" parent="MenuButtons3/Btn_Settings"]
+modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 83.0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Graphics" type="Control" parent="MenuButtons3/Btn_Settings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ButtonBase" type="Control" parent="MenuButtons3/Btn_Settings/Graphics"]
+modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Middle" type="ColorRect" parent="MenuButtons3/Btn_Settings/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_right = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="EdgeLeft" type="TextureRect" parent="MenuButtons3/Btn_Settings/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 83.0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="EdgeRight" type="TextureRect" parent="MenuButtons3/Btn_Settings/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MenuButtons3/Btn_Settings/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Btn_Credits" type="Button" parent="MenuButtons3" node_paths=PackedStringArray("ButtonBase", "Graphics")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+flat = true
+script = ExtResource("8_glfwl")
+ButtonBase = NodePath("Graphics/ButtonBase")
+Graphics = NodePath("Graphics")
+
+[node name="Highlight" type="TextureRect" parent="MenuButtons3/Btn_Credits"]
+modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 83.0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Graphics" type="Control" parent="MenuButtons3/Btn_Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ButtonBase" type="Control" parent="MenuButtons3/Btn_Credits/Graphics"]
+modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Middle" type="ColorRect" parent="MenuButtons3/Btn_Credits/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_right = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="EdgeLeft" type="TextureRect" parent="MenuButtons3/Btn_Credits/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 83.0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="EdgeRight" type="TextureRect" parent="MenuButtons3/Btn_Credits/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MenuButtons3/Btn_Credits/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Credits"
+label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Btn_Exit" type="Button" parent="MenuButtons3" node_paths=PackedStringArray("ButtonBase", "Graphics")]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+flat = true
+script = ExtResource("8_glfwl")
+ButtonBase = NodePath("Graphics/ButtonBase")
+Graphics = NodePath("Graphics")
+
+[node name="Highlight" type="TextureRect" parent="MenuButtons3/Btn_Exit"]
+modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 83.0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Graphics" type="Control" parent="MenuButtons3/Btn_Exit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="ButtonBase" type="Control" parent="MenuButtons3/Btn_Exit/Graphics"]
+modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Middle" type="ColorRect" parent="MenuButtons3/Btn_Exit/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 27.0
+offset_right = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="EdgeLeft" type="TextureRect" parent="MenuButtons3/Btn_Exit/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 83.0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="EdgeRight" type="TextureRect" parent="MenuButtons3/Btn_Exit/Graphics/ButtonBase"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -80.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="MenuButtons3/Btn_Exit/Graphics"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Exit"
+label_settings = SubResource("LabelSettings_ok7yy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="LobbyScreen" type="Control" parent="." node_paths=PackedStringArray("backBtn", "lobbyBtns")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -678,6 +1122,13 @@ readyMusic = ExtResource("17_2wdfa")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MusicController"]
 bus = &"Music"
 
+[connection signal="pressed" from="MenuButtons2/Button" to="." method="SinglePlayerPressed"]
+[connection signal="pressed" from="MenuButtons2/Button2" to="." method="MultiPlayerPressed"]
+[connection signal="pressed" from="MenuButtons2/Button5" to="." method="ExitPressed"]
+[connection signal="pressed" from="MenuButtons3/Btn_SP" to="." method="SinglePlayerPressed"]
+[connection signal="pressed" from="MenuButtons3/Btn_MP" to="." method="MultiPlayerPressed"]
+[connection signal="pressed" from="MenuButtons3/Btn_Exit" to="." method="ExitPressed"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Back" to="LobbyScreen" method="OnBackClicked"]
+[connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Leave" to="LobbyScreen" method="OnLeaveClicked"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Ready" to="LobbyScreen" method="OnReadyClicked"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Options" to="LobbyScreen" method="OnSettingsClicked"]
