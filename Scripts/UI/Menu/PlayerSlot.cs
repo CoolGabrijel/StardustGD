@@ -5,16 +5,17 @@ namespace Stardust.Godot.UI
 {
 	public partial class PlayerSlot : Control
 	{
-		[Export] bool IsLocal;
-		[Export] TextureRect portrait;
-		[Export] Label nameplate;
-		[Export] ShaderMaterial greyscaleShader;
-		[Export] Control characterSelectDrawer;
+		[Export] private bool IsLocal;
+		[Export] private TextureRect portrait;
+		[Export] private Label nameplate;
+		[Export] private ShaderMaterial greyscaleShader;
+		[Export] private Control characterSelectDrawer;
 		[Export] private ColorRect fadeRect;
 		[Export] private ColorRect curtainRect;
 		[Export] private GpuParticles2D particles;
+		[Export] private AudioStreamPlayer audioStreamPlayer;
 
-		[Export] Dictionary<string, Texture2D> portraits;
+		[Export] private Dictionary<string, Texture2D> portraits;
 
 		private string[] selectableChars;
 		private string selectedChar = "Random";
@@ -26,7 +27,7 @@ namespace Stardust.Godot.UI
 
 		public override void _Ready()
 		{
-			PawnType[] pawns = new PawnType[]
+			PawnType[] pawns =
 			{
 				PawnType.Concorde,
 				PawnType.Aurora,
@@ -35,7 +36,7 @@ namespace Stardust.Godot.UI
 				PawnType.Wolfram
 			};
 			GenerateSelectableChars(pawns);
-			ChangePortrait(selectedChar);
+			ChangeImage(selectedChar);
 
 			if (!IsLocal)
 			{
@@ -85,10 +86,11 @@ namespace Stardust.Godot.UI
 
         private void OnVisibilityChanged()
         {
-	        ChangePortrait("Random");
+	        if (!Visible) return;
+	        ChangeImage("Random");
         }
 
-        public void GenerateSelectableChars(PawnType[] chars)
+        private void GenerateSelectableChars(PawnType[] chars)
 		{
 			selectableChars = new string[chars.Length + 1];
 			selectableChars[0] = "Random";
@@ -100,23 +102,31 @@ namespace Stardust.Godot.UI
 
 		private void ChangePortrait(string newChar)
 		{
+			if (Visible)
+			{
+				audioStreamPlayer.Play();
+			}
+			PlayCharSelectAnimation();
 			selectedChar = newChar;
-            nameplate.Text = newChar.ToUpper();
+			ChangeImage(newChar);
+            portrait.Modulate = Colors.White;
+        }
 
-            if (newChar == "Random")
-            {
+		private void ChangeImage(string newChar)
+		{
+			nameplate.Text = newChar.ToUpper();
+
+			if (newChar == "Random")
+			{
 				portrait.Material = greyscaleShader;
 				PlayRandomCycle();
-				PlayCharSelectAnimation();
 				return;
-            }
+			}
             
-            portrait.Material = null;
-            portrait.Texture = portraits[newChar];
-            randCycleTween?.Kill();
-            portrait.Modulate = Colors.White;
-            PlayCharSelectAnimation();
-        }
+			portrait.Material = null;
+			portrait.Texture = portraits[newChar];
+			randCycleTween?.Kill();
+		}
 
 		private void PlayCharSelectAnimation()
 		{
@@ -128,7 +138,7 @@ namespace Stardust.Godot.UI
 			onSelectTween.SetEase(Tween.EaseType.Out);
 			onSelectTween.TweenProperty(fadeRect, "color", Colors.Transparent, 1f).From(Colors.White);
 			onSelectTween.Parallel().TweenProperty(curtainRect, "offset_top", curtainOriginalSize, 1f).From(0f);
-			onSelectTween.Finished += () => particles.Emitting = false;
+			onSelectTween.Parallel().TweenInterval(0.5f).Finished +=() => particles.Emitting = false;
 		}
 
 		private void PlayRandomCycle()
