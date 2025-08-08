@@ -10,14 +10,19 @@ namespace Stardust.Godot.UI
 		[Export] Label nameplate;
 		[Export] ShaderMaterial greyscaleShader;
 		[Export] Control characterSelectDrawer;
+		[Export] private ColorRect fadeRect;
+		[Export] private ColorRect curtainRect;
+		[Export] private GpuParticles2D particles;
 
 		[Export] Dictionary<string, Texture2D> portraits;
 
 		private string[] selectableChars;
 		private string selectedChar = "Random";
 		private int randIndex = 0;
+		private float curtainOriginalSize;
 		private Tween randCycleTween;
 		private Tween charDrawerTween;
+		private Tween onSelectTween;
 
 		public override void _Ready()
 		{
@@ -44,15 +49,20 @@ namespace Stardust.Godot.UI
                 MouseEntered += OnMouseEntered;
                 MouseExited += OnMouseExited;
 			}
+
+			particles.Emitting = false;
+			curtainOriginalSize = curtainRect.Size.Y;
+			VisibilityChanged += OnVisibilityChanged;
 		}
 
         public override void _Process(double delta)
 		{
-
 			if (Input.IsKeyPressed(Key.H))
 			{
 				ChangePortrait("Zambuko");
 			}
+			
+			particles.GlobalPosition = curtainRect.GlobalPosition + Vector2.Right * curtainRect.Size / 2;
         }
 
         private void OnMouseEntered()
@@ -71,6 +81,11 @@ namespace Stardust.Godot.UI
             charDrawerTween = CreateTween();
             charDrawerTween.SetTrans(Tween.TransitionType.Quart).SetEase(Tween.EaseType.In);
             charDrawerTween.TweenProperty(characterSelectDrawer, "position", Vector2.Zero, .25f);
+        }
+
+        private void OnVisibilityChanged()
+        {
+	        ChangePortrait("Random");
         }
 
         public void GenerateSelectableChars(PawnType[] chars)
@@ -92,29 +107,39 @@ namespace Stardust.Godot.UI
             {
 				portrait.Material = greyscaleShader;
 				PlayRandomCycle();
+				PlayCharSelectAnimation();
 				return;
             }
-			else
-			{
-				portrait.Material = null;
-			}
-
+            
+            portrait.Material = null;
             portrait.Texture = portraits[newChar];
             randCycleTween?.Kill();
             portrait.Modulate = Colors.White;
+            PlayCharSelectAnimation();
         }
+
+		private void PlayCharSelectAnimation()
+		{
+			particles.Emitting = true;
+			curtainRect.Show();
+			onSelectTween?.Kill();
+			onSelectTween = CreateTween();
+			onSelectTween.SetTrans(Tween.TransitionType.Quart);
+			onSelectTween.SetEase(Tween.EaseType.Out);
+			onSelectTween.TweenProperty(fadeRect, "color", Colors.Transparent, 1f).From(Colors.White);
+			onSelectTween.Parallel().TweenProperty(curtainRect, "offset_top", curtainOriginalSize, 1f).From(0f);
+			onSelectTween.Finished += () => particles.Emitting = false;
+		}
 
 		private void PlayRandomCycle()
 		{
 			randCycleTween?.Kill();
-			//portrait.Modulate = new Color(1,1,1, 0.6f);
 			portrait.Modulate = new Color(1,1,1, 0f);
             randIndex++;
             if (randIndex >= selectableChars.Length) randIndex = 1;
             portrait.Texture = portraits[selectableChars[randIndex]];
 
             randCycleTween = portrait.CreateTween();
-			//randCycleTween.TweenProperty(portrait, "modulate", new Color(1, 1, 1, 0.1f), 2f).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Circ);
 			randCycleTween.TweenProperty(portrait, "modulate", new Color(1, 1, 1, 1f), 2f).SetEase(Tween.EaseType.Out).SetTrans(Tween.TransitionType.Circ);
 			randCycleTween.TweenProperty(portrait, "modulate", new Color(1, 1, 1, 0f), 2f).SetEase(Tween.EaseType.In).SetTrans(Tween.TransitionType.Circ);
 			randCycleTween.Finished += PlayRandomCycle;

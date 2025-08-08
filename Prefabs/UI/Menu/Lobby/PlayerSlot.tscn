@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cwnns2jklwavn"]
+[gd_scene load_steps=31 format=3 uid="uid://cwnns2jklwavn"]
 
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_8pbng"]
 [ext_resource type="Script" path="res://Scripts/UI/Menu/PlayerSlot.cs" id="1_boct3"]
@@ -8,14 +8,13 @@
 [ext_resource type="Texture2D" uid="uid://dsthg2hdprrio" path="res://Textures/CaptainHoers/Horse cards/Zambuko.png" id="4_yh51v"]
 [ext_resource type="Texture2D" uid="uid://bikvdx5le53qr" path="res://Textures/CaptainHoers/Horse cards/Rosetta.png" id="5_52fh0"]
 [ext_resource type="Texture2D" uid="uid://dxw4c53leeyvu" path="res://Textures/CaptainHoers/Horse cards/Wolfram.png" id="6_46rq7"]
-[ext_resource type="Texture2D" uid="uid://but26v3hn718u" path="res://Textures/Other/LobbyFrame.png" id="7_d1nhi"]
-[ext_resource type="Texture2D" uid="uid://2via82jj3s0v" path="res://Textures/Kenney/Particles/circle_05.png" id="8_e5you"]
 [ext_resource type="Texture2D" uid="uid://4qydkeog265d" path="res://Textures/Other/Lobby_Frame_New.png" id="9_ibks8"]
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="11_3druv"]
 [ext_resource type="Script" path="res://Scripts/UI/AdvancedPivot.cs" id="12_3ogi6"]
 [ext_resource type="Texture2D" uid="uid://cj2uv7qqst7ee" path="res://Textures/Other/SmoothDrawer.png" id="12_gf1qx"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="12_lmt2o"]
 [ext_resource type="PackedScene" uid="uid://7ky63yvh43nu" path="res://Prefabs/UI/Menu/Lobby/LobbySelectableChar.tscn" id="13_oa10e"]
+[ext_resource type="Texture2D" uid="uid://defq6ia742nep" path="res://Textures/Other/Hex.png" id="15_47iat"]
 
 [sub_resource type="Gradient" id="Gradient_n42we"]
 offsets = PackedFloat32Array(0.489451, 1)
@@ -70,7 +69,28 @@ gradient = SubResource("Gradient_62b6i")
 fill_from = Vector2(0.5, 1)
 fill_to = Vector2(0.5, 0)
 
-[node name="PlayerSlot" type="Control" node_paths=PackedStringArray("portrait", "nameplate", "characterSelectDrawer")]
+[sub_resource type="Curve" id="Curve_7ia2i"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_u75hi"]
+curve = SubResource("Curve_7ia2i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lt8if"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(80, 0, 1)
+angle_min = 1.07288e-05
+angle_max = 80.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 60.0
+initial_velocity_max = 80.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.05
+scale_curve = SubResource("CurveTexture_u75hi")
+
+[node name="PlayerSlot" type="Control" node_paths=PackedStringArray("portrait", "nameplate", "characterSelectDrawer", "fadeRect", "curtainRect", "particles")]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 3
 anchors_preset = 0
@@ -83,6 +103,9 @@ portrait = NodePath("PortraitWindow/Portrait")
 nameplate = NodePath("NamePlate/Label")
 greyscaleShader = ExtResource("3_8v3ty")
 characterSelectDrawer = NodePath("CharSelect")
+fadeRect = NodePath("Effects/Fade")
+curtainRect = NodePath("Effects/Curtain")
+particles = NodePath("Effects/GPUParticles2D")
 portraits = {
 "Aurora": ExtResource("1_ndgp0"),
 "Concorde": ExtResource("2_c4nol"),
@@ -551,292 +574,6 @@ texture = SubResource("GradientTexture2D_ttpjg")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Frame" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Frame"]
-self_modulate = Color(0.921569, 0.992157, 1, 1)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -5.0
-offset_top = -29.0
-offset_right = 5.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_d1nhi")
-region_rect = Rect2(0, 0, 191, 397)
-patch_margin_left = 5
-patch_margin_top = 120
-patch_margin_right = 6
-patch_margin_bottom = 97
-
-[node name="ReadyLabel" type="Label" parent="Frame/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -76.0
-offset_top = 4.0
-offset_right = -21.0
-offset_bottom = 23.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 14
-text = "READY"
-
-[node name="ReadyLight" type="TextureRect" parent="Frame/NinePatchRect"]
-self_modulate = Color(1, 0, 0, 1)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -25.0
-offset_top = -1.0
-offset_right = 2.0
-offset_bottom = 25.0
-grow_horizontal = 0
-texture = ExtResource("8_e5you")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="RAM" type="Control" parent="Frame/NinePatchRect"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = -3.0
-offset_right = -7.0
-offset_bottom = 5.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Bind" type="ColorRect" parent="Frame/NinePatchRect/RAM"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0313726, 0.0666667, 0.0745098, 1)
-
-[node name="Left" type="Control" parent="Frame/NinePatchRect/RAM"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -69.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="BG" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.1148, 0.241453, 0.28, 1)
-
-[node name="Pins" type="HBoxContainer" parent="Frame/NinePatchRect/RAM/Left"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_right = -2.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 2
-alignment = 1
-
-[node name="Pin" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin2" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin3" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin4" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin5" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin6" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin7" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin8" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin9" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin10" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin11" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin12" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin13" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin14" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin15" type="ColorRect" parent="Frame/NinePatchRect/RAM/Left/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Shadow" type="TextureRect" parent="Frame/NinePatchRect/RAM/Left"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture2D_ry8s3")
-expand_mode = 1
-
-[node name="Right" type="Control" parent="Frame/NinePatchRect/RAM"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 110.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="BG" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.113725, 0.243137, 0.278431, 1)
-
-[node name="Pins" type="HBoxContainer" parent="Frame/NinePatchRect/RAM/Right"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 2.0
-offset_right = -2.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 2
-alignment = 1
-
-[node name="Pin" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin2" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin3" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin4" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin5" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin6" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin7" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin8" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin9" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Pin10" type="ColorRect" parent="Frame/NinePatchRect/RAM/Right/Pins"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0.768627, 0.788235, 0.14902, 1)
-
-[node name="Shadow" type="TextureRect" parent="Frame/NinePatchRect/RAM/Right"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture2D_ry8s3")
-expand_mode = 1
-
 [node name="PortraitWindow" type="Control" parent="."]
 clip_contents = true
 layout_mode = 1
@@ -1012,23 +749,44 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_1efue")
 expand_mode = 1
 
-[node name="Fade" type="ColorRect" parent="."]
-visible = false
+[node name="Effects" type="ColorRect" parent="."]
+clip_children = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="Curtain" type="ColorRect" parent="."]
-visible = false
+[node name="Fade" type="ColorRect" parent="Effects"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Curtain" type="ColorRect" parent="Effects"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Effects"]
+position = Vector2(90, 236)
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_lt8if")
+texture = ExtResource("15_47iat")
+preprocess = 0.1
+visibility_rect = Rect2(-90, -200, 180, 200)
+local_coords = true
 
 [node name="AdvancedPivot" type="Node" parent="."]
 script = ExtResource("12_3ogi6")
