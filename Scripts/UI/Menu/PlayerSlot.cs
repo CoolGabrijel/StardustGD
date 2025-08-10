@@ -14,6 +14,8 @@ namespace Stardust.Godot.UI
 		[Export] private ColorRect curtainRect;
 		[Export] private GpuParticles2D particles;
 		[Export] private AudioStreamPlayer audioStreamPlayer;
+		[Export] private Control pdaGraphic;
+		[Export] private TextureRect readyLight;
 
 		[Export] private Dictionary<string, Texture2D> portraits;
 
@@ -24,6 +26,8 @@ namespace Stardust.Godot.UI
 		private Tween randCycleTween;
 		private Tween charDrawerTween;
 		private Tween onSelectTween;
+		private Tween fadeTween;
+		private Tween moveTween;
 
 		public override void _Ready()
 		{
@@ -49,6 +53,7 @@ namespace Stardust.Godot.UI
 				ZIndex += 1;
                 MouseEntered += OnMouseEntered;
                 MouseExited += OnMouseExited;
+                LobbyScreen.OnReady += PlayReadyAnimation;
 			}
 
 			particles.Emitting = false;
@@ -128,17 +133,45 @@ namespace Stardust.Godot.UI
 			randCycleTween?.Kill();
 		}
 
+		private void PlayReadyAnimation(bool state)
+		{
+			Color lightColor = state ? Colors.Green : Colors.Red;
+			PlayFadeAnimation();
+			moveTween?.Kill();
+			moveTween = CreateTween();
+			moveTween.SetTrans(Tween.TransitionType.Quart);
+			moveTween.SetEase(Tween.EaseType.Out);
+
+			moveTween.TweenProperty(pdaGraphic, "position", Vector2.Down * 25, .25f);
+
+			moveTween.TweenInterval(.25f).Finished += () => readyLight.SelfModulate = lightColor;
+			
+			if (state)
+				moveTween.TweenProperty(pdaGraphic, "position", Vector2.Down * 30, .25f);
+			else
+				moveTween.TweenProperty(pdaGraphic, "position", Vector2.Zero, .25f);
+		}
+
 		private void PlayCharSelectAnimation()
 		{
 			particles.Emitting = true;
+			PlayFadeAnimation();
 			curtainRect.Show();
 			onSelectTween?.Kill();
 			onSelectTween = CreateTween();
 			onSelectTween.SetTrans(Tween.TransitionType.Quart);
 			onSelectTween.SetEase(Tween.EaseType.Out);
-			onSelectTween.TweenProperty(fadeRect, "color", Colors.Transparent, 1f).From(Colors.White);
-			onSelectTween.Parallel().TweenProperty(curtainRect, "offset_top", curtainOriginalSize, 1f).From(0f);
+			onSelectTween.TweenProperty(curtainRect, "offset_top", curtainOriginalSize, 1f).From(0f);
 			onSelectTween.Parallel().TweenInterval(0.5f).Finished +=() => particles.Emitting = false;
+		}
+
+		private void PlayFadeAnimation()
+		{
+			fadeTween?.Kill();
+			fadeTween = fadeRect.CreateTween();
+			fadeTween.SetTrans(Tween.TransitionType.Quart);
+			fadeTween.SetEase(Tween.EaseType.Out);
+			fadeTween.TweenProperty(fadeRect, "color", Colors.Transparent, 1f).From(Colors.White);
 		}
 
 		private void PlayRandomCycle()

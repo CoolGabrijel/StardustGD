@@ -5,7 +5,10 @@ namespace Stardust.Godot.UI
 {
 	public partial class LobbyScreen : Control
 	{
+		public static event Action<bool> OnReady;
+		
 		[Export] private Button backBtn;
+		[Export] private Button readyBtn;
 		[Export] private Button[] lobbyBtns;
 		
 		private Tween moveTween;
@@ -13,7 +16,10 @@ namespace Stardust.Godot.UI
 		private void OnReadyClicked()
 		{
 			//GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
-			MusicController.Instance.OnPlayerReady();
+			if (readyBtn.ButtonPressed)
+				MusicController.Instance.OnPlayerReady();
+			
+			OnReady?.Invoke(readyBtn.ButtonPressed);
 		}
 		
 		private void OnSettingsClicked()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=39 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -32,6 +32,8 @@ bg_color = Color(0.827451, 0.827451, 0.827451, 1)
 font = ExtResource("2_3emmv")
 font_size = 27
 font_color = Color(0.0117647, 0, 0.0901961, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cvgsr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a4e60"]
 bg_color = Color(0.94902, 0.94902, 0.94902, 1)
@@ -402,6 +404,7 @@ alignment = 1
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cvgsr")
 flat = true
 script = ExtResource("8_glfwl")
 ButtonBase = NodePath("Graphics/ButtonBase")
@@ -492,6 +495,7 @@ script = ExtResource("10_tvdmg")
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cvgsr")
 flat = true
 script = ExtResource("8_glfwl")
 ButtonBase = NodePath("Graphics/ButtonBase")
@@ -582,6 +586,7 @@ script = ExtResource("10_tvdmg")
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cvgsr")
 flat = true
 script = ExtResource("8_glfwl")
 ButtonBase = NodePath("Graphics/ButtonBase")
@@ -672,6 +677,7 @@ script = ExtResource("10_tvdmg")
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cvgsr")
 flat = true
 script = ExtResource("8_glfwl")
 ButtonBase = NodePath("Graphics/ButtonBase")
@@ -762,6 +768,7 @@ script = ExtResource("10_tvdmg")
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cvgsr")
 flat = true
 script = ExtResource("8_glfwl")
 ButtonBase = NodePath("Graphics/ButtonBase")
@@ -848,8 +855,7 @@ stream = ExtResource("9_moa28")
 bus = &"Sfx"
 script = ExtResource("10_tvdmg")
 
-[node name="LobbyScreen" type="Control" parent="." node_paths=PackedStringArray("backBtn", "lobbyBtns")]
-visible = false
+[node name="LobbyScreen" type="Control" parent="." node_paths=PackedStringArray("backBtn", "readyBtn", "lobbyBtns")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -858,6 +864,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_xtkv1")
 backBtn = NodePath("LobbySettings/LobbyButtons/Btn_Back")
+readyBtn = NodePath("LobbySettings/LobbyButtons/Btn_Ready")
 lobbyBtns = [NodePath("LobbySettings/LobbyButtons/Btn_Leave"), NodePath("LobbySettings/LobbyButtons/Btn_Ready"), NodePath("LobbySettings/LobbyButtons/Btn_Options")]
 
 [node name="LobbySettings" type="Panel" parent="LobbyScreen"]
@@ -1022,6 +1029,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_7gwlm")
 theme_override_styles/hover = SubResource("StyleBoxFlat_0snk2")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_yyds3")
 theme_override_styles/normal = SubResource("StyleBoxFlat_gh10y")
+toggle_mode = true
 text = " READY "
 
 [node name="Btn_Options" type="Button" parent="LobbyScreen/LobbySettings/LobbyButtons"]
