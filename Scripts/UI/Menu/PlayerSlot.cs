@@ -5,6 +5,8 @@ namespace Stardust.Godot.UI
 {
 	public partial class PlayerSlot : Control
 	{
+		public bool PlayerReady { get; private set; }
+		
 		[Export] private bool IsLocal;
 		[Export] private TextureRect portrait;
 		[Export] private Label nameplate;
@@ -14,6 +16,7 @@ namespace Stardust.Godot.UI
 		[Export] private ColorRect curtainRect;
 		[Export] private GpuParticles2D particles;
 		[Export] private AudioStreamPlayer audioStreamPlayer;
+		[Export] private AudioStreamPlayer slotClickAudio;
 		[Export] private Control pdaGraphic;
 		[Export] private TextureRect readyLight;
 
@@ -53,7 +56,7 @@ namespace Stardust.Godot.UI
 				ZIndex += 1;
                 MouseEntered += OnMouseEntered;
                 MouseExited += OnMouseExited;
-                LobbyScreen.OnReady += PlayReadyAnimation;
+                LobbyScreen.OnReady += SetReady;
 			}
 
 			particles.Emitting = false;
@@ -71,8 +74,16 @@ namespace Stardust.Godot.UI
 			particles.GlobalPosition = curtainRect.GlobalPosition + Vector2.Right * curtainRect.Size / 2;
         }
 
+        public void SetReady(bool ready)
+        {
+	        PlayerReady = ready;
+	        PlayReadyAnimation(ready);
+        }
+
         private void OnMouseEntered()
         {
+	        if (PlayerReady) return;
+	        
 			charDrawerTween?.Kill();
 
 			charDrawerTween = CreateTween();
@@ -141,10 +152,16 @@ namespace Stardust.Godot.UI
 			moveTween = CreateTween();
 			moveTween.SetTrans(Tween.TransitionType.Quart);
 			moveTween.SetEase(Tween.EaseType.Out);
+			
+			if (!state) slotClickAudio.Play();
 
 			moveTween.TweenProperty(pdaGraphic, "position", Vector2.Down * 25, .25f);
 
-			moveTween.TweenInterval(.25f).Finished += () => readyLight.SelfModulate = lightColor;
+			moveTween.TweenInterval(.25f).Finished += () =>
+			{
+				readyLight.SelfModulate = lightColor;
+				if (state) slotClickAudio.Play();
+			};
 			
 			if (state)
 				moveTween.TweenProperty(pdaGraphic, "position", Vector2.Down * 30, .25f);

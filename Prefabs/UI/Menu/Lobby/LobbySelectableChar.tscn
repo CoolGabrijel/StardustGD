@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://7ky63yvh43nu"]
+[gd_scene load_steps=14 format=3 uid="uid://7ky63yvh43nu"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Menu/LobbyChar.cs" id="1_w4pks"]
 [ext_resource type="Material" uid="uid://d02hdwrqarhyh" path="res://Materials/2D/Greyscale.tres" id="2_8p642"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bvct2yu0qaegu" path="res://Textures/Other/RoundedTriangleBorder.png" id="5_5rxrc"]
 [ext_resource type="Texture2D" uid="uid://bikvdx5le53qr" path="res://Textures/CaptainHoers/Horse cards/Rosetta.png" id="5_oqqd6"]
 [ext_resource type="Texture2D" uid="uid://dxw4c53leeyvu" path="res://Textures/CaptainHoers/Horse cards/Wolfram.png" id="6_4j81l"]
+[ext_resource type="AudioStream" uid="uid://djwkl73sys1xk" path="res://Sfx/Kenney Sfx/Button_Hover.ogg" id="6_bmpcg"]
+[ext_resource type="Script" path="res://Scripts/UI/ButtonHoverSfx.cs" id="7_dxm53"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="10_ciy2j"]
 
 [node name="LobbySelectableChar" type="Control" node_paths=PackedStringArray("btn", "btnBorder", "btnMask", "portraits")]
@@ -49,6 +51,11 @@ stretch_mode = 4
 
 [node name="CenterPivot" type="Node" parent="Button"]
 script = ExtResource("10_ciy2j")
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Button"]
+stream = ExtResource("6_bmpcg")
+bus = &"Sfx"
+script = ExtResource("7_dxm53")
 
 [node name="Mask" type="TextureRect" parent="."]
 clip_children = 2

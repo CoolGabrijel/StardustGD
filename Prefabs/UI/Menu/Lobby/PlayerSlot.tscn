@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cwnns2jklwavn"]
+[gd_scene load_steps=33 format=3 uid="uid://cwnns2jklwavn"]
 
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_8pbng"]
 [ext_resource type="Script" path="res://Scripts/UI/Menu/PlayerSlot.cs" id="1_boct3"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://7ky63yvh43nu" path="res://Prefabs/UI/Menu/Lobby/LobbySelectableChar.tscn" id="13_oa10e"]
 [ext_resource type="Texture2D" uid="uid://defq6ia742nep" path="res://Textures/Other/Hex.png" id="15_47iat"]
 [ext_resource type="AudioStream" uid="uid://bvipnp56jmhm8" path="res://Sfx/Kenney Sfx/Room_Hover.ogg" id="16_bma3c"]
+[ext_resource type="AudioStream" uid="uid://mpnv1d4rxo73" path="res://Sfx/Kenney Sfx/Slot_Click.ogg" id="17_mnhgu"]
 
 [sub_resource type="Gradient" id="Gradient_7aaou"]
 offsets = PackedFloat32Array(0, 0.793249)
@@ -91,7 +92,7 @@ gradient = SubResource("Gradient_62b6i")
 fill_from = Vector2(0.5, 1)
 fill_to = Vector2(0.5, 0)
 
-[node name="PlayerSlot" type="Control" node_paths=PackedStringArray("portrait", "nameplate", "characterSelectDrawer", "fadeRect", "curtainRect", "particles", "audioStreamPlayer", "pdaGraphic", "readyLight")]
+[node name="PlayerSlot" type="Control" node_paths=PackedStringArray("portrait", "nameplate", "characterSelectDrawer", "fadeRect", "curtainRect", "particles", "audioStreamPlayer", "slotClickAudio", "pdaGraphic", "readyLight")]
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 3
 anchors_preset = 0
@@ -107,7 +108,8 @@ characterSelectDrawer = NodePath("PDA/CharSelect")
 fadeRect = NodePath("PDA/Effects/Fade")
 curtainRect = NodePath("PDA/Effects/Curtain")
 particles = NodePath("PDA/Effects/GPUParticles2D")
-audioStreamPlayer = NodePath("AudioStreamPlayer")
+audioStreamPlayer = NodePath("CharSelAudio")
+slotClickAudio = NodePath("SlotClick")
 pdaGraphic = NodePath("PDA")
 readyLight = NodePath("PDA/NewFrame/NinePatchRect/ReadyLight")
 portraits = {
@@ -827,8 +829,14 @@ expand_mode = 1
 script = ExtResource("12_3ogi6")
 pivot = Vector2(0.5, 1.143)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="CharSelAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("16_bma3c")
+bus = &"Sfx"
+
+[node name="SlotClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_mnhgu")
+volume_db = -5.0
+bus = &"Sfx"
 
 [connection signal="OnPressed" from="PDA/CharSelect/CharacterSelection/VBoxContainer/Random" to="." method="ChangePortrait"]
 [connection signal="OnPressed" from="PDA/CharSelect/CharacterSelection/VBoxContainer/Concorde" to="." method="ChangePortrait"]

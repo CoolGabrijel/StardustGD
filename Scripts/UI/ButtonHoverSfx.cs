@@ -11,7 +11,7 @@ public partial class ButtonHoverSfx : AudioStreamPlayer
 
 	public override void _Ready()
 	{
-		Button parent = GetParent<Button>();
+		BaseButton parent = GetParent<BaseButton>();
 
         if (parent == null) return;
 

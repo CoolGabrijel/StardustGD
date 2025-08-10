@@ -1017,10 +1017,20 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 text = " < Back "
 
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="LobbyScreen/LobbySettings/LobbyButtons/Btn_Back"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
 [node name="Btn_Leave" type="Button" parent="LobbyScreen/LobbySettings/LobbyButtons"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = " Leave "
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="LobbyScreen/LobbySettings/LobbyButtons/Btn_Leave"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
 
 [node name="Btn_Ready" type="Button" parent="LobbyScreen/LobbySettings/LobbyButtons"]
 layout_mode = 2
@@ -1032,10 +1042,20 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_gh10y")
 toggle_mode = true
 text = " READY "
 
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="LobbyScreen/LobbySettings/LobbyButtons/Btn_Ready"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
 [node name="Btn_Options" type="Button" parent="LobbyScreen/LobbySettings/LobbyButtons"]
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = " Options "
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="LobbyScreen/LobbySettings/LobbyButtons/Btn_Options"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
 
 [node name="Players" type="Control" parent="LobbyScreen"]
 layout_mode = 1
