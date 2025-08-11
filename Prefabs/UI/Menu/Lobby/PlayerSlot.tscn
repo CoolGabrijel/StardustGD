@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cwnns2jklwavn"]
+[gd_scene load_steps=36 format=3 uid="uid://cwnns2jklwavn"]
 
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_8pbng"]
 [ext_resource type="Script" path="res://Scripts/UI/Menu/PlayerSlot.cs" id="1_boct3"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="12_lmt2o"]
 [ext_resource type="PackedScene" uid="uid://7ky63yvh43nu" path="res://Prefabs/UI/Menu/Lobby/LobbySelectableChar.tscn" id="13_oa10e"]
 [ext_resource type="Texture2D" uid="uid://defq6ia742nep" path="res://Textures/Other/Hex.png" id="15_47iat"]
+[ext_resource type="Texture2D" uid="uid://4e7r8fflwlh1" path="res://Textures/CaptainHoers/Video icons/Ring.png" id="15_yl70u"]
 [ext_resource type="AudioStream" uid="uid://bvipnp56jmhm8" path="res://Sfx/Kenney Sfx/Room_Hover.ogg" id="16_bma3c"]
 [ext_resource type="AudioStream" uid="uid://mpnv1d4rxo73" path="res://Sfx/Kenney Sfx/Slot_Click.ogg" id="17_mnhgu"]
 
@@ -50,6 +51,17 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ttpjg"]
 gradient = SubResource("Gradient_5103j")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_vmvr7"]
+offsets = PackedFloat32Array(0.222973, 0.47973, 0.614865)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k0g7g"]
+gradient = SubResource("Gradient_vmvr7")
+width = 128
+height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
@@ -662,9 +674,48 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.192157, 0.192157, 0.192157, 1)
+
+[node name="Open" type="Control" parent="PDA/PortraitWindow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Ring" type="TextureRect" parent="PDA/PortraitWindow/Open"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.0
+offset_top = -85.0
+offset_right = 81.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("15_yl70u")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Emission" type="TextureRect" parent="PDA/PortraitWindow/Open/Ring"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_k0g7g")
+expand_mode = 1
 
 [node name="Portrait" type="TextureRect" parent="PDA/PortraitWindow"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

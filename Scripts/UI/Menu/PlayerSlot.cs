@@ -23,7 +23,7 @@ namespace Stardust.Godot.UI
 		[Export] private Dictionary<string, Texture2D> portraits;
 
 		private string[] selectableChars;
-		private string selectedChar = "Random";
+		private string selectedChar = "Open";
 		private int randIndex = 0;
 		private float curtainOriginalSize;
 		private Tween randCycleTween;
@@ -68,7 +68,7 @@ namespace Stardust.Godot.UI
 		{
 			if (Input.IsKeyPressed(Key.H))
 			{
-				ChangePortrait("Zambuko");
+				ChangePortrait("Open");
 			}
 			
 			particles.GlobalPosition = curtainRect.GlobalPosition + Vector2.Right * curtainRect.Size / 2;
@@ -103,7 +103,7 @@ namespace Stardust.Godot.UI
         private void OnVisibilityChanged()
         {
 	        if (!Visible) return;
-	        ChangeImage("Random");
+	        ChangeImage(IsLocal ? "Random" : "Open");
         }
 
         private void GenerateSelectableChars(PawnType[] chars)
@@ -134,14 +134,18 @@ namespace Stardust.Godot.UI
 
 			if (newChar == "Random")
 			{
+				portrait.Show();
 				portrait.Material = greyscaleShader;
 				PlayRandomCycle();
 				return;
 			}
-            
 			portrait.Material = null;
-			portrait.Texture = portraits[newChar];
 			randCycleTween?.Kill();
+
+			portrait.Visible = newChar != "Open";
+			
+			if (portrait.Visible)
+				portrait.Texture = portraits[newChar];
 		}
 
 		private void PlayReadyAnimation(bool state)
