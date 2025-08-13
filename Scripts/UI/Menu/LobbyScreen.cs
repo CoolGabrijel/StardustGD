@@ -23,28 +23,7 @@ namespace Stardust.Godot.UI
 
 		public override void _Process(double delta)
 		{
-			if (Lobby == null)
-			{
-				readyBtn.Disabled = true;
-			}
-			else
-			{
-				readyBtn.Disabled = false;
-				List<string> charTypes = new();
-
-				foreach (Lobby.LobbyPlayer player in Lobby.Players)
-				{
-					if (player.CharacterName == "Random") continue;
-
-					if (charTypes.Contains(player.CharacterName))
-					{
-						readyBtn.Disabled = true;
-						break;
-					}
-
-					charTypes.Add(player.CharacterName);
-				}
-			}
+			ValidateReadyButton();
 		}
 
 		public void OpenSingleplayerScreen()
@@ -162,6 +141,34 @@ namespace Stardust.Godot.UI
 			}
 			
 			MainMenuScreen.Instance.ShowMainMenu();
+		}
+
+		private void ValidateReadyButton()
+		{
+			if (Lobby == null || Lobby.Players.Count <= 0)
+			{
+				readyBtn.TooltipText = "You must select at least one character.\nIf you already did, then something went completely horribly wrong.";
+				readyBtn.Disabled = true;
+				return;
+			}
+
+			readyBtn.TooltipText = "Click when ready.";
+			readyBtn.Disabled = false;
+			List<string> charTypes = new();
+
+			foreach (Lobby.LobbyPlayer player in Lobby.Players)
+			{
+				if (player.CharacterName == "Random") continue;
+
+				if (charTypes.Contains(player.CharacterName))
+				{
+					readyBtn.TooltipText = "Possible duplicate characters detected. Unable to start game.";
+					readyBtn.Disabled = true;
+					break;
+				}
+
+				charTypes.Add(player.CharacterName);
+			}
 		}
 	}
 }
