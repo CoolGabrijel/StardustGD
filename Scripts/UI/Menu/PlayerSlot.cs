@@ -5,9 +5,12 @@ namespace Stardust.Godot.UI
 {
 	public partial class PlayerSlot : Control
 	{
+		private static bool isViewingCharacterSelect;
 		public bool PlayerReady { get; private set; }
-		
-		[Export] private bool IsLocal;
+
+		private bool isLocallyOwned => lobbyPlayer.PlayerId == GameStart.PlayerId;
+
+		[Export] public bool IsLocal;
 		[Export] private TextureRect portrait;
 		[Export] private Label nameplate;
 		[Export] private ShaderMaterial greyscaleShader;
@@ -22,6 +25,7 @@ namespace Stardust.Godot.UI
 
 		[Export] private Dictionary<string, Texture2D> portraits;
 
+		private Lobby.LobbyPlayer lobbyPlayer;
 		private string[] selectableChars;
 		private string selectedChar = "Open";
 		private int randIndex = 0;
@@ -47,16 +51,9 @@ namespace Stardust.Godot.UI
 
 			if (!IsLocal)
 			{
-				characterSelectDrawer.QueueFree();
+				characterSelectDrawer.Hide();
 				portrait.GetParent<Control>().MouseFilter = MouseFilterEnum.Ignore;
 				MouseFilter = MouseFilterEnum.Ignore;
-			}
-			else
-			{
-				ZIndex += 1;
-                MouseEntered += OnMouseEntered;
-                MouseExited += OnMouseExited;
-                LobbyScreen.OnReady += SetReady;
 			}
 
 			particles.Emitting = false;
@@ -72,6 +69,57 @@ namespace Stardust.Godot.UI
 			}
 			
 			particles.GlobalPosition = curtainRect.GlobalPosition + Vector2.Right * curtainRect.Size / 2;
+        }
+
+        public void SetPlayer(Lobby.LobbyPlayer player)
+        {
+	        lobbyPlayer = player;
+
+	        if (!LobbyScreen.Lobby.IsMultiplayer)
+	        {
+		        characterSelectDrawer.Show();
+		        lobbyPlayer.OnReady += SetReady;
+		        portrait.GetParent<Control>().MouseFilter = MouseFilterEnum.Pass;
+		        MouseFilter = MouseFilterEnum.Pass;
+	        }
+	        else
+	        {
+		        if (IsLocal && isLocallyOwned)
+		        {
+			        characterSelectDrawer.Show();
+			        MouseEntered += OnMouseEntered;
+			        MouseExited += OnMouseExited;
+			        lobbyPlayer.OnReady += SetReady;
+		        }
+		        else
+		        {
+			        characterSelectDrawer.Hide();
+			        portrait.GetParent<Control>().MouseFilter = MouseFilterEnum.Ignore;
+			        MouseFilter = MouseFilterEnum.Ignore;
+		        }
+	        }
+	        
+	        ChangeImage(player.CharacterName);
+        }
+
+        public void Reset()
+        {
+	        if (!LobbyScreen.Lobby.IsMultiplayer)
+	        {
+		        MouseEntered -= OnMouseEntered;
+		        MouseExited -= OnMouseExited;
+		        if (lobbyPlayer != null)
+					lobbyPlayer.OnReady -= SetReady;
+	        }
+	        else
+	        {
+		        if (IsLocal && isLocallyOwned)
+		        {
+			        MouseEntered -= OnMouseEntered;
+			        MouseExited -= OnMouseExited;
+			        lobbyPlayer.OnReady -= SetReady;
+		        }
+	        }
         }
 
         public void SetReady(bool ready)
@@ -102,8 +150,17 @@ namespace Stardust.Godot.UI
 
         private void OnVisibilityChanged()
         {
-	        if (!Visible) return;
-	        ChangeImage(IsLocal ? "Random" : "Open");
+	        if (LobbyScreen.Lobby == null) return;
+	        
+	        if (!LobbyScreen.Lobby.IsMultiplayer)
+	        {
+		        characterSelectDrawer.Show();
+		        MouseEntered += OnMouseEntered;
+		        MouseExited += OnMouseExited;
+		        portrait.GetParent<Control>().MouseFilter = MouseFilterEnum.Pass;
+		        MouseFilter = MouseFilterEnum.Pass;
+	        }
+	        //ChangeImage(IsLocal ? "Random" : "Open");
         }
 
         private void GenerateSelectableChars(PawnType[] chars)
@@ -121,6 +178,21 @@ namespace Stardust.Godot.UI
 			if (Visible)
 			{
 				audioStreamPlayer.Play();
+
+				if (!LobbyScreen.Lobby.IsMultiplayer)
+				{
+					if (selectedChar == "Open")
+					{
+						Lobby.LobbyPlayer newPlayer = new(1);
+						newPlayer.SetCharacter(newChar);
+						LobbyScreen.Lobby.AddPlayer(newPlayer);
+						SetPlayer(newPlayer);
+					}
+					else
+					{
+						lobbyPlayer.SetCharacter(newChar);
+					}
+				}
 			}
 			PlayCharSelectAnimation();
 			selectedChar = newChar;

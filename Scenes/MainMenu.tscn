@@ -855,7 +855,7 @@ stream = ExtResource("9_moa28")
 bus = &"Sfx"
 script = ExtResource("10_tvdmg")
 
-[node name="LobbyScreen" type="Control" parent="." node_paths=PackedStringArray("backBtn", "readyBtn", "lobbyBtns")]
+[node name="LobbyScreen" type="Control" parent="." node_paths=PackedStringArray("backBtn", "readyBtn", "lobbyBtns", "playerSlots", "localSlot")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -866,6 +866,8 @@ script = ExtResource("6_xtkv1")
 backBtn = NodePath("LobbySettings/LobbyButtons/Btn_Back")
 readyBtn = NodePath("LobbySettings/LobbyButtons/Btn_Ready")
 lobbyBtns = [NodePath("LobbySettings/LobbyButtons/Btn_Leave"), NodePath("LobbySettings/LobbyButtons/Btn_Ready"), NodePath("LobbySettings/LobbyButtons/Btn_Options")]
+playerSlots = [NodePath("Players/HBoxContainer/PlayerSlot"), NodePath("Players/HBoxContainer/PlayerSlot4"), NodePath("Players/HBoxContainer/PlayerSlot5"), NodePath("Players/HBoxContainer/PlayerSlot2"), NodePath("Players/HBoxContainer/PlayerSlot3")]
+localSlot = NodePath("Players/HBoxContainer/PlayerSlot5")
 
 [node name="LobbySettings" type="Panel" parent="LobbyScreen"]
 layout_mode = 1
@@ -1079,20 +1081,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 60
 alignment = 1
 
 [node name="PlayerSlot" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+z_index = 4
 layout_mode = 2
 
 [node name="PlayerSlot4" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+z_index = 3
 layout_mode = 2
 
 [node name="PlayerSlot5" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+z_index = 2
 layout_mode = 2
 IsLocal = true
 
 [node name="PlayerSlot2" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
+z_index = 1
 layout_mode = 2
 
 [node name="PlayerSlot3" parent="LobbyScreen/Players/HBoxContainer" instance=ExtResource("5_m4o33")]
@@ -1120,7 +1126,8 @@ text = "LOBBY"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CharacterSelection" type="Control" parent="LobbyScreen"]
+[node name="CharacterSelectionDELETELATER" type="Control" parent="LobbyScreen"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1134,7 +1141,7 @@ offset_bottom = 102.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LobbyScreen/CharacterSelection"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LobbyScreen/CharacterSelectionDELETELATER"]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 0.5
@@ -1144,26 +1151,26 @@ grow_vertical = 2
 theme_override_constants/separation = -20
 alignment = 1
 
-[node name="LobbySelectableChar" parent="LobbyScreen/CharacterSelection/VBoxContainer" instance=ExtResource("6_56qg5")]
+[node name="LobbySelectableChar" parent="LobbyScreen/CharacterSelectionDELETELATER/VBoxContainer" instance=ExtResource("6_56qg5")]
 layout_mode = 2
 isRandom = true
 
-[node name="LobbySelectableChar6" parent="LobbyScreen/CharacterSelection/VBoxContainer" instance=ExtResource("6_56qg5")]
+[node name="LobbySelectableChar6" parent="LobbyScreen/CharacterSelectionDELETELATER/VBoxContainer" instance=ExtResource("6_56qg5")]
 layout_mode = 2
 
-[node name="LobbySelectableChar2" parent="LobbyScreen/CharacterSelection/VBoxContainer" instance=ExtResource("6_56qg5")]
+[node name="LobbySelectableChar2" parent="LobbyScreen/CharacterSelectionDELETELATER/VBoxContainer" instance=ExtResource("6_56qg5")]
 layout_mode = 2
 PawnType = 1
 
-[node name="LobbySelectableChar3" parent="LobbyScreen/CharacterSelection/VBoxContainer" instance=ExtResource("6_56qg5")]
+[node name="LobbySelectableChar3" parent="LobbyScreen/CharacterSelectionDELETELATER/VBoxContainer" instance=ExtResource("6_56qg5")]
 layout_mode = 2
 PawnType = 2
 
-[node name="LobbySelectableChar4" parent="LobbyScreen/CharacterSelection/VBoxContainer" instance=ExtResource("6_56qg5")]
+[node name="LobbySelectableChar4" parent="LobbyScreen/CharacterSelectionDELETELATER/VBoxContainer" instance=ExtResource("6_56qg5")]
 layout_mode = 2
 PawnType = 3
 
-[node name="LobbySelectableChar5" parent="LobbyScreen/CharacterSelection/VBoxContainer" instance=ExtResource("6_56qg5")]
+[node name="LobbySelectableChar5" parent="LobbyScreen/CharacterSelectionDELETELATER/VBoxContainer" instance=ExtResource("6_56qg5")]
 layout_mode = 2
 PawnType = 4
 

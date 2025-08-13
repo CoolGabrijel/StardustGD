@@ -8,6 +8,8 @@ namespace Stardust.Godot
     public partial class GameStart : Node
     {
         public static Pawn LocalPlayer;
+        public static int PlayerId;
+        public static PawnType[] PawnsToSpawn;
 
         [Export] private RoomGen2D roomGen;
         [Export] private Node pawnParent;
@@ -25,14 +27,17 @@ namespace Stardust.Godot
             };
             StardustGameConfig.CurrentConfig = config;
 
-            PawnType[] pawns = new PawnType[]
+            if (PawnsToSpawn == null)
             {
-                PawnType.Concorde,
-                PawnType.Aurora,
-            };
+                PawnsToSpawn = new PawnType[]
+                {
+                    PawnType.Concorde,
+                    PawnType.Aurora,
+                };
+            }
 
             pawnToGraphic = new();
-            GameLogic.BeginGame(pawns);
+            GameLogic.BeginGame(PawnsToSpawn);
             roomGen.Generate(GameLogic.RoomManager);
 
             foreach (Pawn pawn in GameLogic.TurnQueue.Pawns)

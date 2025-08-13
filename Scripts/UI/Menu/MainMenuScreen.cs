@@ -28,14 +28,15 @@ namespace Stardust.Godot.UI
         {
             MenuButtons.Hide();
             BoxCover.Hide();
-
+			LobbyScreen.OpenSingleplayerScreen();
+			MusicController.Instance.PlayLobbyMusic();
         }
 
 		public void MultiPlayerPressed()
 		{
 			MenuButtons.Hide();
 			BoxCover.Hide();
-			LobbyScreen.Show();
+			LobbyScreen.OpenMultiplayerScreen();
 			MusicController.Instance.PlayLobbyMusic();
 		}
 
