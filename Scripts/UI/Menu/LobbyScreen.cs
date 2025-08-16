@@ -30,6 +30,8 @@ namespace Stardust.Godot.UI
 		{
 			GameStart.PlayerId = 1;
 			Lobby = new Lobby(false);
+			readyBtn.Text = "Start";
+			readyBtn.ButtonPressed = false;
 			Show();
 		}
 
@@ -55,6 +57,9 @@ namespace Stardust.Godot.UI
 					slot.SetPlayer(player);
 				}
 			}
+			
+			readyBtn.Text = Lobby.IsHost ? "Start" : "Ready";
+			readyBtn.ButtonPressed = false;
 			
 			Show();
 		}
