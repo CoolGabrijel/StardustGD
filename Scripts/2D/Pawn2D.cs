@@ -16,6 +16,7 @@ namespace Stardust.Godot
         [Export] private Sprite2D charSprite;
 		[Export] private Node2D energyCardContainer;
 		[Export] private Sprite2D auroraFlash;
+		[Export] private AudioStreamPlayer auroraSfx;
 		[Export] private Node2D wolframAbilityNode;
 		[Export] private ShaderMaterial[] shaders;
 		[Export] private Texture2D[] textures;
@@ -193,6 +194,7 @@ namespace Stardust.Godot
 
 		private void OnAuroraBlock()
 		{
+			auroraSfx?.Play();
 			auroraFlashTween?.Kill();
 
 			auroraFlash.Scale = Vector2.One;

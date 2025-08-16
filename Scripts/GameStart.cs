@@ -23,7 +23,7 @@ namespace Stardust.Godot
             {
                 // For testing purposes feel free to place anything in here
                 DamageDisabled = false,
-                FirstStepsEnabled = true,
+                FirstStepsEnabled = false,
             };
             StardustGameConfig.CurrentConfig = config;
 

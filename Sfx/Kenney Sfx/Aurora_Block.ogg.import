@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://di0oarilk430k"
+path="res://.godot/imported/Aurora_Block.ogg-4c19e697b3749eb81df112973a92b343.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sfx/Kenney Sfx/Aurora_Block.ogg"
+dest_files=["res://.godot/imported/Aurora_Block.ogg-4c19e697b3749eb81df112973a92b343.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
