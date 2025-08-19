@@ -44,11 +44,14 @@ namespace Stardust.Godot.UI
 
 		private void OnNextTurnPressed()
 		{
+			ReleaseFocus();
 			AttemptNextTurn();
         }
 
 		private void OnUndoPressed()
         {
+	        ReleaseFocus();
+	        
             if (GameLogic.TurnQueue.CurrentPawn != GameStart.LocalPlayer) return;
 
             ActionLibrary.UndoAction();
