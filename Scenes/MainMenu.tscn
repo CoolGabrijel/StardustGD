@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=40 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -22,6 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://b1hsomfqc00pe" path="res://Sfx/Music/SDG - Main Menu - Intro.ogg" id="15_n2lqf"]
 [ext_resource type="AudioStream" uid="uid://bh2nv2euevdgj" path="res://Sfx/Music/SDG - Main Menu - Lobby.ogg" id="16_g5wr7"]
 [ext_resource type="AudioStream" uid="uid://c7fffyka4qmcl" path="res://Sfx/Music/SDG - Main Menu - Ready.ogg" id="17_2wdfa"]
+[ext_resource type="PackedScene" uid="uid://c6uo5do5x0krg" path="res://Prefabs/UI/Settings.tscn" id="19_njj2a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqfu"]
 bg_color = Color(0.827451, 0.827451, 0.827451, 1)
@@ -114,7 +115,7 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("LobbyScreen", "MenuButtons", "BoxCover")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("LobbyScreen", "SettingsMenu", "MenuButtons", "BoxCover")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -124,6 +125,7 @@ grow_vertical = 2
 theme = ExtResource("1_lhprw")
 script = ExtResource("2_08cdx")
 LobbyScreen = NodePath("LobbyScreen")
+SettingsMenu = NodePath("Settings")
 MenuButtons = NodePath("MenuButtons3")
 BoxCover = NodePath("BoxCover")
 
@@ -856,6 +858,7 @@ bus = &"Sfx"
 script = ExtResource("10_tvdmg")
 
 [node name="LobbyScreen" type="Control" parent="." node_paths=PackedStringArray("backBtn", "readyBtn", "lobbyBtns", "playerSlots", "localSlot")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1174,6 +1177,9 @@ PawnType = 3
 layout_mode = 2
 PawnType = 4
 
+[node name="Settings" parent="." instance=ExtResource("19_njj2a")]
+layout_mode = 1
+
 [node name="MusicController" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("14_n5bsh")
 player = NodePath("AudioStreamPlayer")
@@ -1189,6 +1195,7 @@ bus = &"Music"
 [connection signal="pressed" from="MenuButtons2/Button5" to="." method="ExitPressed"]
 [connection signal="pressed" from="MenuButtons3/Btn_SP" to="." method="SinglePlayerPressed"]
 [connection signal="pressed" from="MenuButtons3/Btn_MP" to="." method="MultiPlayerPressed"]
+[connection signal="pressed" from="MenuButtons3/Btn_Settings" to="." method="SettingsPressed"]
 [connection signal="pressed" from="MenuButtons3/Btn_Exit" to="." method="ExitPressed"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Back" to="LobbyScreen" method="OnBackClicked"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Leave" to="LobbyScreen" method="OnLeaveClicked"]
