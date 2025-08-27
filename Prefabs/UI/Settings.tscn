@@ -1,14 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6uo5do5x0krg"]
+[gd_scene load_steps=8 format=3 uid="uid://c6uo5do5x0krg"]
 
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_o3wf5"]
 [ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="1_qj0if"]
 [ext_resource type="Script" path="res://Scripts/UI/Menu/SettingsMenu.cs" id="2_k5m6e"]
+[ext_resource type="Script" path="res://Scripts/UI/Menu/SettingNode.cs" id="3_jurvs"]
 [ext_resource type="AudioStream" uid="uid://djwkl73sys1xk" path="res://Sfx/Kenney Sfx/Button_Hover.ogg" id="4_udjtp"]
 [ext_resource type="Script" path="res://Scripts/UI/ButtonHoverSfx.cs" id="5_2eg30"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sl41v"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("slider", "lineEdit", "grabber", "fillContainer", "fillRect")]
+[node name="Settings" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,48 +18,62 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_o3wf5")
 script = ExtResource("2_k5m6e")
-slider = NodePath("VBoxContainer/HBoxContainer/HSlider")
-lineEdit = NodePath("VBoxContainer/HBoxContainer/LineEdit")
-grabber = NodePath("VBoxContainer/HBoxContainer/HSlider/Grabber")
-fillContainer = NodePath("VBoxContainer/HBoxContainer/HSlider/Fill")
-fillRect = NodePath("VBoxContainer/HBoxContainer/HSlider/Fill/MainFill")
-normalFillColor = Color(0.215686, 0.27451, 0.4, 1)
-highlightedFillColor = Color(0.197573, 0.393499, 0.567048, 1)
-grabberOffset = Vector2(-15, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 85.0
+offset_top = 48.0
+offset_right = -86.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsList" type="VBoxContainer" parent="Background"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -218.0
+offset_left = -245.5
 offset_top = -233.0
-offset_right = 218.0
+offset_right = 246.5
 offset_bottom = 233.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="VolumeMain" type="HBoxContainer" parent="Background/SettingsList" node_paths=PackedStringArray("slider", "lineEdit", "grabber", "fillContainer", "fillRect")]
 layout_mode = 2
+script = ExtResource("3_jurvs")
+slider = NodePath("HSlider")
+lineEdit = NodePath("LineEdit")
+grabber = NodePath("HSlider/Grabber")
+fillContainer = NodePath("HSlider/Fill")
+fillRect = NodePath("HSlider/Fill/MainFill")
+normalFillColor = Color(0.215686, 0.27451, 0.4, 1)
+highlightedFillColor = Color(0.196078, 0.392157, 0.568627, 1)
+grabberOffset = Vector2(-15, 0)
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Background/SettingsList/VolumeMain"]
 layout_mode = 2
 text = "Main Volume"
 
-[node name="Space" type="Control" parent="VBoxContainer/HBoxContainer"]
+[node name="Space" type="Control" parent="Background/SettingsList/VolumeMain"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer"]
+[node name="HSlider" type="HSlider" parent="Background/SettingsList/VolumeMain"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+mouse_default_cursor_shape = 10
 theme_override_styles/slider = SubResource("StyleBoxEmpty_sl41v")
 value = 50.0
 
-[node name="Background" type="Control" parent="VBoxContainer/HBoxContainer/HSlider"]
+[node name="Background" type="Control" parent="Background/SettingsList/VolumeMain/HSlider"]
 modulate = Color(0.792157, 0.792157, 0.792157, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -68,7 +83,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Left" type="TextureRect" parent="VBoxContainer/HBoxContainer/HSlider/Background"]
+[node name="Left" type="TextureRect" parent="Background/SettingsList/VolumeMain/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -78,7 +93,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Right" type="TextureRect" parent="VBoxContainer/HBoxContainer/HSlider/Background"]
+[node name="Right" type="TextureRect" parent="Background/SettingsList/VolumeMain/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -91,7 +106,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Middle" type="ColorRect" parent="VBoxContainer/HBoxContainer/HSlider/Background"]
+[node name="Middle" type="ColorRect" parent="Background/SettingsList/VolumeMain/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -101,7 +116,7 @@ offset_right = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Fill" type="Control" parent="VBoxContainer/HBoxContainer/HSlider"]
+[node name="Fill" type="Control" parent="Background/SettingsList/VolumeMain/HSlider"]
 modulate = Color(0.215686, 0.27451, 0.4, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -111,7 +126,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="LeftFill" type="TextureRect" parent="VBoxContainer/HBoxContainer/HSlider/Fill"]
+[node name="LeftFill" type="TextureRect" parent="Background/SettingsList/VolumeMain/HSlider/Fill"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -121,7 +136,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="MainFill" type="ColorRect" parent="VBoxContainer/HBoxContainer/HSlider/Fill"]
+[node name="MainFill" type="ColorRect" parent="Background/SettingsList/VolumeMain/HSlider/Fill"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -130,7 +145,7 @@ offset_right = 82.0
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Grabber" type="TextureRect" parent="VBoxContainer/HBoxContainer/HSlider"]
+[node name="Grabber" type="TextureRect" parent="Background/SettingsList/VolumeMain/HSlider"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -147,16 +162,16 @@ texture = ExtResource("1_qj0if")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="VBoxContainer/HBoxContainer/HSlider"]
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Background/SettingsList/VolumeMain/HSlider"]
 stream = ExtResource("4_udjtp")
 bus = &"Sfx"
 script = ExtResource("5_2eg30")
 
-[node name="Space2" type="Control" parent="VBoxContainer/HBoxContainer"]
+[node name="Space2" type="Control" parent="Background/SettingsList/VolumeMain"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="Background/SettingsList/VolumeMain"]
 layout_mode = 2
 text = "50"
 alignment = 1
@@ -165,7 +180,308 @@ virtual_keyboard_type = 2
 middle_mouse_paste_enabled = false
 drag_and_drop_selection_enabled = false
 
-[connection signal="mouse_entered" from="VBoxContainer/HBoxContainer/HSlider" to="." method="OnMouseEntered"]
-[connection signal="mouse_exited" from="VBoxContainer/HBoxContainer/HSlider" to="." method="OnMouseExited"]
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer/HSlider" to="." method="OnSliderValueChanged"]
-[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/LineEdit" to="." method="OnLineEditValueSubmitted"]
+[node name="VolumeMain2" type="HBoxContainer" parent="Background/SettingsList" node_paths=PackedStringArray("slider", "lineEdit", "grabber", "fillContainer", "fillRect")]
+layout_mode = 2
+script = ExtResource("3_jurvs")
+volumeType = 1
+slider = NodePath("HSlider")
+lineEdit = NodePath("LineEdit")
+grabber = NodePath("HSlider/Grabber")
+fillContainer = NodePath("HSlider/Fill")
+fillRect = NodePath("HSlider/Fill/MainFill")
+normalFillColor = Color(0.215686, 0.27451, 0.4, 1)
+highlightedFillColor = Color(0.196078, 0.392157, 0.568627, 1)
+grabberOffset = Vector2(-15, 0)
+
+[node name="Label" type="Label" parent="Background/SettingsList/VolumeMain2"]
+layout_mode = 2
+text = "Music Volume"
+
+[node name="Space" type="Control" parent="Background/SettingsList/VolumeMain2"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="Background/SettingsList/VolumeMain2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_default_cursor_shape = 10
+theme_override_styles/slider = SubResource("StyleBoxEmpty_sl41v")
+value = 50.0
+
+[node name="Background" type="Control" parent="Background/SettingsList/VolumeMain2/HSlider"]
+modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Left" type="TextureRect" parent="Background/SettingsList/VolumeMain2/HSlider/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 25.0
+grow_vertical = 2
+texture = ExtResource("1_qj0if")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Right" type="TextureRect" parent="Background/SettingsList/VolumeMain2/HSlider/Background"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_qj0if")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Middle" type="ColorRect" parent="Background/SettingsList/VolumeMain2/HSlider/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fill" type="Control" parent="Background/SettingsList/VolumeMain2/HSlider"]
+modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="LeftFill" type="TextureRect" parent="Background/SettingsList/VolumeMain2/HSlider/Fill"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 25.0
+grow_vertical = 2
+texture = ExtResource("1_qj0if")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MainFill" type="ColorRect" parent="Background/SettingsList/VolumeMain2/HSlider/Fill"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_right = 82.0
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Grabber" type="TextureRect" parent="Background/SettingsList/VolumeMain2/HSlider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qj0if")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Background/SettingsList/VolumeMain2/HSlider"]
+stream = ExtResource("4_udjtp")
+bus = &"Sfx"
+script = ExtResource("5_2eg30")
+
+[node name="Space2" type="Control" parent="Background/SettingsList/VolumeMain2"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="Background/SettingsList/VolumeMain2"]
+layout_mode = 2
+text = "50"
+alignment = 1
+context_menu_enabled = false
+virtual_keyboard_type = 2
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="VolumeMain3" type="HBoxContainer" parent="Background/SettingsList" node_paths=PackedStringArray("slider", "lineEdit", "grabber", "fillContainer", "fillRect")]
+layout_mode = 2
+script = ExtResource("3_jurvs")
+volumeType = 2
+slider = NodePath("HSlider")
+lineEdit = NodePath("LineEdit")
+grabber = NodePath("HSlider/Grabber")
+fillContainer = NodePath("HSlider/Fill")
+fillRect = NodePath("HSlider/Fill/MainFill")
+normalFillColor = Color(0.215686, 0.27451, 0.4, 1)
+highlightedFillColor = Color(0.196078, 0.392157, 0.568627, 1)
+grabberOffset = Vector2(-15, 0)
+
+[node name="Label" type="Label" parent="Background/SettingsList/VolumeMain3"]
+layout_mode = 2
+text = "Sfx Volume"
+
+[node name="Space" type="Control" parent="Background/SettingsList/VolumeMain3"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="Background/SettingsList/VolumeMain3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_default_cursor_shape = 10
+theme_override_styles/slider = SubResource("StyleBoxEmpty_sl41v")
+value = 50.0
+
+[node name="Background" type="Control" parent="Background/SettingsList/VolumeMain3/HSlider"]
+modulate = Color(0.792157, 0.792157, 0.792157, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Left" type="TextureRect" parent="Background/SettingsList/VolumeMain3/HSlider/Background"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 25.0
+grow_vertical = 2
+texture = ExtResource("1_qj0if")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Right" type="TextureRect" parent="Background/SettingsList/VolumeMain3/HSlider/Background"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("1_qj0if")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Middle" type="ColorRect" parent="Background/SettingsList/VolumeMain3/HSlider/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_right = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fill" type="Control" parent="Background/SettingsList/VolumeMain3/HSlider"]
+modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="LeftFill" type="TextureRect" parent="Background/SettingsList/VolumeMain3/HSlider/Fill"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 25.0
+grow_vertical = 2
+texture = ExtResource("1_qj0if")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="MainFill" type="ColorRect" parent="Background/SettingsList/VolumeMain3/HSlider/Fill"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_right = 82.0
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Grabber" type="TextureRect" parent="Background/SettingsList/VolumeMain3/HSlider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qj0if")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Background/SettingsList/VolumeMain3/HSlider"]
+stream = ExtResource("4_udjtp")
+bus = &"Sfx"
+script = ExtResource("5_2eg30")
+
+[node name="Space2" type="Control" parent="Background/SettingsList/VolumeMain3"]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="Background/SettingsList/VolumeMain3"]
+layout_mode = 2
+text = "50"
+alignment = 1
+context_menu_enabled = false
+virtual_keyboard_type = 2
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Button" type="Button" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back"
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Background/Button"]
+stream = ExtResource("4_udjtp")
+bus = &"Sfx"
+script = ExtResource("5_2eg30")
+
+[connection signal="mouse_entered" from="Background/SettingsList/VolumeMain/HSlider" to="Background/SettingsList/VolumeMain" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Background/SettingsList/VolumeMain/HSlider" to="Background/SettingsList/VolumeMain" method="OnMouseExited"]
+[connection signal="value_changed" from="Background/SettingsList/VolumeMain/HSlider" to="Background/SettingsList/VolumeMain" method="OnSliderValueChanged"]
+[connection signal="text_submitted" from="Background/SettingsList/VolumeMain/LineEdit" to="Background/SettingsList/VolumeMain" method="OnLineEditValueSubmitted"]
+[connection signal="mouse_entered" from="Background/SettingsList/VolumeMain2/HSlider" to="Background/SettingsList/VolumeMain2" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Background/SettingsList/VolumeMain2/HSlider" to="Background/SettingsList/VolumeMain2" method="OnMouseExited"]
+[connection signal="value_changed" from="Background/SettingsList/VolumeMain2/HSlider" to="Background/SettingsList/VolumeMain2" method="OnSliderValueChanged"]
+[connection signal="text_submitted" from="Background/SettingsList/VolumeMain2/LineEdit" to="Background/SettingsList/VolumeMain2" method="OnLineEditValueSubmitted"]
+[connection signal="mouse_entered" from="Background/SettingsList/VolumeMain3/HSlider" to="Background/SettingsList/VolumeMain3" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="Background/SettingsList/VolumeMain3/HSlider" to="Background/SettingsList/VolumeMain3" method="OnMouseExited"]
+[connection signal="value_changed" from="Background/SettingsList/VolumeMain3/HSlider" to="Background/SettingsList/VolumeMain3" method="OnSliderValueChanged"]
+[connection signal="text_submitted" from="Background/SettingsList/VolumeMain3/LineEdit" to="Background/SettingsList/VolumeMain3" method="OnLineEditValueSubmitted"]
+[connection signal="pressed" from="Background/Button" to="." method="Back"]

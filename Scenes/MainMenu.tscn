@@ -1038,6 +1038,7 @@ bus = &"Sfx"
 script = ExtResource("10_tvdmg")
 
 [node name="Btn_Ready" type="Button" parent="LobbyScreen/LobbySettings/LobbyButtons"]
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_7gwlm")
