@@ -452,7 +452,7 @@ virtual_keyboard_type = 2
 middle_mouse_paste_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="Button" type="Button" parent="Background"]
+[node name="Btn_Back" type="Button" parent="Background"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -467,7 +467,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Back"
 
-[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Background/Button"]
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Background/Btn_Back"]
 stream = ExtResource("4_udjtp")
 bus = &"Sfx"
 script = ExtResource("5_2eg30")
@@ -484,4 +484,4 @@ script = ExtResource("5_2eg30")
 [connection signal="mouse_exited" from="Background/SettingsList/VolumeMain3/HSlider" to="Background/SettingsList/VolumeMain3" method="OnMouseExited"]
 [connection signal="value_changed" from="Background/SettingsList/VolumeMain3/HSlider" to="Background/SettingsList/VolumeMain3" method="OnSliderValueChanged"]
 [connection signal="text_submitted" from="Background/SettingsList/VolumeMain3/LineEdit" to="Background/SettingsList/VolumeMain3" method="OnLineEditValueSubmitted"]
-[connection signal="pressed" from="Background/Button" to="." method="Back"]
+[connection signal="pressed" from="Background/Btn_Back" to="." method="Back"]

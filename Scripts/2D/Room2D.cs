@@ -28,6 +28,8 @@ namespace Stardust.Godot
         [Export] Control slot2;
 		[ExportCategory("Buttons")]
 		[Export] Button activationButton;
+		[ExportCategory("Sound")]
+		[Export] AudioStreamPlayer clickSound;
 		[ExportCategory("First Steps Extra")]
 		[Export] Texture2D landerOrbit;
 		[Export] Texture2D landerMars;
@@ -163,6 +165,7 @@ namespace Stardust.Godot
                 //moveAction = new MoveAction(GameStart.LocalPlayer, cost, GameStart.LocalPlayer.Room, Room, movDir);
 				moveAction.Do();
 				ActionLibrary.AddAction(moveAction);
+				clickSound?.Play();
 			}
 		}
 
@@ -217,11 +220,13 @@ namespace Stardust.Godot
         {
             if (!CanActivate())
             {
+	            activationButton.Disabled = true;
                 activationButton.MouseDefaultCursorShape = Control.CursorShape.Arrow;
                 return;
             }
             else
             {
+	            activationButton.Disabled = false;
                 activationButton.MouseDefaultCursorShape = Control.CursorShape.PointingHand;
             }
 

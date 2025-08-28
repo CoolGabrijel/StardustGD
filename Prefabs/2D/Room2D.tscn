@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://br7af73781a77"]
+[gd_scene load_steps=51 format=3 uid="uid://br7af73781a77"]
 
 [ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
 [ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://cxmq8cdi8lrt1" path="res://Textures/CaptainHoers/Rooms/Lander Space.png" id="13_2klqp"]
 [ext_resource type="Texture2D" uid="uid://bnvi5k1dfyuq" path="res://Textures/CaptainHoers/Rooms/Icons/Habitation Icon.png" id="13_8w8f0"]
 [ext_resource type="Texture2D" uid="uid://2yxt521c4iar" path="res://Textures/CaptainHoers/Rooms/Lander Mars.png" id="14_1ww6x"]
+[ext_resource type="Script" path="res://Scripts/UI/ButtonHoverSfx.cs" id="18_p24oq"]
 [ext_resource type="Texture2D" uid="uid://v5cdtrrcsk25" path="res://Textures/CaptainHoers/Background Bit Border Alternate.png" id="22_8pvfr"]
 [ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="23_7lgwt"]
 [ext_resource type="PackedScene" uid="uid://cdh4tuj3126iq" path="res://Prefabs/2D/Pickup.tscn" id="23_iryuc"]
@@ -31,7 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://be8stm1mh1362" path="res://Textures/CaptainHoers/Flag.png" id="24_oe6lm"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="25_3p8ij"]
 [ext_resource type="Texture2D" uid="uid://defq6ia742nep" path="res://Textures/Other/Hex.png" id="25_nat5u"]
-[ext_resource type="AudioStream" uid="uid://bvipnp56jmhm8" path="res://Sfx/Kenney Sfx/Room_Hover.ogg" id="32_sohkl"]
+[ext_resource type="AudioStream" uid="uid://djwkl73sys1xk" path="res://Sfx/Kenney Sfx/Button_Hover.ogg" id="32_vxv11"]
 
 [sub_resource type="Resource" id="Resource_inm74"]
 script = ExtResource("4_rkktj")
@@ -106,7 +107,7 @@ height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "header", "roomIconGraphic", "roomNameLabel", "slot1", "slot2", "activationButton")]
+[node name="Room2D" type="Sprite2D" node_paths=PackedStringArray("area", "middleSlot", "topSlot", "bottomSlot", "extraSlot", "activationGraphic", "header", "roomIconGraphic", "roomNameLabel", "slot1", "slot2", "activationButton", "clickSound")]
 texture = ExtResource("1_s0s7v")
 script = ExtResource("2_iag5j")
 area = NodePath("Area2D")
@@ -122,6 +123,7 @@ roomNameLabel = NodePath("Overlay/Header/RoomName")
 slot1 = NodePath("Overlay/Slot1")
 slot2 = NodePath("Overlay/Slot2")
 activationButton = NodePath("Overlay/Btn_Activate")
+clickSound = NodePath("ClickSfx")
 landerOrbit = ExtResource("13_2klqp")
 landerMars = ExtResource("14_1ww6x")
 
@@ -174,6 +176,7 @@ grow_vertical = 0
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_glfwk")
+disabled = true
 flat = true
 
 [node name="Activation" type="TextureRect" parent="Overlay/Btn_Activate"]
@@ -189,6 +192,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("8_6vamm")
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Overlay/Btn_Activate"]
+stream = ExtResource("32_vxv11")
+bus = &"ButtonHover"
+script = ExtResource("18_p24oq")
+pitchRandomMax = 0.9
+pitchRandomMin = 0.7
 
 [node name="Activation" type="TextureRect" parent="Overlay"]
 visible = false
@@ -638,5 +648,6 @@ texture = SubResource("GradientTexture2D_a7yvt")
 [node name="CenterPivot" type="Node" parent="Overlay/Btn_Damage/DamageFlash"]
 script = ExtResource("25_3p8ij")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("32_sohkl")
+[node name="ClickSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("32_vxv11")
+bus = &"Sfx"
