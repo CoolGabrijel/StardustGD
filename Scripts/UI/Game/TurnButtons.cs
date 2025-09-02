@@ -19,6 +19,7 @@ namespace Stardust.Godot.UI
 
 		[Export] Button nextTurnButton;
 		[Export] Button undoButton;
+		[Export] private AudioStreamPlayer undoAudioPlayer;
 
 		public override void _Ready()
 		{
@@ -29,6 +30,11 @@ namespace Stardust.Godot.UI
         public override void _Process(double delta)
         {
             nextTurnButton.Disabled = !CanNextTurn;
+            
+            if (Input.IsActionJustPressed("Undo"))
+            {
+	            OnUndoPressed();
+            }
         }
 
 		public static void AttemptNextTurn()
@@ -55,6 +61,7 @@ namespace Stardust.Godot.UI
             if (GameLogic.TurnQueue.CurrentPawn != GameStart.LocalPlayer) return;
 
             ActionLibrary.UndoAction();
+            undoAudioPlayer?.Play();
         }
 	} 
 }

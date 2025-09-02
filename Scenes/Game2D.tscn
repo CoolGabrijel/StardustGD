@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=34 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://djwkl73sys1xk" path="res://Sfx/Kenney Sfx/Button_Hover.ogg" id="13_vipu5"]
 [ext_resource type="Script" path="res://Scripts/UI/ButtonHoverSfx.cs" id="14_4iwk4"]
 [ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="14_x6gs1"]
+[ext_resource type="AudioStream" uid="uid://bsajha0q81nh0" path="res://Sfx/Kenney Sfx/Undo_Click.ogg" id="16_2ux1q"]
 [ext_resource type="AudioStream" uid="uid://bvipnp56jmhm8" path="res://Sfx/Kenney Sfx/Room_Hover.ogg" id="22_n1cgi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2v04b"]
@@ -346,7 +347,7 @@ custom_minimum_size = Vector2(234, 50)
 offset_top = 13.0
 offset_bottom = 63.0
 
-[node name="TurnButtons" type="Control" parent="HUD" node_paths=PackedStringArray("nextTurnButton", "undoButton")]
+[node name="TurnButtons" type="Control" parent="HUD" node_paths=PackedStringArray("nextTurnButton", "undoButton", "undoAudioPlayer")]
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -359,6 +360,7 @@ theme = ExtResource("12_cvj7j")
 script = ExtResource("9_yiud2")
 nextTurnButton = NodePath("NextTurn")
 undoButton = NodePath("Undo")
+undoAudioPlayer = NodePath("Undo/UndoSfx")
 
 [node name="NextTurn" type="Button" parent="HUD/TurnButtons"]
 layout_mode = 1
@@ -439,6 +441,10 @@ bus = &"ButtonHover"
 script = ExtResource("14_4iwk4")
 pitchRandomMax = 0.9
 pitchRandomMin = 0.7
+
+[node name="UndoSfx" type="AudioStreamPlayer" parent="HUD/TurnButtons/Undo"]
+stream = ExtResource("16_2ux1q")
+bus = &"Sfx"
 
 [node name="VictoryScreen" parent="HUD" instance=ExtResource("11_alr5n")]
 visible = false

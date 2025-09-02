@@ -10,6 +10,7 @@ namespace Stardust.Godot.UI
 		[Export] ColorRect flash;
 		[Export] ColorRect curtain;
 		[Export] AnimationPlayer player;
+		[Export] private AudioStreamPlayer audioPlayer;
 
 		Task task;
 
@@ -44,6 +45,9 @@ namespace Stardust.Godot.UI
 
         private void OnTaskStatusChange()
         {
+	        if (task.Completed)
+		        audioPlayer.Play();
+	        
 			Visible = !task.Completed;
         }
 

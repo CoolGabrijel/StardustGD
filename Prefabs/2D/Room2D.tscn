@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://br7af73781a77"]
+[gd_scene load_steps=52 format=3 uid="uid://br7af73781a77"]
 
 [ext_resource type="Texture2D" uid="uid://c5umj3gcir73p" path="res://Textures/CaptainHoers/Rooms/Habitation1.png" id="1_s0s7v"]
 [ext_resource type="Script" path="res://Scripts/2D/Room2D.cs" id="2_iag5j"]
@@ -33,6 +33,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="25_3p8ij"]
 [ext_resource type="Texture2D" uid="uid://defq6ia742nep" path="res://Textures/Other/Hex.png" id="25_nat5u"]
 [ext_resource type="AudioStream" uid="uid://djwkl73sys1xk" path="res://Sfx/Kenney Sfx/Button_Hover.ogg" id="32_vxv11"]
+[ext_resource type="AudioStream" uid="uid://b8k74ipin6ao3" path="res://Sfx/Kenney Sfx/Pawn_Move.ogg" id="34_f5sc7"]
 
 [sub_resource type="Resource" id="Resource_inm74"]
 script = ExtResource("4_rkktj")
@@ -353,6 +354,13 @@ label_settings = SubResource("LabelSettings_qah6t")
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Overlay/Btn_Obj"]
+stream = ExtResource("32_vxv11")
+bus = &"ButtonHover"
+script = ExtResource("18_p24oq")
+pitchRandomMax = 0.9
+pitchRandomMin = 0.7
+
 [node name="Items" type="HBoxContainer" parent="Overlay"]
 layout_mode = 1
 anchors_preset = 2
@@ -649,5 +657,5 @@ texture = SubResource("GradientTexture2D_a7yvt")
 script = ExtResource("25_3p8ij")
 
 [node name="ClickSfx" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("32_vxv11")
+stream = ExtResource("34_f5sc7")
 bus = &"Sfx"

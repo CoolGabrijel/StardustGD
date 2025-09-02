@@ -50,10 +50,6 @@ namespace Stardust.Godot
 
         public override void _Process(double delta)
         {
-            if (Input.IsActionJustPressed("Undo"))
-            {
-                ActionLibrary.UndoAction();
-            }
             if (Input.IsActionJustPressed("ActivateRoom"))
             {
                 if (LocalPlayer.Room.CanBeActivated)

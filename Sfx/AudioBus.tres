@@ -17,5 +17,5 @@ bus/3/name = &"ButtonHover"
 bus/3/solo = false
 bus/3/mute = false
 bus/3/bypass_fx = false
-bus/3/volume_db = -15.1981
+bus/3/volume_db = -14.6228
 bus/3/send = &"Sfx"
