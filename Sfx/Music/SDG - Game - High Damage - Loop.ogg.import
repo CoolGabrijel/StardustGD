@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://5425o1vs6ais"
+path="res://.godot/imported/SDG - Game - High Damage - Loop.ogg-4553fd01e0445b3b96d80ed705a25ad0.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sfx/Music/SDG - Game - High Damage - Loop.ogg"
+dest_files=["res://.godot/imported/SDG - Game - High Damage - Loop.ogg-4553fd01e0445b3b96d80ed705a25ad0.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

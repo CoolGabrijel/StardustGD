@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://y0hdeadwru2i"
+path="res://.godot/imported/SDG - Game - Low Damage - Intro.ogg-dc4647aa37dc607ce2eb038c7b5c626b.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sfx/Music/SDG - Game - Low Damage - Intro.ogg"
+dest_files=["res://.godot/imported/SDG - Game - Low Damage - Intro.ogg-dc4647aa37dc607ce2eb038c7b5c626b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

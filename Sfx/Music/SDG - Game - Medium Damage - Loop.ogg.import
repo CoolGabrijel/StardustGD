@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cm0dc17gcyivg"
+path="res://.godot/imported/SDG - Game - Medium Damage - Loop.ogg-6f7db0ca24a50267df7b7cc58dfaeccd.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sfx/Music/SDG - Game - Medium Damage - Loop.ogg"
+dest_files=["res://.godot/imported/SDG - Game - Medium Damage - Loop.ogg-6f7db0ca24a50267df7b7cc58dfaeccd.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

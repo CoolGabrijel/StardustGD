@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cnpdncd8wf8ll"
+path="res://.godot/imported/SDG - Game - Catastrophical - Intro.ogg-8b103de6a16d1117d0aa0d76e4e7fd59.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sfx/Music/SDG - Game - Catastrophical - Intro.ogg"
+dest_files=["res://.godot/imported/SDG - Game - Catastrophical - Intro.ogg-8b103de6a16d1117d0aa0d76e4e7fd59.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=41 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -27,6 +27,13 @@
 [ext_resource type="Texture2D" uid="uid://df1r6badr8jku" path="res://Textures/CaptainHoers/Lightning Bolt.png" id="14_x6gs1"]
 [ext_resource type="AudioStream" uid="uid://bsajha0q81nh0" path="res://Sfx/Kenney Sfx/Undo_Click.ogg" id="16_2ux1q"]
 [ext_resource type="AudioStream" uid="uid://bvipnp56jmhm8" path="res://Sfx/Kenney Sfx/Room_Hover.ogg" id="22_n1cgi"]
+[ext_resource type="Script" path="res://Scripts/GameMusicController.cs" id="28_q3cga"]
+[ext_resource type="AudioStream" uid="uid://y0hdeadwru2i" path="res://Sfx/Music/SDG - Game - Low Damage - Intro.ogg" id="29_p1sy7"]
+[ext_resource type="AudioStream" uid="uid://ed6pjrifmu5w" path="res://Sfx/Music/SDG - Game - Low Damage - Loop.ogg" id="30_l2ioi"]
+[ext_resource type="AudioStream" uid="uid://cul6w5q0i6ejq" path="res://Sfx/Music/SDG - Game - Medium Damage - Intro.ogg" id="31_h5kqm"]
+[ext_resource type="AudioStream" uid="uid://cm0dc17gcyivg" path="res://Sfx/Music/SDG - Game - Medium Damage - Loop.ogg" id="32_krg8p"]
+[ext_resource type="AudioStream" uid="uid://cjvniyppeg5g" path="res://Sfx/Music/SDG - Game - High Damage - Intro.ogg" id="33_ntmhi"]
+[ext_resource type="AudioStream" uid="uid://5425o1vs6ais" path="res://Sfx/Music/SDG - Game - High Damage - Loop.ogg" id="34_5w87k"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2v04b"]
 font = ExtResource("4_ypirp")
@@ -839,3 +846,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.109804, 0.109804, 0.109804, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -2.0
+bus = &"Music"
+script = ExtResource("28_q3cga")
+lowDamageIntro = ExtResource("29_p1sy7")
+lowDamageLoop = ExtResource("30_l2ioi")
+medDamageIntro = ExtResource("31_h5kqm")
+medDamageLoop = ExtResource("32_krg8p")
+highDamageIntro = ExtResource("33_ntmhi")
+highDamageLoop = ExtResource("34_5w87k")
