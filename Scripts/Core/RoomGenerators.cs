@@ -64,6 +64,64 @@ namespace Stardust
             return staticRooms.ToArray();
         }
 
+        public static Room[] GenerateBaseRooms(RoomType[] roomTypes)
+        {
+            List<Room> staticRooms = new();
+            List<Room> procRooms = new();
+
+            foreach (RoomType roomType in roomTypes)
+            {
+                Room room = roomType switch
+                {
+                    RoomType.Workshop => new Workshop(),
+                    RoomType.Habitation => new Habitation(),
+                    RoomType.LifeSupport => new LifeSupport(),
+                    RoomType.Airlock => new Airlock(),
+                    RoomType.Comms => new Comms(),
+                    _ => throw new Exception(
+                        $"Room type {roomType} not supported in RoomGenerators::GenerateBaseRooms(RoomType)")
+                };
+
+                procRooms.Add(room);
+            }
+
+            // Engines always go first
+            Room prevRoom = new Engines();
+            staticRooms.Add(prevRoom);
+
+            // Then the rooms between Engine and Cockpit
+            foreach (Room room in procRooms)
+            {
+                staticRooms.Add(room);
+
+                // Connect it to the previous room and make it the previous room
+                prevRoom.Neighbours.Add((Direction.East, room));
+                room.Neighbours.Add((Direction.West, prevRoom));
+                prevRoom = room;
+            }
+
+            // Find the airlock and give it solar panels
+            foreach (Room room in staticRooms)
+            {
+                if (room.RoomType == RoomType.Airlock)
+                {
+                    Room solar = new SolarPanels();
+                    room.Neighbours.Add((Direction.North, solar));
+                    solar.Neighbours.Add((Direction.South, room));
+                    staticRooms.Add(solar);
+                    break;
+                }
+            }
+
+            // Finally, add the Cockpit, and give it the neighbours
+            Room cockpit = new Cockpit();
+            staticRooms.Add(cockpit);
+            cockpit.Neighbours.Add((Direction.West, prevRoom));
+            prevRoom.Neighbours.Add((Direction.East, cockpit));
+
+            return staticRooms.ToArray();
+        }
+
         public static Room[] GenerateFirstStepsRooms(Room[] rooms)
         {
             AirlockExpanded newAirlock = new();

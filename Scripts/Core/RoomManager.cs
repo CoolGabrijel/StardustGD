@@ -21,6 +21,20 @@ namespace Stardust
             }
         }
 
+        public void SetRooms(RoomType[] roomTypes)
+        {
+            List<RoomGenerator> generators = new();
+
+            if (StardustGameConfig.CurrentConfig.FirstStepsEnabled) generators.Add(RoomGenerators.GenerateFirstStepsRooms);
+
+            Rooms = RoomGenerators.GenerateBaseRooms(roomTypes);
+            
+            foreach (RoomGenerator gen in generators)
+            {
+                Rooms = gen(Rooms);
+            }
+        }
+
         public Room GetRoomByType(RoomType type)
         {
             foreach (Room room in Rooms)

@@ -35,6 +35,13 @@ namespace Stardust
             ObjectiveHandler.Initialize(6);
             SpawnPawns(pawns);
         }
+        
+        public static void BeginGame(PawnType[] pawns, RoomType[] rooms)
+        {
+            RoomManager.SetRooms(rooms);
+            ObjectiveHandler.Initialize(6);
+            SpawnPawns(pawns);
+        }
 
 		public static void EndTurn()
 		{
