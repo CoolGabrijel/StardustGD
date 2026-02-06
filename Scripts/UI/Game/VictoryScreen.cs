@@ -42,6 +42,11 @@ namespace Stardust.Godot
             }
         }
 
+        private void QuitToMainMenu()
+        {
+            GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
+        }
+
         private void Popup(bool v)
         {
             GD.Print($"Game End State: {v}");
