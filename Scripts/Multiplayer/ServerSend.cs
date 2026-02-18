@@ -55,9 +55,10 @@ namespace Stardust.Godot
 
             msg.Add(GameStart.PawnsToSpawn.Length);
 
-            foreach (PawnType pawn in GameStart.PawnsToSpawn)
+            foreach (var player in GameStart.PlayerList)
             {
-                msg.Add((int)pawn);
+                msg.Add(player.Key);
+                msg.Add((int)player.Value);
             }
 
             // Send the Rooms

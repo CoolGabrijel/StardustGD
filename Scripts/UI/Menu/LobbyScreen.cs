@@ -19,7 +19,7 @@ namespace Stardust.Godot.UI
 
 		private List<PlayerSlot> vacantSlots = new();
 		private Tween moveTween;
-		private Lobby.LobbyPlayer localPlayer;
+		public static Lobby.LobbyPlayer localPlayer;
 		private RandomNumberGenerator rng = new();
 
         public override void _Ready()
@@ -133,6 +133,7 @@ namespace Stardust.Godot.UI
 
 			List<PawnType> pawnPool = Enum.GetValues(typeof(PawnType)).Cast<PawnType>().ToList();
 			List<PawnType> pawnsToSpawn = new();
+			Dictionary<int, PawnType> players = new();
 			
 			foreach (Lobby.LobbyPlayer player in Lobby.Players)
 			{
@@ -141,7 +142,12 @@ namespace Stardust.Godot.UI
 				PawnType.TryParse(player.CharacterName, out PawnType pawnType);
 				pawnsToSpawn.Add(pawnType);
 				pawnPool.Remove(pawnType);
-			}
+
+                if (Lobby.IsMultiplayer && Lobby.IsHost)
+                {
+					players.Add(player.PlayerId, pawnType);
+                }
+            }
 			
 			foreach (Lobby.LobbyPlayer player in Lobby.Players)
 			{
@@ -151,6 +157,11 @@ namespace Stardust.Godot.UI
 				
 				pawnsToSpawn.Add(randType);
 				pawnPool.Remove(randType);
+
+				if (Lobby.IsMultiplayer && Lobby.IsHost)
+                {
+					players.Add(player.PlayerId, randType);
+                }
 			}
 
 			foreach (PawnType pawn in pawnsToSpawn)
@@ -159,6 +170,7 @@ namespace Stardust.Godot.UI
 			}
 
 			GameStart.PawnsToSpawn = pawnsToSpawn.ToArray();
+			GameStart.PlayerList = players;
 			
 			if (!Lobby.IsMultiplayer) GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
 			else
@@ -168,7 +180,6 @@ namespace Stardust.Godot.UI
 				if (!Lobby.IsHost) ClientSend.SetReady(readyBtn.ButtonPressed);
 				else
 				{
-					//ServerSend.StartGame();
                     GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
                 }
 			}

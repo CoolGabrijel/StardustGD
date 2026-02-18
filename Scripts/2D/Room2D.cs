@@ -116,7 +116,9 @@ namespace Stardust.Godot
 		{
 			if (@event is not InputEventMouseButton mouseEvent) return;
 
-			if (mouseEvent.ButtonMask == MouseButtonMask.Left)
+			if (GameLogic.TurnQueue.CurrentPawn != GameStart.LocalPlayer) return;
+
+            if (mouseEvent.ButtonMask == MouseButtonMask.Left)
 			{
 				//GD.Print($"{Room.Name}: Left click");
 				if (GameLogic.TurnQueue.CurrentPawn.Room == Room) return; // We don't want to move to the Room we're already in.

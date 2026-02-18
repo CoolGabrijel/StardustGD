@@ -11,6 +11,7 @@ namespace Stardust.Godot
         public static PawnType[] PawnsToSpawn;
         public static RoomType[] RoomsToSpawn;
         public static string[] ObjectivesToSpawn;
+        public static Dictionary<int, PawnType> PlayerList;
 
         [Export] private RoomGen2D roomGen;
         [Export] private Node pawnParent;
@@ -56,9 +57,36 @@ namespace Stardust.Godot
                 SpawnPawnGraphic(pawn);
             }
 
-            ServerSend.StartGame();
+            if (UI.LobbyScreen.Lobby.IsMultiplayer)
+            {
+                if (PlayerList != null)
+                {
+                    foreach (var player in PlayerList)
+                    {
+                        if (player.Key == PlayerId)
+                        {
+                            foreach (Pawn pawn in GameLogic.TurnQueue.Pawns)
+                            {
+                                if (pawn.Type == player.Value)
+                                {
+                                    LocalPlayer = pawn;
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                    }
+                }
 
-            LocalPlayer = GameLogic.TurnQueue.CurrentPawn;
+                if (UI.LobbyScreen.Lobby.IsHost)
+                {
+                    ServerSend.StartGame();
+                }
+            }
+            else
+            {
+                LocalPlayer = GameLogic.TurnQueue.CurrentPawn;
+            }
         }
 
         public override void _Process(double delta)
@@ -80,7 +108,10 @@ namespace Stardust.Godot
                 UI.TurnButtons.AttemptNextTurn();
             }
 
-            LocalPlayer = GameLogic.TurnQueue.CurrentPawn; // TODO: Delete later.
+            if (!UI.LobbyScreen.Lobby.IsMultiplayer)
+            {
+                LocalPlayer = GameLogic.TurnQueue.CurrentPawn; // TODO: Refactor.
+            }
         }
 
         public static Pawn2D GetPawnGraphic(Pawn pawn)
