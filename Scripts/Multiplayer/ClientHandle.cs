@@ -42,13 +42,22 @@ namespace Stardust.Godot
             int roomCount = _msg.GetInt(msgIndex++);
             RoomType[] rooms = new RoomType[roomCount];
 
-            for(int i = 0;i < roomCount; i++)
+            for(int i = 0; i < roomCount; i++)
             {
                 rooms[i] = (RoomType)_msg.GetInt(msgIndex++);
             }
 
+            int objCount = _msg.GetInt(msgIndex++);
+            string[] objectives = new string[objCount];
+
+            for(int i = 0; i < objCount; i++)
+            {
+                objectives[i] = _msg.GetString(msgIndex++);
+            }
+
             GameStart.PawnsToSpawn = pawns;
             GameStart.RoomsToSpawn = rooms;
+            GameStart.ObjectivesToSpawn = objectives;
 
             UI.MainMenuScreen.Instance.GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
         }

@@ -43,7 +43,14 @@ namespace Stardust
             SpawnPawns(pawns);
         }
 
-		public static void EndTurn()
+        public static void BeginGame(PawnType[] pawns, RoomType[] rooms, string[] objectives)
+        {
+            RoomManager.SetRooms(rooms);
+            ObjectiveHandler.SetObjectives(objectives);
+            SpawnPawns(pawns);
+        }
+
+        public static void EndTurn()
 		{
             TurnQueue.Next();
 

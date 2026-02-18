@@ -1,5 +1,4 @@
 using Godot;
-using Stardust.Actions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,6 +10,7 @@ namespace Stardust.Godot
         public static int PlayerId;
         public static PawnType[] PawnsToSpawn;
         public static RoomType[] RoomsToSpawn;
+        public static string[] ObjectivesToSpawn;
 
         [Export] private RoomGen2D roomGen;
         [Export] private Node pawnParent;
@@ -38,10 +38,17 @@ namespace Stardust.Godot
             }
 
             pawnToGraphic = new();
+
             if (RoomsToSpawn != null)
-                GameLogic.BeginGame(PawnsToSpawn, RoomsToSpawn);
+            {
+                if (ObjectivesToSpawn != null)
+                    GameLogic.BeginGame(PawnsToSpawn, RoomsToSpawn, ObjectivesToSpawn);
+                else
+                    GameLogic.BeginGame(PawnsToSpawn, RoomsToSpawn);
+            }
             else
                 GameLogic.BeginGame(PawnsToSpawn);
+
             roomGen.Generate(GameLogic.RoomManager);
 
             foreach (Pawn pawn in GameLogic.TurnQueue.Pawns)

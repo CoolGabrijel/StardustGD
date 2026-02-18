@@ -1,5 +1,6 @@
 using Godot;
 using PlayerIOClient;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace Stardust.Godot
@@ -50,6 +51,8 @@ namespace Stardust.Godot
         {
             Message msg = Message.Create("StartGame");
 
+            // Send all the Pawns (some may be procedural if players chose random)
+
             msg.Add(GameStart.PawnsToSpawn.Length);
 
             foreach (PawnType pawn in GameStart.PawnsToSpawn)
@@ -57,12 +60,28 @@ namespace Stardust.Godot
                 msg.Add((int)pawn);
             }
 
+            // Send the Rooms
+
             RoomType[] rooms = FileManager.GetProceduralRooms(GameLogic.RoomManager.Rooms).ToArray();
             msg.Add(rooms.Length);
 
             foreach (RoomType roomType in rooms)
             {
                 msg.Add((int)roomType);
+            }
+
+            // Send the Objectives
+
+            List<string> objectives = new();
+            foreach (Objective objective in ObjectiveHandler.Objectives)
+            {
+                objectives.Add(objective.Name);
+            }
+
+            msg.Add(objectives.Count);
+            foreach (string objective in objectives)
+            {
+                msg.Add(objective);
             }
 
             PIOMP.Server.Broadcast(msg);
