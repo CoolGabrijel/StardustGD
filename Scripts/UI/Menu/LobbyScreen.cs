@@ -16,17 +16,30 @@ namespace Stardust.Godot.UI
 		[Export] private Button[] lobbyBtns;
 		[Export] private PlayerSlot[] playerSlots;
 		[Export] private PlayerSlot localSlot;
-		
+
+		private List<PlayerSlot> vacantSlots = new();
 		private Tween moveTween;
 		private Lobby.LobbyPlayer localPlayer;
 		private RandomNumberGenerator rng = new();
 
-		public override void _Process(double delta)
+        public override void _Ready()
+        {
+			PIOMP.Room.OnNewClientJoined += OnPlayerJoined;
+			PIOMP.Room.OnClientLeft += OnPlayerLeft;
+            PIOMP.MultiplayerUtils.CreateMessageHandlers(System.Reflection.Assembly.GetAssembly(typeof(ClientSend)));
+        }
+
+        public override void _Process(double delta)
 		{
 			ValidateReadyButton();
 		}
 
-		public void OpenSingleplayerScreen()
+        public override void _PhysicsProcess(double delta)
+        {
+            PIOMP.MultiplayerUtils.Tick();
+        }
+
+        public void OpenSingleplayerScreen()
 		{
 			GameStart.PlayerId = 1;
 			Lobby = new Lobby(false);
@@ -37,31 +50,77 @@ namespace Stardust.Godot.UI
 
 		public void OpenMultiplayerScreen()
 		{
-			GameStart.PlayerId = 1;
-			Lobby = new Lobby(true);
-			int iterator = 2;
-
-			foreach (PlayerSlot slot in playerSlots)
-			{
-				if (slot.IsLocal)
-				{
-					Lobby.LobbyPlayer player = new(1);
-					Lobby.AddPlayer(player);
-					slot.SetPlayer(player);
-					localPlayer = player;
-				}
-				else
-				{
-					Lobby.LobbyPlayer player = new(iterator++);
-					Lobby.AddPlayer(player);
-					slot.SetPlayer(player);
-				}
-			}
-			
 			readyBtn.Text = Lobby.IsHost ? "Start" : "Ready";
 			readyBtn.ButtonPressed = false;
 			
 			Show();
+		}
+
+		public void Reset(bool multiplayer)
+        {
+			if (Lobby != null)
+            {
+                Lobby.OnPlayerChanged -= OnPlayerChanged;
+            }
+
+            Lobby = new Lobby(multiplayer);
+            Lobby.OnPlayerChanged += OnPlayerChanged;
+
+            vacantSlots.Clear();
+            vacantSlots.AddRange(playerSlots);
+            vacantSlots.Remove(localSlot);
+        }
+
+		private void OnPlayerJoined(PIOMP.RoomClient client)
+		{
+			if (client.Id == PIOMP.Room.PlayerId)
+            {
+                GameStart.PlayerId = PIOMP.Room.PlayerId;
+                localPlayer = new(PIOMP.Room.PlayerId);
+                Lobby.AddPlayer(localPlayer);
+                localSlot.SetPlayer(localPlayer);
+            }
+			else
+            {
+				PlayerSlot slot = vacantSlots[0];
+				vacantSlots.RemoveAt(0);
+                Lobby.LobbyPlayer player = new(client.Id);
+				player.SetCharacter(client.GetData("Character"));
+				bool ready = bool.Parse(client.GetData("Ready"));
+				GD.Print($"LobbyScreen :: {client.Id}: {ready}");
+                player.SetReady(ready);
+                Lobby.AddPlayer(player);
+                slot.SetPlayer(player);
+            }
+
+            GD.Print($"LobbyScreen :: Player {client.Id} joined");
+        }
+
+		private void OnPlayerLeft(PIOMP.RoomClient client)
+        {
+			foreach (PlayerSlot slot in playerSlots)
+			{
+				if (slot.LobbyPlayer.PlayerId == client.Id)
+				{
+					slot.Reset();
+					vacantSlots.Insert(0, slot);
+					break;
+				}
+			}
+
+            GD.Print($"LobbyScreen :: Player {client.Id} left");
+        }
+
+		private void OnPlayerChanged(Lobby.LobbyPlayer player)
+		{
+			foreach (PlayerSlot slot in playerSlots)
+			{
+				if (slot.LobbyPlayer == player)
+				{
+					slot.OnCharacterChanged(player.CharacterName);
+					return;
+				}
+			}
 		}
 		
 		private void OnReadyClicked()
@@ -96,7 +155,7 @@ namespace Stardust.Godot.UI
 
 			foreach (PawnType pawn in pawnsToSpawn)
 			{
-				GD.Print("LobbyScreen::OnReadyClicked " + pawn);
+				GD.Print("LobbyScreen :: OnReadyClicked " + pawn);
 			}
 
 			GameStart.PawnsToSpawn = pawnsToSpawn.ToArray();
@@ -105,6 +164,13 @@ namespace Stardust.Godot.UI
 			else
 			{
 				localPlayer.SetReady(readyBtn.ButtonPressed);
+
+				if (!Lobby.IsHost) ClientSend.SetReady(readyBtn.ButtonPressed);
+				else
+				{
+					ServerSend.StartGame();
+                    GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
+                }
 			}
 		}
 		
@@ -145,6 +211,11 @@ namespace Stardust.Godot.UI
 				slot.Reset();
 			}
 			
+			if (PIOMP.Room.IsInRoom)
+			{
+				PIOMP.Room.LeaveRoom();
+			}
+
 			MainMenuScreen.Instance.ShowMainMenu();
 		}
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=49 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -22,7 +22,10 @@
 [ext_resource type="AudioStream" uid="uid://b1hsomfqc00pe" path="res://Sfx/Music/SDG - Main Menu - Intro.ogg" id="15_n2lqf"]
 [ext_resource type="AudioStream" uid="uid://bh2nv2euevdgj" path="res://Sfx/Music/SDG - Main Menu - Lobby.ogg" id="16_g5wr7"]
 [ext_resource type="AudioStream" uid="uid://c7fffyka4qmcl" path="res://Sfx/Music/SDG - Main Menu - Ready.ogg" id="17_2wdfa"]
+[ext_resource type="Script" path="res://Scripts/UI/Menu/OnlineMenu.cs" id="19_inaxo"]
 [ext_resource type="PackedScene" uid="uid://c6uo5do5x0krg" path="res://Prefabs/UI/Settings.tscn" id="19_njj2a"]
+[ext_resource type="Texture2D" uid="uid://coj87xj33rl2r" path="res://Textures/CaptainHoers/Video icons/Ico_X.png" id="19_v2qg2"]
+[ext_resource type="Texture2D" uid="uid://jnptibdxkwur" path="res://Textures/CaptainHoers/Video icons/Plus.png" id="21_almb4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqfu"]
 bg_color = Color(0.827451, 0.827451, 0.827451, 1)
@@ -115,7 +118,28 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("LobbyScreen", "SettingsMenu", "MenuButtons", "BoxCover")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jibt7"]
+bg_color = Color(0.215686, 0.27451, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3gau"]
+bg_color = Color(0.6, 0.27, 0.27, 1)
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ufldb"]
+bg_color = Color(0.792157, 0.792157, 0.792157, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uw6c2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_asgbo"]
+texture = ExtResource("7_corte")
+modulate_color = Color(0.892254, 0.913484, 0.911381, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v0s0a"]
+texture = ExtResource("7_corte")
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("LobbyScreen", "SettingsMenu", "OnlineMenu", "MenuButtons", "BoxCover")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -126,6 +150,7 @@ theme = ExtResource("1_lhprw")
 script = ExtResource("2_08cdx")
 LobbyScreen = NodePath("LobbyScreen")
 SettingsMenu = NodePath("Settings")
+OnlineMenu = NodePath("Lobbies")
 MenuButtons = NodePath("MenuButtons3")
 BoxCover = NodePath("BoxCover")
 
@@ -1178,7 +1203,202 @@ PawnType = 3
 layout_mode = 2
 PawnType = 4
 
+[node name="Lobbies" type="Control" parent="." node_paths=PackedStringArray("lobbyScreen", "authWidget", "authLabel", "lobbyNameField", "roomButtonPrefab", "roomContainer")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 89.0
+offset_top = 48.0
+offset_right = -89.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("19_inaxo")
+lobbyScreen = NodePath("../LobbyScreen")
+authWidget = NodePath("VBoxContainer/Content/AuthLabel")
+authLabel = NodePath("VBoxContainer/Content/AuthLabel")
+lobbyNameField = NodePath("VBoxContainer/Content/LineEdit")
+roomButtonPrefab = NodePath("VBoxContainer/Content/LobbyContainer/ScrollContainer/LobbyContainer/Lobby")
+roomContainer = NodePath("VBoxContainer/Content/LobbyContainer/ScrollContainer/LobbyContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lobbies"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="Panel" parent="Lobbies/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jibt7")
+
+[node name="Label" type="Label" parent="Lobbies/VBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_right = 104.0
+grow_vertical = 2
+text = "Online Lobbies"
+vertical_alignment = 1
+
+[node name="BtnClose" type="Button" parent="Lobbies/VBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_h3gau")
+
+[node name="TextureRect" type="TextureRect" parent="Lobbies/VBoxContainer/Header/BtnClose"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("19_v2qg2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Content" type="Panel" parent="Lobbies/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ufldb")
+
+[node name="LobbyContainer" type="Control" parent="Lobbies/VBoxContainer/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 55.0
+offset_right = -12.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="Lobbies/VBoxContainer/Content/LobbyContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Lobbies/VBoxContainer/Content/LobbyContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 7.0
+offset_right = -11.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="LobbyContainer" type="VBoxContainer" parent="Lobbies/VBoxContainer/Content/LobbyContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Lobby" type="Button" parent="Lobbies/VBoxContainer/Content/LobbyContainer/ScrollContainer/LobbyContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+
+[node name="LobbyName" type="Label" parent="Lobbies/VBoxContainer/Content/LobbyContainer/ScrollContainer/LobbyContainer/Lobby"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_right = 578.0
+grow_vertical = 2
+text = "LobbyName"
+vertical_alignment = 1
+
+[node name="Hint" type="Label" parent="Lobbies/VBoxContainer/Content/LobbyContainer/ScrollContainer/LobbyContainer/Lobby"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -185.0
+offset_right = -7.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.447059)
+text = "Click to join"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="AuthLabel" type="Label" parent="Lobbies/VBoxContainer/Content"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_uw6c2")
+text = "Authenticating"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BtnNew" type="Button" parent="Lobbies/VBoxContainer/Content"]
+layout_mode = 0
+offset_left = 296.0
+offset_top = 6.0
+offset_right = 360.0
+offset_bottom = 48.0
+tooltip_text = "Create new Lobby"
+mouse_default_cursor_shape = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_asgbo")
+theme_override_styles/normal = SubResource("StyleBoxTexture_v0s0a")
+
+[node name="TextureRect" type="TextureRect" parent="Lobbies/VBoxContainer/Content/BtnNew"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_corte")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="Lobbies/VBoxContainer/Content/BtnNew"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("21_almb4")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="LineEdit" type="LineEdit" parent="Lobbies/VBoxContainer/Content"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 6.0
+offset_right = 289.0
+offset_bottom = 49.0
+placeholder_text = "Lobby Name..."
+
 [node name="Settings" parent="." instance=ExtResource("19_njj2a")]
+visible = false
 layout_mode = 1
 
 [node name="MusicController" type="Node" parent="." node_paths=PackedStringArray("player")]
@@ -1202,3 +1422,5 @@ bus = &"Music"
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Leave" to="LobbyScreen" method="OnLeaveClicked"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Ready" to="LobbyScreen" method="OnReadyClicked"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Options" to="LobbyScreen" method="OnSettingsClicked"]
+[connection signal="pressed" from="Lobbies/VBoxContainer/Header/BtnClose" to="Lobbies" method="CloseMenu"]
+[connection signal="pressed" from="Lobbies/VBoxContainer/Content/BtnNew" to="Lobbies" method="CreateLobby"]

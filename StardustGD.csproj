@@ -5,4 +5,9 @@
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'ios' ">net8.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PlayerIOClient">
+      <HintPath>addons\PlayerIO\PlayerIOClient.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

@@ -10,9 +10,10 @@ public class Lobby
 	}
 	
 	public event System.Action OnPlayerAdded;
+	public event System.Action<LobbyPlayer> OnPlayerChanged;
 	
 	public bool IsMultiplayer { get; private set; }
-	public bool IsHost { get; private set; }
+	public bool IsHost => PIOMP.Room.IsHost;
 
 	public List<LobbyPlayer> Players { get; private set; } = new();
 
@@ -26,6 +27,21 @@ public class Lobby
 	{
 		Players.Remove(player);
 		OnPlayerAdded?.Invoke();
+	}
+
+	public void ChangePlayer(int id, string charName)
+	{
+		foreach (LobbyPlayer player in Players)
+		{
+			if (player.PlayerId == id)
+			{
+				player.SetCharacter(charName);
+				OnPlayerChanged?.Invoke(player);
+				return;
+			}
+		}
+
+		throw new System.Exception($"Lobby :: Could not find player of id {id}");
 	}
 
 	public void Ready(int id, bool ready)

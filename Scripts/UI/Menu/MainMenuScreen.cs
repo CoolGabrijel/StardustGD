@@ -9,6 +9,7 @@ namespace Stardust.Godot.UI
 
 		[Export] LobbyScreen LobbyScreen { get; set; }
 		[Export] SettingsMenu SettingsMenu { get; set; }
+		[Export] OnlineMenu OnlineMenu { get; set; }
 		[Export] Control MenuButtons { get; set; }
 		[Export] Control BoxCover { get; set; }
 
@@ -24,6 +25,7 @@ namespace Stardust.Godot.UI
             BoxCover.Show();
             LobbyScreen.Hide();
             SettingsMenu.Hide();
+			OnlineMenu.Hide();
         }
 
         public void SinglePlayerPressed()
@@ -38,7 +40,8 @@ namespace Stardust.Godot.UI
 		{
 			MenuButtons.Hide();
 			BoxCover.Hide();
-			LobbyScreen.OpenMultiplayerScreen();
+			//LobbyScreen.OpenMultiplayerScreen();
+			OnlineMenu.OpenMenu();
 			MusicController.Instance.PlayLobbyMusic();
 		}
 

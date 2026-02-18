@@ -6,9 +6,10 @@ namespace Stardust.Godot.UI
 	public partial class PlayerSlot : Control
 	{
 		private static bool isViewingCharacterSelect;
+		public Lobby.LobbyPlayer LobbyPlayer { get; private set; }
 		public bool PlayerReady { get; private set; }
 
-		private bool isLocallyOwned => lobbyPlayer.PlayerId == GameStart.PlayerId;
+		private bool isLocallyOwned => LobbyPlayer.PlayerId == GameStart.PlayerId;
 
 		[Export] public bool IsLocal;
 		[Export] private TextureRect portrait;
@@ -25,7 +26,6 @@ namespace Stardust.Godot.UI
 
 		[Export] private Dictionary<string, Texture2D> portraits;
 
-		private Lobby.LobbyPlayer lobbyPlayer;
 		private string[] selectableChars;
 		private string selectedChar = "Open";
 		private int randIndex = 0;
@@ -73,12 +73,12 @@ namespace Stardust.Godot.UI
 
         public void SetPlayer(Lobby.LobbyPlayer player)
         {
-	        lobbyPlayer = player;
+            LobbyPlayer = player;
 
 	        if (!LobbyScreen.Lobby.IsMultiplayer)
 	        {
 		        characterSelectDrawer.Show();
-		        lobbyPlayer.OnReady += SetReady;
+                LobbyPlayer.OnReady += SetReady;
 		        portrait.GetParent<Control>().MouseFilter = MouseFilterEnum.Pass;
 		        MouseFilter = MouseFilterEnum.Pass;
 	        }
@@ -89,11 +89,13 @@ namespace Stardust.Godot.UI
 			        characterSelectDrawer.Show();
 			        MouseEntered += OnMouseEntered;
 			        MouseExited += OnMouseExited;
-			        lobbyPlayer.OnReady += SetReady;
+                    LobbyPlayer.OnReady += SetReady;
 		        }
 		        else
-		        {
-			        characterSelectDrawer.Hide();
+                {
+					if (player.Ready) SetReady(true);
+                    LobbyPlayer.OnReady += SetReady;
+                    characterSelectDrawer.Hide();
 			        portrait.GetParent<Control>().MouseFilter = MouseFilterEnum.Ignore;
 			        MouseFilter = MouseFilterEnum.Ignore;
 		        }
@@ -108,8 +110,8 @@ namespace Stardust.Godot.UI
 	        {
 		        MouseEntered -= OnMouseEntered;
 		        MouseExited -= OnMouseExited;
-		        if (lobbyPlayer != null)
-					lobbyPlayer.OnReady -= SetReady;
+		        if (LobbyPlayer != null)
+                    LobbyPlayer.OnReady -= SetReady;
 	        }
 	        else
 	        {
@@ -117,9 +119,11 @@ namespace Stardust.Godot.UI
 		        {
 			        MouseEntered -= OnMouseEntered;
 			        MouseExited -= OnMouseExited;
-			        lobbyPlayer.OnReady -= SetReady;
+                    LobbyPlayer.OnReady -= SetReady;
 		        }
 	        }
+
+			OnCharacterChanged("Open");
         }
 
         public void SetReady(bool ready)
@@ -173,30 +177,55 @@ namespace Stardust.Godot.UI
 			}
 		}
 
-		private void ChangePortrait(string newChar)
+		/// <summary>
+		/// For manual use. (When you click a button)
+		/// </summary>
+		/// <param name="newChar">The new character to set the slot to</param>
+		public void ChangePortrait(string newChar)
 		{
-			if (Visible)
-			{
-				audioStreamPlayer.Play();
+            if (!LobbyScreen.Lobby.IsMultiplayer)
+            {
+                if (selectedChar == "Open")
+                {
+                    Lobby.LobbyPlayer newPlayer = new(1);
+                    newPlayer.SetCharacter(newChar);
+                    LobbyScreen.Lobby.AddPlayer(newPlayer);
+                    SetPlayer(newPlayer);
+                }
+                else
+                {
+                    LobbyPlayer.SetCharacter(newChar);
+                }
+            }
+            else
+            {
+                if (LobbyScreen.Lobby.IsHost)
+                {
+                    ServerSend.ChangeChar(LobbyPlayer.PlayerId, newChar);
+                }
+                else
+                {
+                    ClientSend.ReqCharChange(newChar);
+                }
+            }
+            
+			OnCharacterChanged(newChar);
+        }
 
-				if (!LobbyScreen.Lobby.IsMultiplayer)
-				{
-					if (selectedChar == "Open")
-					{
-						Lobby.LobbyPlayer newPlayer = new(1);
-						newPlayer.SetCharacter(newChar);
-						LobbyScreen.Lobby.AddPlayer(newPlayer);
-						SetPlayer(newPlayer);
-					}
-					else
-					{
-						lobbyPlayer.SetCharacter(newChar);
-					}
-				}
-			}
-			PlayCharSelectAnimation();
-			selectedChar = newChar;
-			ChangeImage(newChar);
+        /// <summary>
+        /// For external use. (When a remote player changes character)
+        /// </summary>
+        /// <param name="newChar">The new character to set the slot to</param>
+        public void OnCharacterChanged(string newChar)
+		{
+            if (Visible)
+            {
+                audioStreamPlayer.Play();
+            }
+
+            PlayCharSelectAnimation();
+            selectedChar = newChar;
+            ChangeImage(newChar);
             portrait.Modulate = Colors.White;
         }
 
