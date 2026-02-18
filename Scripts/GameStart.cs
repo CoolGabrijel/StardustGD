@@ -10,6 +10,7 @@ namespace Stardust.Godot
         public static Pawn LocalPlayer;
         public static int PlayerId;
         public static PawnType[] PawnsToSpawn;
+        public static RoomType[] RoomsToSpawn;
 
         [Export] private RoomGen2D roomGen;
         [Export] private Node pawnParent;
@@ -37,13 +38,18 @@ namespace Stardust.Godot
             }
 
             pawnToGraphic = new();
-            GameLogic.BeginGame(PawnsToSpawn);
+            if (RoomsToSpawn != null)
+                GameLogic.BeginGame(PawnsToSpawn, RoomsToSpawn);
+            else
+                GameLogic.BeginGame(PawnsToSpawn);
             roomGen.Generate(GameLogic.RoomManager);
 
             foreach (Pawn pawn in GameLogic.TurnQueue.Pawns)
             {
                 SpawnPawnGraphic(pawn);
             }
+
+            ServerSend.StartGame();
 
             LocalPlayer = GameLogic.TurnQueue.CurrentPawn;
         }

@@ -168,7 +168,7 @@ namespace Stardust.Godot.UI
 				if (!Lobby.IsHost) ClientSend.SetReady(readyBtn.ButtonPressed);
 				else
 				{
-					ServerSend.StartGame();
+					//ServerSend.StartGame();
                     GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
                 }
 			}

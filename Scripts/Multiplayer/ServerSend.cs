@@ -57,6 +57,14 @@ namespace Stardust.Godot
                 msg.Add((int)pawn);
             }
 
+            RoomType[] rooms = FileManager.GetProceduralRooms(GameLogic.RoomManager.Rooms).ToArray();
+            msg.Add(rooms.Length);
+
+            foreach (RoomType roomType in rooms)
+            {
+                msg.Add((int)roomType);
+            }
+
             PIOMP.Server.Broadcast(msg);
         }
     } 
