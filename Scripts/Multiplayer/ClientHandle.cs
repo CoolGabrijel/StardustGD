@@ -2,6 +2,7 @@ using Godot;
 using PIOMP;
 using PlayerIOClient;
 using System.Collections.Generic;
+using Stardust.Actions;
 
 namespace Stardust.Godot
 {
@@ -73,6 +74,35 @@ namespace Stardust.Godot
             GameStart.PlayerList = players;
 
             UI.MainMenuScreen.Instance.GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
+        }
+        
+        [MessageHandler("Move")]
+        public static void ReceiveMove(Message _msg)
+        {
+            uint msgIndex = 0;
+            PawnType pawnType = (PawnType)_msg.GetInt(msgIndex++);
+            int cost =  _msg.GetInt(msgIndex++);
+            RoomType toType = (RoomType)_msg.GetInt(msgIndex++);
+            RoomType fromType = (RoomType)_msg.GetInt(msgIndex++);
+            Direction movDir = (Direction)_msg.GetInt(msgIndex);
+
+            Pawn pawn = null;
+            foreach (Pawn turnQueuePawn in GameLogic.TurnQueue.Pawns)
+            {
+                if (pawnType == turnQueuePawn.Type)
+                {
+                    pawn = turnQueuePawn;
+                    break;
+                }
+            }
+
+            Room toRoom = GameLogic.RoomManager.GetRoomByType(toType);
+            Room fromRoom = GameLogic.RoomManager.GetRoomByType(fromType);
+            
+            IUndoableAction action = new MoveAction(pawn, cost, fromRoom, toRoom, movDir);
+
+            action.Do();
+            ActionLibrary.AddAction(action);
         }
     }
 }

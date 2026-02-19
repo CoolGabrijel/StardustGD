@@ -167,6 +167,9 @@ namespace Stardust.Godot
                 //moveAction = new MoveAction(GameStart.LocalPlayer, cost, GameStart.LocalPlayer.Room, Room, movDir);
 				moveAction.Do();
 				ActionLibrary.AddAction(moveAction);
+				
+				if (PIOMP.Room.IsHost) ServerSend.Move(GameStart.PlayerId, new MoveAction(GameStart.LocalPlayer, cost, GameStart.LocalPlayer.Room, Room, movDir));
+				
 				clickSound?.Play();
 			}
 		}

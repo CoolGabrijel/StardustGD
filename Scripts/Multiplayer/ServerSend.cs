@@ -1,7 +1,7 @@
 using Godot;
 using PlayerIOClient;
 using System.Collections.Generic;
-using System.Numerics;
+using Stardust.Actions;
 
 namespace Stardust.Godot
 {
@@ -55,7 +55,7 @@ namespace Stardust.Godot
 
             msg.Add(GameStart.PawnsToSpawn.Length);
 
-            foreach (var player in GameStart.PlayerList)
+            foreach (KeyValuePair<int, PawnType> player in GameStart.PlayerList)
             {
                 msg.Add(player.Key);
                 msg.Add((int)player.Value);
@@ -86,6 +86,19 @@ namespace Stardust.Godot
             }
 
             PIOMP.Server.Broadcast(msg);
+        }
+
+        public static void Move(int id, MoveAction action)
+        {
+            Message msg = Message.Create("Move");
+            
+            msg.Add((int)action.Pawn.Type);
+            msg.Add(action.EnergyCost);
+            msg.Add((int)action.ToRoom.RoomType);
+            msg.Add((int)action.FromRoom.RoomType);
+            msg.Add((int)action.StartingMovementDirection);
+            
+            PIOMP.Server.BroadcastExcept(msg, id);
         }
     } 
 }

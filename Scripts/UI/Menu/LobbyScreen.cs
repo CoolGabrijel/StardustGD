@@ -26,18 +26,12 @@ namespace Stardust.Godot.UI
         {
 			PIOMP.Room.OnNewClientJoined += OnPlayerJoined;
 			PIOMP.Room.OnClientLeft += OnPlayerLeft;
-            PIOMP.MultiplayerUtils.CreateMessageHandlers(System.Reflection.Assembly.GetAssembly(typeof(ClientSend)));
         }
 
         public override void _Process(double delta)
 		{
 			ValidateReadyButton();
 		}
-
-        public override void _PhysicsProcess(double delta)
-        {
-            PIOMP.MultiplayerUtils.Tick();
-        }
 
         public void OpenSingleplayerScreen()
 		{
@@ -256,6 +250,12 @@ namespace Stardust.Godot.UI
 
 				charTypes.Add(player.CharacterName);
 			}
+		}
+
+		public override void _ExitTree()
+		{
+			PIOMP.Room.OnNewClientJoined -= OnPlayerJoined;
+			PIOMP.Room.OnClientLeft -= OnPlayerLeft;
 		}
 	}
 }

@@ -26,6 +26,7 @@ buses/default_bus_layout="res://Sfx/AudioBus.tres"
 [autoload]
 
 SplashScreen="*res://Scripts/UI/SplashScreen.cs"
+NetworkManager="*res://Scripts/Multiplayer/NetworkManager.cs"
 
 [display]
 
