@@ -76,6 +76,22 @@ namespace Stardust.Godot
             UI.MainMenuScreen.Instance.GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
         }
         
+        [MessageHandler("EndTurn")]
+        public static void ReceiveEndTurn(Message _msg)
+        {
+            RoomType damagedRoomType = (RoomType)_msg.GetInt(0);
+            
+            Room damagedRoom = GameLogic.RoomManager.GetRoomByType(damagedRoomType);
+            
+            UI.TurnButtons.NextTurn(damagedRoom);
+        }
+        
+        [MessageHandler("Undo")]
+        public static void ReceiveUndo(Message _msg)
+        {
+            UI.TurnButtons.Undo();
+        }
+        
         [MessageHandler("Move")]
         public static void ReceiveMove(Message _msg)
         {

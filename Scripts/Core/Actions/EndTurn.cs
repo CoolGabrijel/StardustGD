@@ -28,7 +28,9 @@ namespace Stardust.Actions
 
             if (!StardustGameConfig.CurrentConfig.DamageDisabled)
             {
-                GameLogic.DamageManager.Damage();
+                if (DamagedRoom != null) GameLogic.DamageManager.Damage(DamagedRoom);
+                else GameLogic.DamageManager.Damage();
+                
                 GameLogic.DamageManager.TurnIndex++;
             }
 

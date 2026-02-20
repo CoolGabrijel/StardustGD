@@ -41,12 +41,40 @@ namespace Stardust.Godot.UI
         {
 			if (!CanNextTurn) return;
 
+			NextTurn();
+			
+			if (PIOMP.Room.IsHost) ServerSend.EndTurn(GameStart.PlayerId, GameLogic.DamageManager.PreviouslyDamagedRoom.RoomType);
+			else if (PIOMP.Room.IsInRoom) ClientSend.ReqEndTurn();
+        }
+
+		public static void NextTurn()
+		{
 			IUndoableAction action;
 			if (GameStart.LocalPlayer.Type == PawnType.Zambuko) action = new ZambukoEndTurn();
 			else action = new EndTurn();
 			action.Do();
-            ActionLibrary.AddAction(action);
-        }
+			ActionLibrary.AddAction(action);
+		}
+		
+		public static void NextTurn(Room damagedRoom)
+		{
+			IUndoableAction action;
+			if (GameStart.LocalPlayer.Type == PawnType.Zambuko) action = new ZambukoEndTurn();
+			else
+			{
+				EndTurn endTurn = new();
+				endTurn.DamagedRoom = damagedRoom;
+				action = endTurn;
+			}
+
+			action.Do();
+			ActionLibrary.AddAction(action);
+		}
+
+		public static void Undo()
+		{
+			ActionLibrary.UndoAction();
+		}
 
 		private void OnNextTurnPressed()
 		{
@@ -59,9 +87,12 @@ namespace Stardust.Godot.UI
 	        ReleaseFocus();
 	        
             if (GameLogic.TurnQueue.CurrentPawn != GameStart.LocalPlayer) return;
-
-            ActionLibrary.UndoAction();
+            
+            Undo();
             undoAudioPlayer?.Play();
+            
+            if (PIOMP.Room.IsHost) ServerSend.Undo(GameStart.PlayerId);
+            else if (PIOMP.Room.IsInRoom) ClientSend.ReqUndo();
         }
 	} 
 }

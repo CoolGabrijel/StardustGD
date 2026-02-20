@@ -9,13 +9,8 @@ namespace Stardust
         {
             this.roomManager = roomManager;
         }
-
-        public int TurnIndex { get; set; }
-
-        private RoomManager roomManager;
-        private List<RoomType> roomsDamaged = new();
-        readonly static Random rng = new();
-        private Room previouslyDamagedRoom
+        
+        public Room PreviouslyDamagedRoom
         {
             get
             {
@@ -25,10 +20,33 @@ namespace Stardust
             }
         }
 
+        public int TurnIndex { get; set; }
+
+        private RoomManager roomManager;
+        private List<RoomType> roomsDamaged = new();
+        readonly static Random rng = new();
+
         public void Damage()
         {
             Room room = GetRoomToDamage();
 
+            if (TurnIndex >= roomsDamaged.Count)
+            {
+                roomsDamaged.Add(room.RoomType);
+            }
+
+            if (!IsAuroraInRoom(room))
+            {
+                room.Damage();
+            }
+            else
+            {
+                TryGetAuroraInRoom(room).DamageBlocked();
+            }
+        }
+
+        public void Damage(Room room)
+        {
             if (TurnIndex >= roomsDamaged.Count)
             {
                 roomsDamaged.Add(room.RoomType);
@@ -71,7 +89,7 @@ namespace Stardust
                 }
             }
 
-            if (previouslyDamagedRoom != null) rooms.Remove(previouslyDamagedRoom);
+            if (PreviouslyDamagedRoom != null) rooms.Remove(PreviouslyDamagedRoom);
 
             int randRoomIndex = rng.Next(rooms.Count);
             Room randRoom = rooms[randRoomIndex];

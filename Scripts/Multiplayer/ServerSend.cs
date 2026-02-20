@@ -88,15 +88,31 @@ namespace Stardust.Godot
             PIOMP.Server.Broadcast(msg);
         }
 
-        public static void Move(int id, MoveAction action)
+        public static void EndTurn(int id, RoomType damagedRoom)
+        {
+            Message msg = Message.Create("EndTurn");
+            
+            msg.Add((int)damagedRoom);
+            
+            PIOMP.Server.BroadcastExcept(msg, id);
+        }
+
+        public static void Undo(int id)
+        {
+            Message msg = Message.Create("Undo");
+            
+            PIOMP.Server.BroadcastExcept(msg, id);
+        }
+
+        public static void Move(int id, PawnType pawn, int cost, RoomType fromRoom, RoomType toRoom, Direction movDir)
         {
             Message msg = Message.Create("Move");
             
-            msg.Add((int)action.Pawn.Type);
-            msg.Add(action.EnergyCost);
-            msg.Add((int)action.ToRoom.RoomType);
-            msg.Add((int)action.FromRoom.RoomType);
-            msg.Add((int)action.StartingMovementDirection);
+            msg.Add((int)pawn);
+            msg.Add(cost);
+            msg.Add((int)toRoom);
+            msg.Add((int)fromRoom);
+            msg.Add((int)movDir);
             
             PIOMP.Server.BroadcastExcept(msg, id);
         }

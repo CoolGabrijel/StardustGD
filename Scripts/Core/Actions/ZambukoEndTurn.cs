@@ -5,8 +5,8 @@ namespace Stardust.Actions
 {
     public class ZambukoEndTurn : IUndoableAction
     {
+        public EndTurn EndTurn { get; private set; }
         IUndoableAction roomAction;
-        IUndoableAction endTurn;
 
         public void Do()
         {
@@ -51,17 +51,17 @@ namespace Stardust.Actions
 
             if (roomAction is not Sleep) // Sleep already automatically ends turn.
             {
-                if (endTurn == null) endTurn = new EndTurn();
+                if (EndTurn == null) EndTurn = new EndTurn();
 
                 GameLogic.EnergyExpended--; // We don't want the action to use any energy.
-                endTurn.Do();
+                EndTurn.Do();
             }
         }
 
         public void Undo()
         {
             roomAction?.Undo();
-            endTurn?.Undo();
+            EndTurn?.Undo();
         }
     }
 }

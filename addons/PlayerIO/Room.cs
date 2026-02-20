@@ -86,6 +86,7 @@ namespace PIOMP
 
         public static void LeaveRoom()
         {
+            IsHost = false;
             Connection?.Disconnect();
             Clear();
         }
@@ -110,6 +111,7 @@ namespace PIOMP
 
         static void OnConnectionDisconnect(object _sender, string _msg)
         {
+            IsHost = false;
             Connection.OnMessage -= MessageListener.OnMessage;
             Connection.OnDisconnect -= OnConnectionDisconnect;
 
