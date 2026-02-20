@@ -83,6 +83,9 @@ namespace Stardust.Godot
 
             action.Do();
             ActionLibrary.AddAction(action);
+            
+            if (PIOMP.Room.IsHost) ServerSend.CompleteTask(GameStart.PlayerId);
+            else if (PIOMP.Room.IsInRoom) ClientSend.ReqCompleteTask();
 
             ObjectiveHandler.CheckAllObjectivesCompleted();
             GetViewport().GuiReleaseFocus();

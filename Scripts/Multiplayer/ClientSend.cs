@@ -81,5 +81,12 @@ namespace Stardust.Godot
             
             PIOMP.Room.Connection.Send(msg);
         }
+        
+        public static void ReqCompleteTask()
+        {
+            Message msg = Message.Create("ReqCompleteTask");
+            
+            PIOMP.Room.Connection.Send(msg);
+        }
     }
 }

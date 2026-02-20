@@ -169,5 +169,29 @@ namespace Stardust.Godot
 
             ServerSend.Repair(id);
         }
+        
+        [MessageHandler("ReqCompleteTask")]
+        public static void ReceiveCompleteTask(Message _msg)
+        {
+            int id = _msg.GetInt(0);
+            
+            Pawn pawn = GameLogic.TurnQueue.CurrentPawn;
+            IUndoableAction action = null;
+            if (ObjectiveHandler.CurrentObjective.Tasks[0].Tag == "FirstSteps")
+            {
+                action = new CompleteMarsTask(pawn);
+            }
+            else
+            {
+                action = new CompleteBaseTask(pawn.Room.RoomType);
+            }
+
+            action.Do();
+            ActionLibrary.AddAction(action);
+            
+            ServerSend.CompleteTask(id);
+
+            ObjectiveHandler.CheckAllObjectivesCompleted();
+        }
     } 
 }

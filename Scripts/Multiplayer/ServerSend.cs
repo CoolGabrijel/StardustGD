@@ -154,5 +154,14 @@ namespace Stardust.Godot
             
             PIOMP.Server.BroadcastExcept(msg, id);
         }
+
+        public static void CompleteTask(int id)
+        {
+            Message msg = Message.Create("CompleteTask");
+            
+            msg.Add(id);
+                
+            PIOMP.Server.BroadcastExcept(msg, id);
+        }
     } 
 }
