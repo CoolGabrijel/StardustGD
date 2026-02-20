@@ -49,6 +49,7 @@ namespace Stardust.Godot.UI
 			
 			NextTurn();
 			
+			GD.Print(GameLogic.DamageManager.PreviouslyDamagedRoom.RoomType);
 			if (PIOMP.Room.IsHost) ServerSend.EndTurn(GameStart.PlayerId, GameLogic.DamageManager.PreviouslyDamagedRoom.RoomType);
 			//else if (PIOMP.Room.IsInRoom) ClientSend.ReqEndTurn();
         }
@@ -56,7 +57,7 @@ namespace Stardust.Godot.UI
 		public static void NextTurn()
 		{
 			IUndoableAction action;
-			if (GameStart.LocalPlayer.Type == PawnType.Zambuko) action = new ZambukoEndTurn();
+			if (GameLogic.TurnQueue.CurrentPawn.Type == PawnType.Zambuko) action = new ZambukoEndTurn();
 			else action = new EndTurn();
 			action.Do();
 			ActionLibrary.AddAction(action);
@@ -64,9 +65,13 @@ namespace Stardust.Godot.UI
 		
 		public static void NextTurn(Room damagedRoom)
 		{
-			GD.Print(GameLogic.TurnQueue.CurrentPawn.Type);
 			IUndoableAction action;
-			if (GameLogic.TurnQueue.CurrentPawn.Type == PawnType.Zambuko) action = new ZambukoEndTurn();
+			if (GameLogic.TurnQueue.CurrentPawn.Type == PawnType.Zambuko)
+			{
+				ZambukoEndTurn endTurn = new ZambukoEndTurn();
+				endTurn.DamagedRoom = damagedRoom;
+				action = endTurn;
+			}
 			else
 			{
 				EndTurn endTurn = new();
