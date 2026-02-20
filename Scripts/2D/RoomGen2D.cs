@@ -141,10 +141,20 @@ namespace Stardust.Godot
 
 			dir.ListDirBegin();
 			string fileName = dir.GetNext();
-			while (fileName != "")
+			while (!string.IsNullOrEmpty(fileName))
 			{
 				if (!dir.CurrentIsDir())
 				{
+					// I don't even fully understand why this needs to be done...
+					// When you export the project, the .tres files get converted to .tres.remap for performance or something
+					// However, the ResourceLoader doesn't know how to load them... ?
+					// So apparently the .tres files DO still exist, just are not visible to DirAccess...
+					// We want to grab those. So just take the .remaps that exist and remove the extension...
+					if (fileName.EndsWith(".remap"))
+					{
+						fileName = fileName.Remove(fileName.Length - 6);
+					}
+
 					RoomRes2D roomRes = ResourceLoader.Load<RoomRes2D>(roomResourcePath + '/' + fileName);
 					rr2d.TryAdd(roomRes.Type, roomRes);
 				}
