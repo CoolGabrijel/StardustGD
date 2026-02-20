@@ -129,5 +129,65 @@ namespace Stardust.Godot
             Pawn currentPawn = GameLogic.TurnQueue.CurrentPawn;
             currentPawn.Room.ActivateAbility(currentPawn);
         }
+        
+        [MessageHandler("Pickup")]
+        public static void ReceivePickup(Message _msg)
+        {
+            int id =  _msg.GetInt(0);
+            ItemType itemType = (ItemType)_msg.GetInt(1);
+
+            Pawn currentPawn = GameLogic.TurnQueue.CurrentPawn;
+            Item item = currentPawn.Room.GetItem(itemType);
+            PickUpPart pickupAction = new(currentPawn, currentPawn.Room, item);
+            pickupAction.Do();
+            ActionLibrary.AddAction(pickupAction);
+        }
+        
+        [MessageHandler("Drop")]
+        public static void ReceiveDrop(Message _msg)
+        {
+            int id =  _msg.GetInt(0);
+            ItemType itemType = (ItemType)_msg.GetInt(1);
+
+            Pawn pawn = GameLogic.TurnQueue.CurrentPawn;
+            Item item = null;
+
+            foreach (Item itemInInventory in pawn.Inventory)
+            {
+                if (itemInInventory.Type == itemType)
+                {
+                    item = itemInInventory;
+                    break;
+                }
+            }
+            
+            IUndoableAction action = null;
+
+            switch (item.Type)
+            {
+                case ItemType.Part:
+                    action = new DropItem(pawn, pawn.Room, item);
+                    break;
+                case ItemType.Sample:
+                    if (pawn.Room.RoomType == RoomType.Lander)
+                        action = new CompleteMarsTask(pawn, item);
+                    else
+                        action = new DropItem(pawn, pawn.Room, item);
+                    break;
+                case ItemType.Flag:
+                    if (pawn.Room.RoomType == RoomType.Peak)
+                        action = new CompleteMarsTask(pawn, item);
+                    else
+                        action = new DropItem(pawn, pawn.Room, item);
+                    break;
+                case ItemType.Objective:
+                    break;
+                default:
+                    break;
+            }
+
+            action.Do();
+            ActionLibrary.AddAction(action);
+        }
     }
 }

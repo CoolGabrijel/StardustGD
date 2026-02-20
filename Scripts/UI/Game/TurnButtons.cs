@@ -58,8 +58,9 @@ namespace Stardust.Godot.UI
 		
 		public static void NextTurn(Room damagedRoom)
 		{
+			GD.Print(GameLogic.TurnQueue.CurrentPawn.Type);
 			IUndoableAction action;
-			if (GameStart.LocalPlayer.Type == PawnType.Zambuko) action = new ZambukoEndTurn();
+			if (GameLogic.TurnQueue.CurrentPawn.Type == PawnType.Zambuko) action = new ZambukoEndTurn();
 			else
 			{
 				EndTurn endTurn = new();

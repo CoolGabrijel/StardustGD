@@ -125,5 +125,25 @@ namespace Stardust.Godot
             
             PIOMP.Server.BroadcastExcept(msg, id);
         }
+
+        public static void Pickup(int id, ItemType itemType)
+        {
+            Message msg = Message.Create("Pickup");
+            
+            msg.Add(id);
+            msg.Add((int)itemType);
+            
+            PIOMP.Server.BroadcastExcept(msg, id);
+        }
+
+        public static void Drop(int id, ItemType itemType)
+        {
+            Message msg = Message.Create("Drop");
+            
+            msg.Add(id);
+            msg.Add((int)itemType);
+            
+            PIOMP.Server.BroadcastExcept(msg, id);
+        }
     } 
 }

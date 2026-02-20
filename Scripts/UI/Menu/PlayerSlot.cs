@@ -201,6 +201,7 @@ namespace Stardust.Godot.UI
             {
                 if (LobbyScreen.Lobby.IsHost)
                 {
+	                LobbyPlayer.SetCharacter(newChar);
                     ServerSend.ChangeChar(LobbyPlayer.PlayerId, newChar);
                 }
                 else

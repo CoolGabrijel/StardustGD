@@ -21,6 +21,7 @@ namespace Stardust.Godot
             item = itemToPickup;
 			GlobalPosition = globalPos;
             SetTexture();
+            pawn.Pawn.OnItemDropped += OnItemDropped;
             area.InputEvent += OnInput;
             area.MouseEntered += OnHovered;
             area.MouseExited += OnMouseExit;
@@ -86,8 +87,8 @@ namespace Stardust.Godot
 
             action.Do();
             ActionLibrary.AddAction(action);
-
-            QueueFree();
+            
+            if (PIOMP.Room.IsHost) ServerSend.Drop(GameStart.PlayerId, item.Type);
         }
 
         private bool CanDrop()
@@ -96,6 +97,14 @@ namespace Stardust.Godot
             bool isLocalPawn = pawn.Pawn == GameStart.LocalPlayer;
 
             return isReady && isLocalPawn;
+        }
+
+        private void OnItemDropped(Pawn pawn, Item droppedItem)
+        {
+            if (droppedItem != item) return;
+            
+            this.pawn.Pawn.OnItemDropped -= OnItemDropped;
+            QueueFree();
         }
 
         private void OnHovered()

@@ -48,6 +48,8 @@ namespace Stardust.Godot
             PickUpPart PickupAction = new(player, roomGraphic.Room, item);
             PickupAction.Do();
             ActionLibrary.AddAction(PickupAction);
+            
+            if (PIOMP.Room.IsHost) ServerSend.Pickup(GameStart.PlayerId, item.Type);
 
             //Pickup pickup = pickupPrefab.Instantiate<Pickup>();
             //pickup.Initialize(GameStart.GetPawnGraphic(player), roomGraphic.GlobalPosition + pickupSpawnOffset, item);
