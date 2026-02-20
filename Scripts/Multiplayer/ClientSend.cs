@@ -56,5 +56,30 @@ namespace Stardust.Godot
             
             PIOMP.Room.Connection.Send(msg);
         }
+
+        public static void ReqPickup(ItemType item)
+        {
+            Message msg = Message.Create("ReqPickup");
+            
+            msg.Add((int)item);
+            
+            PIOMP.Room.Connection.Send(msg);
+        }
+        
+        public static void ReqDrop(ItemType item)
+        {
+            Message msg = Message.Create("ReqDrop");
+            
+            msg.Add((int)item);
+            
+            PIOMP.Room.Connection.Send(msg);
+        }
+        
+        public static void ReqRepair()
+        {
+            Message msg = Message.Create("ReqRepair");
+            
+            PIOMP.Room.Connection.Send(msg);
+        }
     }
 }

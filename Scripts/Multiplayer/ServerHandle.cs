@@ -94,5 +94,80 @@ namespace Stardust.Godot
 
             ServerSend.ActivateRoom(id);
         }
+        
+        [MessageHandler("ReqPickup")]
+        public static void ReceivePickup(Message _msg)
+        {
+            int id = _msg.GetInt(0);
+            ItemType itemType = (ItemType)_msg.GetInt(1);
+
+            Pawn pawn = GameLogic.TurnQueue.CurrentPawn;
+            Item item = pawn.Room.GetItem(itemType);
+            PickUpPart pickupAction = new(pawn, pawn.Room, item);
+            pickupAction.Do();
+            ActionLibrary.AddAction(pickupAction);
+
+            ServerSend.Pickup(id, itemType);
+        }
+        
+        [MessageHandler("ReqDrop")]
+        public static void ReceiveDrop(Message _msg)
+        {
+            int id = _msg.GetInt(0);
+            ItemType itemType = (ItemType)_msg.GetInt(1);
+            
+            Pawn pawn = GameLogic.TurnQueue.CurrentPawn;
+            Item item = null;
+
+            foreach (Item itemInInventory in pawn.Inventory)
+            {
+                if (itemInInventory.Type == itemType)
+                {
+                    item = itemInInventory;
+                    break;
+                }
+            }
+            
+            IUndoableAction action = null;
+
+            switch (item.Type)
+            {
+                case ItemType.Part:
+                    action = new DropItem(pawn, pawn.Room, item);
+                    break;
+                case ItemType.Sample:
+                    if (pawn.Room.RoomType == RoomType.Lander)
+                        action = new CompleteMarsTask(pawn, item);
+                    else
+                        action = new DropItem(pawn, pawn.Room, item);
+                    break;
+                case ItemType.Flag:
+                    if (pawn.Room.RoomType == RoomType.Peak)
+                        action = new CompleteMarsTask(pawn, item);
+                    else
+                        action = new DropItem(pawn, pawn.Room, item);
+                    break;
+                case ItemType.Objective:
+                    break;
+                default:
+                    break;
+            }
+
+            action.Do();
+            ActionLibrary.AddAction(action);
+            
+            ServerSend.Drop(id, itemType);
+        }
+        
+        [MessageHandler("ReqRepair")]
+        public static void ReceiveRepair(Message _msg)
+        {
+            int id = _msg.GetInt(0);
+
+            Pawn pawn = GameLogic.TurnQueue.CurrentPawn;
+            new RepairRoom(pawn.Room, pawn).Do();
+
+            ServerSend.Repair(id);
+        }
     } 
 }

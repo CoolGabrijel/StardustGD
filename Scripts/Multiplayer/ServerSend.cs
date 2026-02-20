@@ -145,5 +145,14 @@ namespace Stardust.Godot
             
             PIOMP.Server.BroadcastExcept(msg, id);
         }
+
+        public static void Repair(int id)
+        {
+            Message msg = Message.Create("Repair");
+            
+            msg.Add(id);
+            
+            PIOMP.Server.BroadcastExcept(msg, id);
+        }
     } 
 }

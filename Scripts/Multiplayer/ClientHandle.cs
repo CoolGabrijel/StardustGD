@@ -189,5 +189,14 @@ namespace Stardust.Godot
             action.Do();
             ActionLibrary.AddAction(action);
         }
+        
+        [MessageHandler("Repair")]
+        public static void ReceiveRepair(Message _msg)
+        {
+            int id =  _msg.GetInt(0);
+
+            Pawn currentPawn = GameLogic.TurnQueue.CurrentPawn;
+            new RepairRoom(currentPawn.Room, currentPawn).Do();
+        }
     }
 }

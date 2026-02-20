@@ -49,7 +49,12 @@ namespace Stardust.Godot.UI
 
             if (GameLogic.TurnQueue.CurrentPawn != localPlayer) return;
 
-            if (RepairRoom.CanRepairRoom(roomGraphic.Room)) new RepairRoom(roomGraphic.Room, localPlayer).Do();
+            if (!RepairRoom.CanRepairRoom(roomGraphic.Room)) return;
+            
+            new RepairRoom(roomGraphic.Room, localPlayer).Do();
+            
+            if (PIOMP.Room.IsHost) ServerSend.Repair(GameStart.PlayerId);
+            else if (PIOMP.Room.IsInRoom) ClientSend.ReqRepair();
         }
 
         private void OnMouseEntered()

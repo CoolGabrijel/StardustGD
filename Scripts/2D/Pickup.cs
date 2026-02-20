@@ -89,6 +89,7 @@ namespace Stardust.Godot
             ActionLibrary.AddAction(action);
             
             if (PIOMP.Room.IsHost) ServerSend.Drop(GameStart.PlayerId, item.Type);
+            else if (PIOMP.Room.IsInRoom) ClientSend.ReqDrop(item.Type);
         }
 
         private bool CanDrop()
