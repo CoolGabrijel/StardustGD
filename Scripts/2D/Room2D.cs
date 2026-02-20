@@ -181,6 +181,9 @@ namespace Stardust.Godot
 			Pawn player = GameStart.LocalPlayer;
 
             Room.ActivateAbility(player);
+            
+            if (PIOMP.Room.IsHost) ServerSend.ActivateRoom(GameStart.PlayerId);
+            else if (PIOMP.Room.IsInRoom) ClientSend.ReqActivateRoom();
 
             // If you click on the button, you "focus" it and then space bar (the end turn button) pushes it again. Release focus to fix.
             GetViewport().GuiReleaseFocus();

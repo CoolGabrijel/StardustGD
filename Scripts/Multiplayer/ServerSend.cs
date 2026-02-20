@@ -116,5 +116,14 @@ namespace Stardust.Godot
             
             PIOMP.Server.BroadcastExcept(msg, id);
         }
+
+        public static void ActivateRoom(int id)
+        {
+            Message msg = Message.Create("ActivateRoom");
+            
+            msg.Add(id);
+            
+            PIOMP.Server.BroadcastExcept(msg, id);
+        }
     } 
 }

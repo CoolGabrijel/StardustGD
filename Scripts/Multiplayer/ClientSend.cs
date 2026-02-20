@@ -49,5 +49,12 @@ namespace Stardust.Godot
             
             PIOMP.Room.Connection.Send(msg);
         }
+        
+        public static void ReqActivateRoom()
+        {
+            Message msg = Message.Create("ReqActivateRoom");
+            
+            PIOMP.Room.Connection.Send(msg);
+        }
     }
 }

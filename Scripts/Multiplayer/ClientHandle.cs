@@ -120,5 +120,14 @@ namespace Stardust.Godot
             action.Do();
             ActionLibrary.AddAction(action);
         }
+        
+        [MessageHandler("ActivateRoom")]
+        public static void ReceiveActivateRoom(Message _msg)
+        {
+            int id =  _msg.GetInt(0);
+
+            Pawn currentPawn = GameLogic.TurnQueue.CurrentPawn;
+            currentPawn.Room.ActivateAbility(currentPawn);
+        }
     }
 }

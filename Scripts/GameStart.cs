@@ -101,6 +101,9 @@ namespace Stardust.Godot
                     if (!canBeActivated || !hasEnergy) return;
 
                     LocalPlayer.Room.ActivateAbility(LocalPlayer);
+                    
+                    if (PIOMP.Room.IsHost) ServerSend.ActivateRoom(PlayerId);
+                    else if (PIOMP.Room.IsInRoom) ClientSend.ReqActivateRoom();
                 }
             }
             if (Input.IsActionJustPressed("NextTurn"))

@@ -83,5 +83,16 @@ namespace Stardust.Godot
             
             ServerSend.Move(id, pawnType, cost, fromType, toType, movDir);
         }
+        
+        [MessageHandler("ReqActivateRoom")]
+        public static void ReceiveActivateRoom(Message _msg)
+        {
+            int id = _msg.GetInt(0);
+
+            Pawn pawn = GameLogic.TurnQueue.CurrentPawn;
+            pawn.Room.ActivateAbility(pawn);
+
+            ServerSend.ActivateRoom(id);
+        }
     } 
 }
