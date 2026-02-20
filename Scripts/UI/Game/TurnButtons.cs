@@ -41,10 +41,16 @@ namespace Stardust.Godot.UI
         {
 			if (!CanNextTurn) return;
 
+			if (PIOMP.Room.IsInRoom && !PIOMP.Room.IsHost)
+			{
+				ClientSend.ReqEndTurn();
+				return;
+			}
+			
 			NextTurn();
 			
 			if (PIOMP.Room.IsHost) ServerSend.EndTurn(GameStart.PlayerId, GameLogic.DamageManager.PreviouslyDamagedRoom.RoomType);
-			else if (PIOMP.Room.IsInRoom) ClientSend.ReqEndTurn();
+			//else if (PIOMP.Room.IsInRoom) ClientSend.ReqEndTurn();
         }
 
 		public static void NextTurn()

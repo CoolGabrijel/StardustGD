@@ -94,7 +94,7 @@ namespace Stardust.Godot
             
             msg.Add((int)damagedRoom);
             
-            PIOMP.Server.BroadcastExcept(msg, id);
+            PIOMP.Server.Broadcast(msg);
         }
 
         public static void Undo(int id)
