@@ -49,9 +49,7 @@ namespace Stardust.Godot.UI
 			
 			NextTurn();
 			
-			GD.Print(GameLogic.DamageManager.PreviouslyDamagedRoom.RoomType);
 			if (PIOMP.Room.IsHost) ServerSend.EndTurn(GameStart.PlayerId, GameLogic.DamageManager.PreviouslyDamagedRoom.RoomType);
-			//else if (PIOMP.Room.IsInRoom) ClientSend.ReqEndTurn();
         }
 
 		public static void NextTurn()
