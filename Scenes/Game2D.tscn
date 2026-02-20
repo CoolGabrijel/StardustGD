@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://bkahpnv2redrw"]
+[gd_scene load_steps=42 format=3 uid="uid://bkahpnv2redrw"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_08knh"]
 [ext_resource type="Shader" uid="uid://cja3tbgcnw8su" path="res://Shaders/RoomSheen.tres" id="1_d2325"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dd12b25ehcgfr" path="res://Prefabs/2D/Pawn2D.tscn" id="4_xd6pi"]
 [ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="4_ypirp"]
 [ext_resource type="Script" path="res://Scripts/GameStart.cs" id="5_dg8px"]
+[ext_resource type="PackedScene" uid="uid://216lvahbo0u2" path="res://Prefabs/UI/Game/YourTurnNotifier.tscn" id="6_5xn3o"]
 [ext_resource type="Texture2D" uid="uid://bw6b1kehnf6ko" path="res://Textures/Other/DamageBar.png" id="6_k5505"]
 [ext_resource type="Script" path="res://Scripts/UI/Game/DamageIndicator.cs" id="6_nidup"]
 [ext_resource type="Script" path="res://Scripts/2D/RoomSelection2D.cs" id="8_6w5tx"]
@@ -102,6 +103,10 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="YourTurnNotifier" parent="HUD" instance=ExtResource("6_5xn3o")]
+offset_top = 67.0
+offset_bottom = 97.0
 
 [node name="DamageIndicatorLegacy" type="Control" parent="HUD" node_paths=PackedStringArray("tickParent")]
 visible = false

@@ -10,6 +10,8 @@ namespace Stardust.Actions
             SkipActionCardExhaustion = skipActionCardExhaustion;
         }
 
+        public static event System.Action OnEndTurn;
+
         public Room DamagedRoom { get; set; }
         public int EnergyExpended { get; set; }
         public bool SkipActionCardExhaustion { get; set; }
@@ -38,6 +40,7 @@ namespace Stardust.Actions
             //DamagedRoom.Damage();
 
             GameLogic.EndTurn();
+            OnEndTurn?.Invoke();
         }
 
         public void Undo()
@@ -53,6 +56,8 @@ namespace Stardust.Actions
 
             GameLogic.EnergyExpended = EnergyExpended;
             GameLogic.TurnQueue.Previous();
+            
+            OnEndTurn?.Invoke();
         }
 
         private void ExhaustLowestCard()

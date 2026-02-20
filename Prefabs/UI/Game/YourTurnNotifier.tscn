@@ -1,0 +1,108 @@
+[gd_scene load_steps=8 format=3 uid="uid://216lvahbo0u2"]
+
+[ext_resource type="Theme" uid="uid://dnrdk6b1gwj0e" path="res://Themes/GameUITheme.tres" id="1_6op2o"]
+[ext_resource type="Script" path="res://Scripts/UI/Game/YourTurnNotifier.cs" id="2_0u2dk"]
+[ext_resource type="Texture2D" uid="uid://b1c5cgoaxl1q4" path="res://Textures/Other/Rounded Ramp.png" id="2_87kx3"]
+[ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="3_cgecp"]
+[ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="4_pxauk"]
+[ext_resource type="AudioStream" uid="uid://mpnv1d4rxo73" path="res://Sfx/Kenney Sfx/Slot_Click.ogg" id="6_oltc3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aec03"]
+font = ExtResource("4_pxauk")
+font_color = Color(0.215686, 0.27451, 0.4, 1)
+outline_color = Color(0, 0, 0, 1)
+
+[node name="YourTurnNotifier" type="Control" node_paths=PackedStringArray("foreground", "audioPlayer")]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_right = 76.0
+offset_bottom = 30.0
+grow_horizontal = 2
+theme = ExtResource("1_6op2o")
+script = ExtResource("2_0u2dk")
+startPosition = Vector2(566, 23)
+endPosition = Vector2(566, 67)
+foreground = NodePath("FG")
+startColor = Color(0.894118, 0.890196, 0.921569, 1)
+endColor = Color(1, 1, 1, 1)
+audioPlayer = NodePath("Sfx")
+
+[node name="BG" type="HBoxContainer" parent="."]
+modulate = Color(0.215686, 0.27451, 0.4, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="BG"]
+layout_mode = 2
+texture = ExtResource("2_87kx3")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect2" type="TextureRect" parent="BG"]
+layout_mode = 2
+texture = ExtResource("2_87kx3")
+expand_mode = 3
+flip_h = true
+
+[node name="FG" type="HBoxContainer" parent="."]
+modulate = Color(0.894118, 0.890196, 0.921569, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(66.5, 11)
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="FG"]
+layout_mode = 2
+texture = ExtResource("2_87kx3")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="FG"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect2" type="TextureRect" parent="FG"]
+layout_mode = 2
+texture = ExtResource("2_87kx3")
+expand_mode = 3
+flip_h = true
+
+[node name="CenterPivot" type="Node" parent="FG"]
+script = ExtResource("3_cgecp")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Your Turn"
+label_settings = SubResource("LabelSettings_aec03")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_oltc3")
+bus = &"Sfx"
