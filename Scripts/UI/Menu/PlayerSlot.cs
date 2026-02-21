@@ -14,6 +14,7 @@ namespace Stardust.Godot.UI
 		[Export] public bool IsLocal;
 		[Export] private TextureRect portrait;
 		[Export] private Label nameplate;
+		[Export] private Control youLabel;
 		[Export] private ShaderMaterial greyscaleShader;
 		[Export] private Control characterSelectDrawer;
 		[Export] private ColorRect fadeRect;
@@ -57,6 +58,7 @@ namespace Stardust.Godot.UI
 			}
 
 			particles.Emitting = false;
+			youLabel.Hide();
 			curtainOriginalSize = curtainRect.Size.Y;
 			VisibilityChanged += OnVisibilityChanged;
 		}
@@ -81,6 +83,7 @@ namespace Stardust.Godot.UI
                 LobbyPlayer.OnReady += SetReady;
 		        portrait.GetParent<Control>().MouseFilter = MouseFilterEnum.Pass;
 		        MouseFilter = MouseFilterEnum.Pass;
+		        youLabel.Hide();
 	        }
 	        else
 	        {
@@ -90,6 +93,7 @@ namespace Stardust.Godot.UI
 			        MouseEntered += OnMouseEntered;
 			        MouseExited += OnMouseExited;
                     LobbyPlayer.OnReady += SetReady;
+                    youLabel.Show();
 		        }
 		        else
                 {
@@ -98,6 +102,7 @@ namespace Stardust.Godot.UI
                     characterSelectDrawer.Hide();
 			        portrait.GetParent<Control>().MouseFilter = MouseFilterEnum.Ignore;
 			        MouseFilter = MouseFilterEnum.Ignore;
+			        youLabel.Hide();
 		        }
 	        }
 	        
@@ -163,6 +168,7 @@ namespace Stardust.Godot.UI
 		        MouseExited += OnMouseExited;
 		        portrait.GetParent<Control>().MouseFilter = MouseFilterEnum.Pass;
 		        MouseFilter = MouseFilterEnum.Pass;
+		        youLabel.Hide();
 	        }
 	        //ChangeImage(IsLocal ? "Random" : "Open");
         }
