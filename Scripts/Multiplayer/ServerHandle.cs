@@ -92,7 +92,8 @@ namespace Stardust.Godot
             Pawn pawn = GameLogic.TurnQueue.CurrentPawn;
             pawn.Room.ActivateAbility(pawn);
 
-            ServerSend.ActivateRoom(id);
+            if (pawn.Room.RoomType == RoomType.Habitation) id = GameStart.PlayerId;
+            ServerSend.ActivateRoom(id, GameLogic.DamageManager.PreviouslyDamagedRoom.RoomType);
         }
         
         [MessageHandler("ReqPickup")]

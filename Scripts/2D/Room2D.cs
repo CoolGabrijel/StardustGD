@@ -180,9 +180,15 @@ namespace Stardust.Godot
 
 			Pawn player = GameStart.LocalPlayer;
 
+			if (player.Room.RoomType == RoomType.Habitation && PIOMP.Room.IsInRoom && !PIOMP.Room.IsHost)
+			{
+				ClientSend.ReqActivateRoom();
+				return;
+			}
+
             Room.ActivateAbility(player);
             
-            if (PIOMP.Room.IsHost) ServerSend.ActivateRoom(GameStart.PlayerId);
+            if (PIOMP.Room.IsHost) ServerSend.ActivateRoom(GameStart.PlayerId, GameLogic.DamageManager.PreviouslyDamagedRoom.RoomType);
             else if (PIOMP.Room.IsInRoom) ClientSend.ReqActivateRoom();
 
             // If you click on the button, you "focus" it and then space bar (the end turn button) pushes it again. Release focus to fix.

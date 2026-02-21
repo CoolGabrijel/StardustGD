@@ -100,9 +100,15 @@ namespace Stardust.Godot
 
                     if (!canBeActivated || !hasEnergy) return;
 
+                    if (LocalPlayer.Room.RoomType == RoomType.Habitation && PIOMP.Room.IsInRoom && !PIOMP.Room.IsHost)
+                    {
+                        ClientSend.ReqActivateRoom();
+                        return;
+                    }
+
                     LocalPlayer.Room.ActivateAbility(LocalPlayer);
                     
-                    if (PIOMP.Room.IsHost) ServerSend.ActivateRoom(PlayerId);
+                    if (PIOMP.Room.IsHost) ServerSend.ActivateRoom(PlayerId, GameLogic.DamageManager.PreviouslyDamagedRoom.RoomType);
                     else if (PIOMP.Room.IsInRoom) ClientSend.ReqActivateRoom();
                 }
             }

@@ -58,7 +58,7 @@ namespace Stardust
         public int DamageAmount { get; set; }
         public bool Broken => DamageAmount >= 3;
 
-        public void ActivateAbility(Pawn pawn)
+        public void ActivateAbility(Pawn pawn, Room damagedRoom = null)
         {
             IUndoableAction action = null;
 
@@ -68,7 +68,9 @@ namespace Stardust
                     action = new CreatePart(pawn, 1, this, new(ItemType.Part));
                     break;
                 case RoomType.Habitation:
-                    action = new Sleep(pawn);
+                    Sleep sleep = new(pawn);
+                    sleep.DamagedRoom = damagedRoom;
+                    action = sleep;
                     break;
                 case RoomType.Comms:
                     action = new RevealObjective(pawn);
