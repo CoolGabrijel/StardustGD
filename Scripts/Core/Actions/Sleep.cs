@@ -12,6 +12,7 @@ namespace Stardust.Actions
             Pawn = pawn;
         }
 
+        public Room DamagedRoom { get; set; }
         public Pawn Pawn { get; private set; }
         public EnergyCard[] RefreshedCards { get; private set; }
 
@@ -35,6 +36,7 @@ namespace Stardust.Actions
             GD.Print($"{Pawn.Type} slept in Habitation and refreshed {RefreshedCards.Length} cards");
 
             endTurnAction = new EndTurn(true);
+            endTurnAction.DamagedRoom = DamagedRoom;
 
             endTurnAction.Do();
         }

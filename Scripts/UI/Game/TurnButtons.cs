@@ -66,7 +66,7 @@ namespace Stardust.Godot.UI
 			IUndoableAction action;
 			if (GameLogic.TurnQueue.CurrentPawn.Type == PawnType.Zambuko)
 			{
-				ZambukoEndTurn endTurn = new ZambukoEndTurn();
+				ZambukoEndTurn endTurn = new();
 				endTurn.DamagedRoom = damagedRoom;
 				action = endTurn;
 			}

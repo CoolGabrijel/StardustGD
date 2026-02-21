@@ -32,7 +32,9 @@ namespace Stardust.Actions
                         roomAction = new CreatePart(zambuko, 1, zambuko.Room, new(ItemType.Part));
                         break;
                     case RoomType.Habitation:
-                        roomAction = new Sleep(zambuko);
+                        Sleep sleep = new(zambuko);
+                        sleep.DamagedRoom = DamagedRoom;
+                        roomAction = sleep;
                         break;
                     case RoomType.Comms:
                         roomAction = new RevealObjective(zambuko);
