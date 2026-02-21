@@ -78,5 +78,10 @@ namespace Stardust.Godot
             popup.Hide();
             screen.Show();
         }
+
+        public override void _ExitTree()
+        {
+            GameLogic.OnGameFinished -= Popup;
+        }
     } 
 }

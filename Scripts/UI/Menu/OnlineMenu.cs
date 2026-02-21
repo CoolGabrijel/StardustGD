@@ -18,8 +18,8 @@ namespace Stardust.Godot.UI
         {
 			roomContainer.RemoveChild(roomButtonPrefab);
             VisibilityChanged += OnVisibilityChanged;
-            PIOMP.Room.OnRoomJoined += () => CallDeferred("OpenLobby");
-			Authenticator.Authenticated += () => CallDeferred("OnVisibilityChanged");
+            PIOMP.Room.OnRoomJoined += OnRoomJoined;
+			Authenticator.Authenticated += OnAuthenticated;
         }
 
         public override void _PhysicsProcess(double delta)
@@ -105,6 +105,22 @@ namespace Stardust.Godot.UI
 		private void CloseMenu()
 		{
 			MainMenuScreen.Instance.ShowMainMenu();
+		}
+
+		private void OnRoomJoined()
+		{
+			CallDeferred("OpenLobby");
+		}
+
+		private void OnAuthenticated()
+		{
+			CallDeferred("OnVisibilityChanged");
+		}
+
+		public override void _ExitTree()
+		{
+			PIOMP.Room.OnRoomJoined -= OnRoomJoined;
+			Authenticator.Authenticated -= OnAuthenticated;
 		}
 	}
 }
