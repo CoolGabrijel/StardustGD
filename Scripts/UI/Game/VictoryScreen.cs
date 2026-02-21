@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Stardust.Godot.UI;
 
 namespace Stardust.Godot
 {
@@ -7,6 +8,8 @@ namespace Stardust.Godot
 	{
 		[Export] private Control popup;
 		[Export] private Control screen;
+        [Export] private Label title;
+        [Export] private StatTracker tracker;
 
         private Vector2 originalPopupSize;
         private Vector4 originalOffsets;
@@ -52,6 +55,10 @@ namespace Stardust.Godot
         private void Popup(bool v)
         {
             GD.Print($"Game End State: {v}");
+
+            if (!v) title.Text = "Defeat.log";
+            
+            tracker.UpdateDamageStat();
 
             Show();
 

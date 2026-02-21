@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://drnsv3rfbym4u"]
+[gd_scene load_steps=10 format=3 uid="uid://drnsv3rfbym4u"]
 
 [ext_resource type="Texture2D" uid="uid://dnx5b7ntdwov8" path="res://Textures/CaptainHoers/Video icons/Winnar.png" id="1_1l75m"]
 [ext_resource type="Script" path="res://Scripts/UI/Game/VictoryScreen.cs" id="1_2hnj5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://coj87xj33rl2r" path="res://Textures/CaptainHoers/Video icons/Ico_X.png" id="3_p0h67"]
 [ext_resource type="Texture2D" uid="uid://cf2xy8cu14wbe" path="res://Textures/CaptainHoers/Horse cards/Concorde.png" id="5_0wb5v"]
 [ext_resource type="Shader" uid="uid://cac7re2oe0rws" path="res://Shaders/TurnOrderPawnShader.tres" id="5_y6b2l"]
+[ext_resource type="Script" path="res://Scripts/UI/Game/StatTracker.cs" id="7_uuvmt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2h3ti"]
 font = ExtResource("2_ptf3e")
@@ -16,7 +17,7 @@ shader_parameter/Panning = Vector2(0, 0)
 shader_parameter/Scale = 1.0
 shader_parameter/Flip = true
 
-[node name="VictoryScreen" type="Control" node_paths=PackedStringArray("popup", "screen")]
+[node name="VictoryScreen" type="Control" node_paths=PackedStringArray("popup", "screen", "title", "tracker")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +27,8 @@ grow_vertical = 2
 script = ExtResource("1_2hnj5")
 popup = NodePath("Popup")
 screen = NodePath("Window")
+title = NodePath("Window/VBoxContainer/WindowHeader/HBoxContainer/Label")
+tracker = NodePath("Window/VBoxContainer/WindowContent/Stats")
 
 [node name="Window" type="ColorRect" parent="."]
 layout_mode = 1
@@ -122,6 +125,27 @@ grow_vertical = 2
 texture = ExtResource("5_0wb5v")
 expand_mode = 2
 stretch_mode = 4
+
+[node name="Stats" type="Control" parent="Window/VBoxContainer/WindowContent" node_paths=PackedStringArray("dmgLabel")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 256.0
+offset_top = 21.0
+offset_right = -18.0
+offset_bottom = -84.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_uuvmt")
+dmgLabel = NodePath("Label")
+
+[node name="Label" type="Label" parent="Window/VBoxContainer/WindowContent/Stats"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Total Damage: 4"
 
 [node name="Popup" type="ColorRect" parent="."]
 layout_mode = 1
