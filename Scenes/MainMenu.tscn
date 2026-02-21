@@ -1204,6 +1204,7 @@ layout_mode = 2
 PawnType = 4
 
 [node name="Lobbies" type="Control" parent="." node_paths=PackedStringArray("lobbyScreen", "authWidget", "authLabel", "lobbyNameField", "roomButtonPrefab", "roomContainer")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

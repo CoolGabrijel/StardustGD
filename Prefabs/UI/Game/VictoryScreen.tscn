@@ -1,12 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://drnsv3rfbym4u"]
+[gd_scene load_steps=9 format=3 uid="uid://drnsv3rfbym4u"]
 
 [ext_resource type="Texture2D" uid="uid://dnx5b7ntdwov8" path="res://Textures/CaptainHoers/Video icons/Winnar.png" id="1_1l75m"]
 [ext_resource type="Script" path="res://Scripts/UI/Game/VictoryScreen.cs" id="1_2hnj5"]
 [ext_resource type="FontFile" uid="uid://jb1ewcqnawpf" path="res://Fonts/planetncompact.ttf" id="2_ptf3e"]
 [ext_resource type="Texture2D" uid="uid://coj87xj33rl2r" path="res://Textures/CaptainHoers/Video icons/Ico_X.png" id="3_p0h67"]
+[ext_resource type="Texture2D" uid="uid://cf2xy8cu14wbe" path="res://Textures/CaptainHoers/Horse cards/Concorde.png" id="5_0wb5v"]
+[ext_resource type="Shader" uid="uid://cac7re2oe0rws" path="res://Shaders/TurnOrderPawnShader.tres" id="5_y6b2l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_2h3ti"]
 font = ExtResource("2_ptf3e")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3squ7"]
+shader = ExtResource("5_y6b2l")
+shader_parameter/Panning = Vector2(0, 0)
+shader_parameter/Scale = 1.0
+shader_parameter/Flip = true
 
 [node name="VictoryScreen" type="Control" node_paths=PackedStringArray("popup", "screen")]
 layout_mode = 3
@@ -39,6 +47,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
 [node name="WindowHeader" type="ColorRect" parent="Window/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
@@ -87,13 +96,32 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -48.0
+offset_left = 81.0
 offset_top = -57.0
-offset_right = 48.0
+offset_right = 177.0
 offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Main Menu"
+
+[node name="PortraitContainer" type="ColorRect" parent="Window/VBoxContainer/WindowContent"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 234.0
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Window/VBoxContainer/WindowContent/PortraitContainer"]
+material = SubResource("ShaderMaterial_3squ7")
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 478.0
+grow_vertical = 2
+texture = ExtResource("5_0wb5v")
+expand_mode = 2
+stretch_mode = 4
 
 [node name="Popup" type="ColorRect" parent="."]
 layout_mode = 1
