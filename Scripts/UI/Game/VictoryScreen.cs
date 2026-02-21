@@ -44,6 +44,8 @@ namespace Stardust.Godot
 
         private void QuitToMainMenu()
         {
+            if (PIOMP.Room.IsInRoom) PIOMP.Room.LeaveRoom();
+            
             GetTree().ChangeSceneToFile("res://Scenes/MainMenu.tscn");
         }
 
