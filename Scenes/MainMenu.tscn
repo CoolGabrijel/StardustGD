@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=54 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -26,6 +26,10 @@
 [ext_resource type="PackedScene" uid="uid://c6uo5do5x0krg" path="res://Prefabs/UI/Settings.tscn" id="19_njj2a"]
 [ext_resource type="Texture2D" uid="uid://coj87xj33rl2r" path="res://Textures/CaptainHoers/Video icons/Ico_X.png" id="19_v2qg2"]
 [ext_resource type="Texture2D" uid="uid://jnptibdxkwur" path="res://Textures/CaptainHoers/Video icons/Plus.png" id="21_almb4"]
+[ext_resource type="Script" path="res://Scripts/UI/Menu/CreditsScreen.cs" id="23_ldmjq"]
+[ext_resource type="Texture2D" uid="uid://dxu40ph7xwsrt" path="res://Textures/CaptainHoers/StardustBoardGame.jpg" id="24_csrjl"]
+[ext_resource type="Script" path="res://Scripts/UI/ButtonHoverEnlarge.cs" id="25_h4vnb"]
+[ext_resource type="Texture2D" uid="uid://buytnsenunlrq" path="res://Textures/Excavator2.png" id="26_300ma"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2mqfu"]
 bg_color = Color(0.827451, 0.827451, 0.827451, 1)
@@ -139,7 +143,12 @@ modulate_color = Color(0.892254, 0.913484, 0.911381, 1)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v0s0a"]
 texture = ExtResource("7_corte")
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("LobbyScreen", "SettingsMenu", "OnlineMenu", "MenuButtons", "BoxCover")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_olvp6"]
+bg_color = Color(0.521141, 0.521141, 0.52114, 1)
+corner_radius_bottom_right = 128
+corner_radius_bottom_left = 128
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("LobbyScreen", "SettingsMenu", "OnlineMenu", "CreditsScreen", "MenuButtons", "BoxCover")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -151,6 +160,7 @@ script = ExtResource("2_08cdx")
 LobbyScreen = NodePath("LobbyScreen")
 SettingsMenu = NodePath("Settings")
 OnlineMenu = NodePath("Lobbies")
+CreditsScreen = NodePath("Credits")
 MenuButtons = NodePath("MenuButtons3")
 BoxCover = NodePath("BoxCover")
 
@@ -1402,6 +1412,270 @@ placeholder_text = "Lobby Name..."
 visible = false
 layout_mode = 1
 
+[node name="Credits" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 89.0
+offset_top = 48.0
+offset_right = 1191.0
+offset_bottom = 672.0
+script = ExtResource("23_ldmjq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="Panel" parent="Credits/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jibt7")
+
+[node name="Label" type="Label" parent="Credits/VBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_right = 104.0
+grow_vertical = 2
+text = "Credits"
+vertical_alignment = 1
+
+[node name="BtnClose" type="Button" parent="Credits/VBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_h3gau")
+
+[node name="TextureRect" type="TextureRect" parent="Credits/VBoxContainer/Header/BtnClose"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("19_v2qg2")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Credits/VBoxContainer/Header/BtnClose"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
+[node name="Content" type="Panel" parent="Credits/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ufldb")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Credits/VBoxContainer/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 8.0
+offset_right = -7.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Captain" type="VBoxContainer" parent="Credits/VBoxContainer/Content/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Button" type="Button" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="Clip" type="ColorRect" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Button"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Button/Clip"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(177, 142)
+mouse_filter = 2
+texture = ExtResource("24_csrjl")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="CenterPivot" type="Node" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Button/Clip/TextureRect"]
+script = ExtResource("9_r72vk")
+
+[node name="Label" type="Label" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Button"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -54.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Original by CaptainHoers
+Click to view!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Button"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
+[node name="ButtonHoverEnlarge" type="Node" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Button" node_paths=PackedStringArray("target")]
+script = ExtResource("25_h4vnb")
+target = NodePath("../Clip/TextureRect")
+
+[node name="Personals" type="Panel" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_olvp6")
+
+[node name="Label" type="Label" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Personals"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 9.0
+offset_bottom = 41.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "Captainhoers"
+horizontal_alignment = 1
+
+[node name="Gab" type="VBoxContainer" parent="Credits/VBoxContainer/Content/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Button" type="Button" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="Clip" type="ColorRect" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Button"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Button/Clip"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(177.5, 142)
+mouse_filter = 2
+texture = ExtResource("26_300ma")
+expand_mode = 1
+
+[node name="CenterPivot" type="Node" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Button/Clip/TextureRect"]
+script = ExtResource("9_r72vk")
+
+[node name="Label" type="Label" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Button"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "My other games
+Click to view!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Button"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
+[node name="ButtonHoverEnlarge" type="Node" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Button" node_paths=PackedStringArray("target")]
+script = ExtResource("25_h4vnb")
+target = NodePath("../Clip/TextureRect")
+
+[node name="Personals" type="Panel" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_olvp6")
+
+[node name="Label" type="Label" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Personals"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 9.0
+offset_bottom = 41.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "CoolGabrijel"
+horizontal_alignment = 1
+
+[node name="Misc" type="VBoxContainer" parent="Credits/VBoxContainer/Content/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="Credits/VBoxContainer/Content/HBoxContainer/Misc"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Font - IconianFonts"
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Credits/VBoxContainer/Content/HBoxContainer/Misc/Button"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
+[node name="Button2" type="Button" parent="Credits/VBoxContainer/Content/HBoxContainer/Misc"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Sfx - kenney"
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Credits/VBoxContainer/Content/HBoxContainer/Misc/Button2"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
+[node name="Button3" type="Button" parent="Credits/VBoxContainer/Content/HBoxContainer/Misc"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Engine - Godot"
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Credits/VBoxContainer/Content/HBoxContainer/Misc/Button3"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
+
 [node name="MusicController" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("14_n5bsh")
 player = NodePath("AudioStreamPlayer")
@@ -1418,6 +1692,7 @@ bus = &"Music"
 [connection signal="pressed" from="MenuButtons3/Btn_SP" to="." method="SinglePlayerPressed"]
 [connection signal="pressed" from="MenuButtons3/Btn_MP" to="." method="MultiPlayerPressed"]
 [connection signal="pressed" from="MenuButtons3/Btn_Settings" to="." method="SettingsPressed"]
+[connection signal="pressed" from="MenuButtons3/Btn_Credits" to="." method="CreditsPressed"]
 [connection signal="pressed" from="MenuButtons3/Btn_Exit" to="." method="ExitPressed"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Back" to="LobbyScreen" method="OnBackClicked"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Leave" to="LobbyScreen" method="OnLeaveClicked"]
@@ -1425,3 +1700,9 @@ bus = &"Music"
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Options" to="LobbyScreen" method="OnSettingsClicked"]
 [connection signal="pressed" from="Lobbies/VBoxContainer/Header/BtnClose" to="Lobbies" method="CloseMenu"]
 [connection signal="pressed" from="Lobbies/VBoxContainer/Content/BtnNew" to="Lobbies" method="CreateLobby"]
+[connection signal="pressed" from="Credits/VBoxContainer/Header/BtnClose" to="Credits" method="CloseMenu"]
+[connection signal="pressed" from="Credits/VBoxContainer/Content/HBoxContainer/Captain/Button" to="Credits" method="OpenLink" binds= ["https://www.thegamecrafter.com/games/stardust2"]]
+[connection signal="pressed" from="Credits/VBoxContainer/Content/HBoxContainer/Gab/Button" to="Credits" method="OpenLink" binds= ["https://coolgabrijel.itch.io/"]]
+[connection signal="pressed" from="Credits/VBoxContainer/Content/HBoxContainer/Misc/Button" to="Credits" method="OpenLink" binds= ["https://www.dafont.com/planet-n.font"]]
+[connection signal="pressed" from="Credits/VBoxContainer/Content/HBoxContainer/Misc/Button2" to="Credits" method="OpenLink" binds= ["https://kenney.nl/"]]
+[connection signal="pressed" from="Credits/VBoxContainer/Content/HBoxContainer/Misc/Button3" to="Credits" method="OpenLink" binds= ["https://godotengine.org/"]]
