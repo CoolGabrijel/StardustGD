@@ -21,13 +21,16 @@ namespace Stardust.Godot
 
         public override void _Ready()
         {
-            StardustGameConfig config = new()
+            if (StardustGameConfig.CurrentConfig == null)
             {
-                // For testing purposes feel free to place anything in here
-                DamageDisabled = false,
-                FirstStepsEnabled = false,
-            };
-            StardustGameConfig.CurrentConfig = config;
+                StardustGameConfig config = new()
+                {
+                    // For testing purposes feel free to place anything in here
+                    DamageDisabled = false,
+                    FirstStepsEnabled = false,
+                };
+                StardustGameConfig.CurrentConfig = config;
+            }
 
             if (PawnsToSpawn == null)
             {

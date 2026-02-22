@@ -16,6 +16,7 @@ namespace Stardust.Godot.UI
 		[Export] private Button[] lobbyBtns;
 		[Export] private PlayerSlot[] playerSlots;
 		[Export] private PlayerSlot localSlot;
+		[Export] private Button firstStepsExpansionBtn;
 
 		private List<PlayerSlot> vacantSlots = new();
 		private Tween moveTween;
@@ -31,10 +32,16 @@ namespace Stardust.Godot.UI
         public override void _Process(double delta)
 		{
 			ValidateReadyButton();
+
+			if (StardustGameConfig.CurrentConfig != null)
+			{
+				firstStepsExpansionBtn.SetPressedNoSignal(StardustGameConfig.CurrentConfig.FirstStepsEnabled);
+			}
 		}
 
         public void OpenSingleplayerScreen()
-		{
+        {
+	        StardustGameConfig.CurrentConfig = new();
 			GameStart.PlayerId = 1;
 			Lobby = new Lobby(false);
 			readyBtn.Text = "Start";
@@ -44,6 +51,7 @@ namespace Stardust.Godot.UI
 
 		public void OpenMultiplayerScreen()
 		{
+			StardustGameConfig.CurrentConfig = new();
 			readyBtn.Text = Lobby.IsHost ? "Start" : "Ready";
 			readyBtn.ButtonPressed = false;
 			
@@ -192,6 +200,16 @@ namespace Stardust.Godot.UI
 				btn.Hide();
 			}
 			backBtn.Show();
+		}
+
+		private void OnFirstStepsToggled()
+		{
+			StardustGameConfig.CurrentConfig.FirstStepsEnabled = firstStepsExpansionBtn.ButtonPressed;
+			
+			if (PIOMP.Room.IsHost)
+			{
+				ServerSend.SetConfigVar("FirstSteps", StardustGameConfig.CurrentConfig.FirstStepsEnabled.ToString());
+			}
 		}
 
 		private void OnBackClicked()

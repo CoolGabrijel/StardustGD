@@ -47,6 +47,16 @@ namespace Stardust.Godot
             PIOMP.Server.ChangeJoinData(id, "Ready", ready.ToString());
         }
 
+        public static void SetConfigVar(string key, string value)
+        {
+            Message msg = Message.Create("SetConfigVar");
+            
+            msg.Add(key);
+            msg.Add(value);
+            
+            PIOMP.Server.Broadcast(msg);
+        }
+
         public static void StartGame()
         {
             Message msg = Message.Create("StartGame");

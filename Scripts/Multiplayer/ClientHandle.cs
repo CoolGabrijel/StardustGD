@@ -27,6 +27,20 @@ namespace Stardust.Godot
             UI.LobbyScreen.Lobby.Ready(id, ready);
         }
 
+        [MessageHandler("SetConfigVar")]
+        public static void GetConfigVar(Message _msg)
+        {
+            string key = _msg.GetString(0);
+            string value = _msg.GetString(1);
+
+            switch (key)
+            {
+                case "FirstSteps":
+                    StardustGameConfig.CurrentConfig.FirstStepsEnabled = bool.Parse(value);
+                    break;
+            }
+        }
+
         [MessageHandler("StartGame")]
         public static void StartGame(Message _msg)
         {

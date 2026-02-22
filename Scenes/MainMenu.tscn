@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://5a5l3k857768"]
+[gd_scene load_steps=58 format=3 uid="uid://5a5l3k857768"]
 
 [ext_resource type="Material" uid="uid://rexexdtaml2k" path="res://Materials/SpaceStarsMat.tres" id="1_7dcey"]
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_lhprw"]
@@ -83,6 +83,44 @@ colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.372549)
 gradient = SubResource("Gradient_gnrup")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6je8b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fj6u3"]
+bg_color = Color(0.61, 0.427, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.61, 0.427, 0, 0.647059)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m3k2d"]
+bg_color = Color(0.61, 0.427, 0, 0.647059)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.34, 0.238, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bj227"]
+bg_color = Color(0.61, 0.427, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.34, 0.238, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7gwlm"]
 
@@ -892,8 +930,7 @@ stream = ExtResource("9_moa28")
 bus = &"Sfx"
 script = ExtResource("10_tvdmg")
 
-[node name="LobbyScreen" type="Control" parent="." node_paths=PackedStringArray("backBtn", "readyBtn", "lobbyBtns", "playerSlots", "localSlot")]
-visible = false
+[node name="LobbyScreen" type="Control" parent="." node_paths=PackedStringArray("backBtn", "readyBtn", "lobbyBtns", "playerSlots", "localSlot", "firstStepsExpansionBtn")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -906,6 +943,7 @@ readyBtn = NodePath("LobbySettings/LobbyButtons/Btn_Ready")
 lobbyBtns = [NodePath("LobbySettings/LobbyButtons/Btn_Leave"), NodePath("LobbySettings/LobbyButtons/Btn_Ready"), NodePath("LobbySettings/LobbyButtons/Btn_Options")]
 playerSlots = [NodePath("Players/HBoxContainer/PlayerSlot"), NodePath("Players/HBoxContainer/PlayerSlot4"), NodePath("Players/HBoxContainer/PlayerSlot5"), NodePath("Players/HBoxContainer/PlayerSlot2"), NodePath("Players/HBoxContainer/PlayerSlot3")]
 localSlot = NodePath("Players/HBoxContainer/PlayerSlot5")
+firstStepsExpansionBtn = NodePath("LobbySettings/Panel/VBoxContainer/HBoxContainer/Button")
 
 [node name="LobbySettings" type="Panel" parent="LobbyScreen"]
 layout_mode = 1
@@ -1038,6 +1076,44 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_4dp3w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LobbyScreen/LobbySettings/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = -109.0
+offset_right = 268.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LobbyScreen/LobbySettings/Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="LobbyScreen/LobbySettings/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "First Steps Expansion"
+
+[node name="Button" type="Button" parent="LobbyScreen/LobbySettings/Panel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(18, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6je8b")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fj6u3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m3k2d")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bj227")
+toggle_mode = true
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="LobbyScreen/LobbySettings/Panel/VBoxContainer/HBoxContainer/Button"]
+stream = ExtResource("9_moa28")
+bus = &"Sfx"
+script = ExtResource("10_tvdmg")
 
 [node name="LobbyButtons" type="HBoxContainer" parent="LobbyScreen/LobbySettings"]
 layout_mode = 1
@@ -1519,7 +1595,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(177, 142)
+pivot_offset = Vector2(4, 4)
 mouse_filter = 2
 texture = ExtResource("24_csrjl")
 expand_mode = 1
@@ -1595,7 +1671,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(177.5, 142)
+pivot_offset = Vector2(4, 4)
 mouse_filter = 2
 texture = ExtResource("26_300ma")
 expand_mode = 1
@@ -1694,6 +1770,7 @@ bus = &"Music"
 [connection signal="pressed" from="MenuButtons3/Btn_Settings" to="." method="SettingsPressed"]
 [connection signal="pressed" from="MenuButtons3/Btn_Credits" to="." method="CreditsPressed"]
 [connection signal="pressed" from="MenuButtons3/Btn_Exit" to="." method="ExitPressed"]
+[connection signal="pressed" from="LobbyScreen/LobbySettings/Panel/VBoxContainer/HBoxContainer/Button" to="LobbyScreen" method="OnFirstStepsToggled"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Back" to="LobbyScreen" method="OnBackClicked"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Leave" to="LobbyScreen" method="OnLeaveClicked"]
 [connection signal="pressed" from="LobbyScreen/LobbySettings/LobbyButtons/Btn_Ready" to="LobbyScreen" method="OnReadyClicked"]
