@@ -88,5 +88,14 @@ namespace Stardust.Godot
             
             PIOMP.Room.Connection.Send(msg);
         }
+
+        public static void ReqWolframHeal(PawnType target)
+        {
+            Message msg = Message.Create("ReqWolframHeal");
+            
+            msg.Add((int)target);
+            
+            PIOMP.Room.Connection.Send(msg);
+        }
     }
 }

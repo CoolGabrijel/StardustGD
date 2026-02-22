@@ -223,5 +223,28 @@ namespace Stardust.Godot
 
             ObjectiveHandler.CheckAllObjectivesCompleted();
         }
+        
+        [MessageHandler("WolframHeal")]
+        public static void ReceiveWolframHeal(Message _msg)
+        {
+            int id =  _msg.GetInt(0);
+            PawnType targetType = (PawnType)_msg.GetInt(1);
+
+            Pawn pawn = null;
+
+            foreach (Pawn queuePawn in GameLogic.TurnQueue.Pawns)
+            {
+                if (queuePawn.Type == targetType)
+                {
+                    pawn = queuePawn;
+                    break;
+                }
+            }
+            
+            IUndoableAction restoreAction = new WolframHeal(pawn);
+
+            restoreAction.Do();
+            ActionLibrary.AddAction(restoreAction);
+        }
     }
 }

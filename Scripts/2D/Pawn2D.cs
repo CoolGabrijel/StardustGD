@@ -123,6 +123,9 @@ namespace Stardust.Godot
 
                 restoreAction.Do();
                 ActionLibrary.AddAction(restoreAction);
+                
+                if (PIOMP.Room.IsHost) ServerSend.WolframHeal(GameStart.PlayerId, Pawn.Type);
+                else if (PIOMP.Room.IsInRoom) ClientSend.ReqWolframHeal(Pawn.Type);
 
                 foreach (KeyValuePair<EnergyCard, Node2D> pair in cardToNode)
                 {

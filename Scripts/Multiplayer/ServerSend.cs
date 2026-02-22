@@ -164,5 +164,15 @@ namespace Stardust.Godot
                 
             PIOMP.Server.BroadcastExcept(msg, id);
         }
+
+        public static void WolframHeal(int id, PawnType target)
+        {
+            Message msg = Message.Create("WolframHeal");
+            
+            msg.Add(id);
+            msg.Add((int)target);
+            
+            PIOMP.Server.BroadcastExcept(msg, id);
+        }
     } 
 }
