@@ -97,6 +97,7 @@ namespace Stardust.Godot.UI
 	        ReleaseFocus();
 	        
             if (GameLogic.TurnQueue.CurrentPawn != GameStart.LocalPlayer) return;
+            if (ActionLibrary.Actions.Count <= 0) return;
             
             Undo();
             undoAudioPlayer?.Play();

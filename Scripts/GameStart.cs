@@ -21,6 +21,8 @@ namespace Stardust.Godot
 
         public override void _Ready()
         {
+            ActionLibrary.Reset();
+            
             if (StardustGameConfig.CurrentConfig == null)
             {
                 StardustGameConfig config = new()
