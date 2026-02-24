@@ -1,17 +1,37 @@
 using Godot;
 using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Stardust
 {
 	public static class FileManager
 	{
-		private static readonly JsonSerializerOptions jsonOptions = new()
+		private static readonly JsonSerializerSettings jsonSettings = new()
 		{
-			WriteIndented = true,
-			Converters = { new JsonStringEnumConverter() }
+			Formatting = Formatting.Indented,
+			Converters = new List<JsonConverter>()
+			{
+				new StringEnumConverter()
+			},
+			TypeNameHandling = TypeNameHandling.Auto
 		};
+
+		public static void SaveReplay(Replay replay)
+		{
+			DirAccess userDir = DirAccess.Open("user://");
+			if (!userDir.DirExists("Replays"))
+			{
+				userDir.MakeDir("Replays");
+			}
+			
+			string serializedReplay = JsonConvert.SerializeObject(replay, jsonSettings);
+			string fileName = Time.GetDatetimeStringFromSystem() + ".json";
+			fileName = fileName.Replace(':', '-');
+			
+			using FileAccess file = FileAccess.Open($"user://Replays/{fileName}", FileAccess.ModeFlags.Write);
+			file.StoreString(serializedReplay);
+		}
 		
 		public static void SaveStation(Room[] rooms)
 		{
@@ -23,7 +43,7 @@ namespace Stardust
 			
 			using FileAccess file = FileAccess.Open("user://Stations/test.json", FileAccess.ModeFlags.Write);
 			List<RoomType> roomTypes = GetProceduralRooms(rooms);
-			file.StoreString(JsonSerializer.Serialize(roomTypes, jsonOptions));
+			file.StoreString(JsonConvert.SerializeObject(roomTypes, jsonSettings));
 		}
 
 		/// <summary>

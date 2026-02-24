@@ -1,6 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using Stardust.Godot.UI;
 
 namespace Stardust.Godot
 {
@@ -120,6 +121,25 @@ namespace Stardust.Godot
             if (Input.IsActionJustPressed("NextTurn"))
             {
                 UI.TurnButtons.AttemptNextTurn();
+            }
+            if (Input.IsActionJustPressed("SaveReplay"))
+            {
+                string[] objectives = new string[ObjectiveHandler.Objectives.Count];
+                for (int i = 0; i < ObjectiveHandler.Objectives.Count; i++)
+                {
+                    objectives[i] = ObjectiveHandler.Objectives[i].Name;
+                }
+                
+                Replay replay = new()
+                {
+                    IsMultiplayer = LobbyScreen.Lobby.IsMultiplayer,
+                    Characters = PawnsToSpawn,
+                    Rooms = FileManager.GetProceduralRooms(GameLogic.RoomManager.Rooms).ToArray(),
+                    Objectives = objectives,
+                    Actions = ActionLibrary.Actions.ToArray()
+                };
+                
+                FileManager.SaveReplay(replay);
             }
 
             if (!UI.LobbyScreen.Lobby.IsMultiplayer)

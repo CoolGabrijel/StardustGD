@@ -162,7 +162,7 @@ namespace Stardust.Godot
 
                     moveAction = new ConcordeMove(GameStart.LocalPlayer, cost, Room, movDir, finalMoveDirection);
                 }
-				else moveAction = new MoveAction(GameStart.LocalPlayer, cost, GameStart.LocalPlayer.Room, Room, movDir);
+				else moveAction = new MoveAction(GameStart.LocalPlayer.Type, cost, GameStart.LocalPlayer.Room.RoomType, Room.RoomType, movDir);
 				
 				if (PIOMP.Room.IsHost) ServerSend.Move(GameStart.PlayerId, GameStart.LocalPlayer.Type, cost, GameStart.LocalPlayer.Room.RoomType, Room.RoomType, movDir);
 				else if (PIOMP.Room.IsInRoom) ClientSend.ReqMove(GameStart.LocalPlayer.Type, cost, GameStart.LocalPlayer.Room.RoomType, Room.RoomType, movDir);

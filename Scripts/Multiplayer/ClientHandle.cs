@@ -115,21 +115,8 @@ namespace Stardust.Godot
             RoomType toType = (RoomType)_msg.GetInt(msgIndex++);
             RoomType fromType = (RoomType)_msg.GetInt(msgIndex++);
             Direction movDir = (Direction)_msg.GetInt(msgIndex);
-
-            Pawn pawn = null;
-            foreach (Pawn turnQueuePawn in GameLogic.TurnQueue.Pawns)
-            {
-                if (pawnType == turnQueuePawn.Type)
-                {
-                    pawn = turnQueuePawn;
-                    break;
-                }
-            }
-
-            Room toRoom = GameLogic.RoomManager.GetRoomByType(toType);
-            Room fromRoom = GameLogic.RoomManager.GetRoomByType(fromType);
             
-            IUndoableAction action = new MoveAction(pawn, cost, fromRoom, toRoom, movDir);
+            IUndoableAction action = new MoveAction(pawnType, cost, fromType, toType, movDir);
 
             action.Do();
             ActionLibrary.AddAction(action);

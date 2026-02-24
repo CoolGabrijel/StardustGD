@@ -69,6 +69,16 @@ namespace Stardust
             OnGameFinished?.Invoke(v);
         }
 
+        public static Pawn GetPawnByType(PawnType type)
+        {
+            foreach (Pawn pawn in TurnQueue.Pawns)
+            {
+                if (pawn.Type == type) return pawn;
+            }
+            
+            throw new Exception($"GameLogic :: Pawn {type} not found");
+        }
+
         /// <returns>True if current pawn is fully exhausted or damage exceeds max.</returns>
         private static bool CheckFailState()
         {
