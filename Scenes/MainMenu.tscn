@@ -1678,7 +1678,12 @@ offset_right = -105.0
 offset_bottom = -47.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(21, 9)
 text = "Art!"
+script = ExtResource("31_rhxm5")
+
+[node name="CenterPivot" type="Node" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Personals/Label"]
+script = ExtResource("9_r72vk")
 
 [node name="Label2" type="Label" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Personals"]
 layout_mode = 1
@@ -1693,7 +1698,12 @@ offset_right = 129.0
 offset_bottom = 103.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(103, 9)
 text = "Board game design!"
+script = ExtResource("31_rhxm5")
+
+[node name="CenterPivot" type="Node" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Personals/Label2"]
+script = ExtResource("9_r72vk")
 
 [node name="Button" type="Button" parent="Credits/VBoxContainer/Content/HBoxContainer/Captain/Personals"]
 layout_mode = 1
@@ -1873,7 +1883,12 @@ offset_right = 165.5
 offset_bottom = -63.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(73.5, 9)
 text = "programming!"
+script = ExtResource("31_rhxm5")
+
+[node name="CenterPivot" type="Node" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Personals/Label"]
+script = ExtResource("9_r72vk")
 
 [node name="Label2" type="Label" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Personals"]
 layout_mode = 1
@@ -1888,7 +1903,12 @@ offset_right = -78.5
 offset_bottom = 46.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(21.5, 9)
 text = "GUI!"
+script = ExtResource("31_rhxm5")
+
+[node name="CenterPivot" type="Node" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Personals/Label2"]
+script = ExtResource("9_r72vk")
 
 [node name="Button2" type="Button" parent="Credits/VBoxContainer/Content/HBoxContainer/Gab/Personals"]
 layout_mode = 1
