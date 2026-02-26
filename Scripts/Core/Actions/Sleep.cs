@@ -7,13 +7,13 @@ namespace Stardust.Actions
 	public class Sleep : IUndoableAction
 	{
 
-        public Sleep(Pawn pawn)
+        public Sleep(PawnType pawn)
         {
             Pawn = pawn;
         }
 
         public RoomType DamagedRoom { get; set; }
-        public Pawn Pawn { get; private set; }
+        public PawnType Pawn { get; private set; }
         public EnergyCard[] RefreshedCards { get; private set; }
         [Newtonsoft.Json.JsonIgnore]
         public bool DamagedRoomSet { get; set; }
@@ -23,8 +23,9 @@ namespace Stardust.Actions
         public void Do()
         {
             List<EnergyCard> cards = new();
-
-            foreach (EnergyCard card in Pawn.EnergyCards)
+            Pawn pawn = GameLogic.GetPawnByType(Pawn);
+            
+            foreach (EnergyCard card in pawn.EnergyCards)
             {
                 if (card.Exhausted)
                 {
@@ -35,7 +36,7 @@ namespace Stardust.Actions
 
             RefreshedCards = cards.ToArray();
 
-            GD.Print($"{Pawn.Type} slept in Habitation and refreshed {RefreshedCards.Length} cards");
+            GD.Print($"{Pawn} slept in Habitation and refreshed {RefreshedCards.Length} cards");
 
             endTurnAction = new EndTurn(true);
             endTurnAction.DamagedRoom = DamagedRoom;
@@ -53,7 +54,7 @@ namespace Stardust.Actions
 
             endTurnAction.Undo();
 
-            GD.Print($"{Pawn.Type} undone sleeping in Habitation and exhausted {RefreshedCards.Length} cards");
+            GD.Print($"{Pawn} undone sleeping in Habitation and exhausted {RefreshedCards.Length} cards");
         }
     } 
 }

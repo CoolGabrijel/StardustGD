@@ -68,7 +68,7 @@ namespace Stardust
                     action = new CreatePart(pawn.Type, 1, RoomType, ItemType.Part);
                     break;
                 case RoomType.Habitation:
-                    Sleep sleep = new(pawn);
+                    Sleep sleep = new(pawn.Type);
                     if (damagedRoom != null)
                     {
                         sleep.DamagedRoom = damagedRoom.RoomType;
