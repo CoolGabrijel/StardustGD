@@ -79,6 +79,14 @@ namespace Stardust.Godot
             {
                 objectives[i] = _msg.GetString(msgIndex++);
             }
+            
+            // Get the Damaged Rooms
+            int dmgRoomCount = _msg.GetInt(msgIndex++);
+            RoomType[] dmgRooms = new RoomType[dmgRoomCount];
+            for (int i = 0; i < dmgRoomCount; i++)
+            {
+                dmgRooms[i] = (RoomType)_msg.GetInt(msgIndex++);
+            }
 
             // Set it all up
 
@@ -86,6 +94,7 @@ namespace Stardust.Godot
             GameStart.RoomsToSpawn = rooms;
             GameStart.ObjectivesToSpawn = objectives;
             GameStart.PlayerList = players;
+            GameStart.RoomsToDamage = dmgRooms;
 
             UI.MainMenuScreen.Instance.GetTree().ChangeSceneToFile("res://Scenes/Game2D.tscn");
         }

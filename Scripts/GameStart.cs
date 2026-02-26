@@ -13,6 +13,7 @@ namespace Stardust.Godot
         public static RoomType[] RoomsToSpawn;
         public static string[] ObjectivesToSpawn;
         public static Dictionary<int, PawnType> PlayerList;
+        public static RoomType[] RoomsToDamage;
 
         [Export] private RoomGen2D roomGen;
         [Export] private Node pawnParent;
@@ -56,6 +57,37 @@ namespace Stardust.Godot
             else
                 GameLogic.BeginGame(PawnsToSpawn);
 
+            if (RoomsToDamage != null)
+            {
+                foreach (RoomType roomType in RoomsToDamage)
+                {
+                    Room room = GameLogic.RoomManager.GetRoomByType(roomType);
+                    room.Damage();
+                }
+            }
+            else
+            {
+                RandomNumberGenerator rng = new();
+                List<RoomType> rooms = new();
+                
+                foreach (Room room in GameLogic.RoomManager.Rooms)
+                {
+                    if (room is not MarsTile)
+                    {
+                        rooms.Add(room.RoomType);
+                    }
+                }
+
+                RoomsToDamage = new RoomType[3];
+                for (int i = 0; i < 3; i++)
+                {
+                    RoomType room = rooms[rng.RandiRange(0, rooms.Count-1)];
+                    rooms.Remove(room);
+                    RoomsToDamage[i] = room;
+                    GameLogic.RoomManager.GetRoomByType(room).Damage();
+                }
+            }
+            
             roomGen.Generate(GameLogic.RoomManager);
 
             foreach (Pawn pawn in GameLogic.TurnQueue.Pawns)

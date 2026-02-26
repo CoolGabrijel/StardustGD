@@ -94,6 +94,13 @@ namespace Stardust.Godot
             {
                 msg.Add(objective);
             }
+            
+            // Send the Damaged Rooms
+            msg.Add(GameStart.RoomsToDamage.Length);
+            foreach (RoomType room in GameStart.RoomsToDamage)
+            {
+                msg.Add((int)room);
+            }
 
             PIOMP.Server.Broadcast(msg);
         }
