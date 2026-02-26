@@ -12,9 +12,11 @@ namespace Stardust.Actions
 
         public static event System.Action OnEndTurn;
 
-        public Room DamagedRoom { get; set; }
+        public RoomType DamagedRoom { get; set; }
         public int EnergyExpended { get; set; }
         public bool SkipActionCardExhaustion { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        public bool DamagedRoomSet { get; set; }
 
         private EnergyCard exhaustedCard;
 
@@ -30,7 +32,11 @@ namespace Stardust.Actions
 
             if (!StardustGameConfig.CurrentConfig.DamageDisabled)
             {
-                if (DamagedRoom != null) GameLogic.DamageManager.Damage(DamagedRoom);
+                if (DamagedRoomSet)
+                {
+                    Room damagedRoom = GameLogic.RoomManager.GetRoomByType(DamagedRoom);
+                    GameLogic.DamageManager.Damage(damagedRoom);
+                }
                 else GameLogic.DamageManager.Damage();
                 
                 GameLogic.DamageManager.TurnIndex++;

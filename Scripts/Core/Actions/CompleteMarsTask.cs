@@ -13,8 +13,15 @@ namespace Stardust.Actions
             }
         }
 
+        [Newtonsoft.Json.JsonIgnore]
         public Task Task { get; private set; }
+        
+        // TODO: I AM SETTING THESE DOWN HERE TO [Newtonsoft.Json.JsonIgnore]
+        // THEY SHOULDN'T BE. FIGURE OUT HOW TO MAKE IT WORK WITH PawnType AND ItemType
+        
+        [Newtonsoft.Json.JsonIgnore]
         public Pawn Pawn { get; private set; }
+        [Newtonsoft.Json.JsonIgnore]
         public Item DroppedItem { get; private set; }
 
         public void Do()

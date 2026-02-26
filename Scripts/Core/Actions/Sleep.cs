@@ -12,9 +12,11 @@ namespace Stardust.Actions
             Pawn = pawn;
         }
 
-        public Room DamagedRoom { get; set; }
+        public RoomType DamagedRoom { get; set; }
         public Pawn Pawn { get; private set; }
         public EnergyCard[] RefreshedCards { get; private set; }
+        [Newtonsoft.Json.JsonIgnore]
+        public bool DamagedRoomSet { get; set; }
 
         private EndTurn endTurnAction;
 
@@ -37,6 +39,7 @@ namespace Stardust.Actions
 
             endTurnAction = new EndTurn(true);
             endTurnAction.DamagedRoom = DamagedRoom;
+            endTurnAction.DamagedRoomSet = DamagedRoomSet;
 
             endTurnAction.Do();
         }

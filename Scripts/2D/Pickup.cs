@@ -65,19 +65,19 @@ namespace Stardust.Godot
             switch (item.Type)
             {
                 case ItemType.Part:
-                    action = new DropItem(pawn.Pawn, pawn.Pawn.Room, item);
+                    action = new DropItem(pawn.Pawn.Type, pawn.Pawn.Room.RoomType, item.Type);
                     break;
                 case ItemType.Sample:
                     if (pawn.Pawn.Room.RoomType == RoomType.Lander)
                         action = new CompleteMarsTask(pawn.Pawn, item);
                     else
-                        action = new DropItem(pawn.Pawn, pawn.Pawn.Room, item);
+                        action = new DropItem(pawn.Pawn.Type, pawn.Pawn.Room.RoomType, item.Type);
                     break;
                 case ItemType.Flag:
                     if (pawn.Pawn.Room.RoomType == RoomType.Peak)
                         action = new CompleteMarsTask(pawn.Pawn, item);
                     else
-                        action = new DropItem(pawn.Pawn, pawn.Pawn.Room, item);
+                        action = new DropItem(pawn.Pawn.Type, pawn.Pawn.Room.RoomType, item.Type);
                     break;
                 case ItemType.Objective:
                     break;

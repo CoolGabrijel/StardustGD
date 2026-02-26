@@ -5,21 +5,17 @@ namespace Stardust.Actions
 {
     public class ZambukoEndTurn : IUndoableAction
     {
-        public Room DamagedRoom { get; set; }
+        public RoomType DamagedRoom { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
         public EndTurn EndTurn { get; private set; }
-        IUndoableAction roomAction;
+        [Newtonsoft.Json.JsonIgnore]
+        public bool DamagedRoomSet { get; set; }
+        
+        private IUndoableAction roomAction;
 
         public void Do()
         {
-            Pawn zambuko = null;
-            foreach (Pawn pawn in GameLogic.TurnQueue.Pawns)
-            {
-                if (pawn.Type == PawnType.Zambuko)
-                {
-                    zambuko = pawn;
-                    break;
-                }
-            }
+            Pawn zambuko = GameLogic.GetPawnByType(PawnType.Zambuko);
 
             if (zambuko == null)
                 throw new Exception("ZambukoEndTurn :: Zambuko not found.");
@@ -29,15 +25,16 @@ namespace Stardust.Actions
                 switch (zambuko.Room.RoomType)
                 {
                     case RoomType.Workshop:
-                        roomAction = new CreatePart(zambuko, 1, zambuko.Room, new(ItemType.Part));
+                        roomAction = new CreatePart(zambuko.Type, 1, zambuko.Room.RoomType, ItemType.Part);
                         break;
                     case RoomType.Habitation:
                         Sleep sleep = new(zambuko);
                         sleep.DamagedRoom = DamagedRoom;
+                        sleep.DamagedRoomSet = DamagedRoomSet;
                         roomAction = sleep;
                         break;
                     case RoomType.Comms:
-                        roomAction = new RevealObjective(zambuko);
+                        roomAction = new RevealObjective();
                         break;
                     case RoomType.Airlock:
                         roomAction = new DropLander();
@@ -55,7 +52,11 @@ namespace Stardust.Actions
             if (roomAction is not Sleep) // Sleep already automatically ends turn.
             {
                 if (EndTurn == null) EndTurn = new EndTurn();
-                EndTurn.DamagedRoom = DamagedRoom;
+                if (DamagedRoomSet)
+                {
+                    EndTurn.DamagedRoom = DamagedRoom;
+                    EndTurn.DamagedRoomSet = DamagedRoomSet;
+                }
 
                 GameLogic.EnergyExpended--; // We don't want the action to use any energy.
                 EndTurn.Do();

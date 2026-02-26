@@ -4,34 +4,35 @@ namespace Stardust.Actions
 {
     public class ConcordeMove : IUndoableAction
     {
-        public ConcordeMove(Pawn pawn, int cost, Room to, Direction startingMovementDirection, Direction endingMovementDirection)
+        public ConcordeMove(int cost, RoomType from, RoomType to, Direction startingMovementDirection, Direction endingMovementDirection)
         {
-            Pawn = pawn;
             EnergyCost = cost;
+            FromRoom = from;
             ToRoom = to;
             StartingMovementDirection = startingMovementDirection;
             EndingMovementDirection = endingMovementDirection;
         }
 
-        public Pawn Pawn { get; private set; }
         public int EnergyCost { get; private set; }
-        public Room FromRoom { get; private set; }
-        public Room ToRoom { get; private set; }
+        public RoomType FromRoom { get; private set; }
+        public RoomType ToRoom { get; private set; }
         public Direction StartingMovementDirection { get; private set; }
         public Direction EndingMovementDirection { get; private set; }
+        
+        private Pawn Pawn => GameLogic.GetPawnByType(PawnType.Concorde);
 
         public void Do()
         {
-            if (FromRoom == null) FromRoom = Pawn.Room;
-
-            Pawn.MoveTo(ToRoom);
+            Room toRoom = GameLogic.RoomManager.GetRoomByType(ToRoom);
+            Pawn.MoveTo(toRoom);
             GameLogic.EnergyExpended += EnergyCost;
             Pawn.LastMovementDirection = EndingMovementDirection;
         }
 
         public void Undo()
         {
-            Pawn.MoveTo(FromRoom);
+            Room fromRoom = GameLogic.RoomManager.GetRoomByType(FromRoom);
+            Pawn.MoveTo(fromRoom);
             Pawn.LastMovementDirection = StartingMovementDirection;
             GameLogic.EnergyExpended -= EnergyCost;
         }

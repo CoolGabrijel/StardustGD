@@ -4,33 +4,35 @@ namespace Stardust.Actions
 {
     public class RepairRoom : IUndoableAction
     {
-        public RepairRoom(Room room, Pawn pawn)
+        public RepairRoom(RoomType room, PawnType pawn)
         {
             Room = room;
             Pawn = pawn;
-            part = room.GetItem(ItemType.Part);
+            part = GameLogic.RoomManager.GetRoomByType(room).GetItem(ItemType.Part);
         }
 
-        public Room Room { get; private set; }
-        public Pawn Pawn { get; private set; }
+        public RoomType Room { get; private set; }
+        public PawnType Pawn { get; private set; }
 
         private Item part;
 
         public void Do()
         {
-            Room.DamageAmount--;
-            Room.RemoveItem(part);
+            Room room = GameLogic.RoomManager.GetRoomByType(Room);
+            room.DamageAmount--;
+            room.RemoveItem(part);
             GameLogic.EnergyExpended += 1;
             ActionLibrary.AddAction(this); // It should maybe not do this.
-            GD.Print($"{Pawn}: Repaired {Room.Name}");
+            GD.Print($"{Pawn}: Repaired {room.Name}");
         }
 
         public void Undo()
         {
-            Room.DamageAmount++;
-            Room.AddItem(part);
+            Room room = GameLogic.RoomManager.GetRoomByType(Room);
+            room.DamageAmount++;
+            room.AddItem(part);
             GameLogic.EnergyExpended -= 1;
-            GD.Print($"{Pawn}: Undone Repair in {Room.Name}");
+            GD.Print($"{Pawn}: Undone Repair in {room.Name}");
         }
 
         public static bool CanRepairRoom(Room room)

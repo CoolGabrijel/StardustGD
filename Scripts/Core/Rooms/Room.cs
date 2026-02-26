@@ -65,15 +65,19 @@ namespace Stardust
             switch (RoomType)
             {
                 case RoomType.Workshop:
-                    action = new CreatePart(pawn, 1, this, new(ItemType.Part));
+                    action = new CreatePart(pawn.Type, 1, RoomType, ItemType.Part);
                     break;
                 case RoomType.Habitation:
                     Sleep sleep = new(pawn);
-                    sleep.DamagedRoom = damagedRoom;
+                    if (damagedRoom != null)
+                    {
+                        sleep.DamagedRoom = damagedRoom.RoomType;
+                        sleep.DamagedRoomSet = true;
+                    }
                     action = sleep;
                     break;
                 case RoomType.Comms:
-                    action = new RevealObjective(pawn);
+                    action = new RevealObjective();
                     break;
                 case RoomType.Airlock:
                     action = new DropLander();

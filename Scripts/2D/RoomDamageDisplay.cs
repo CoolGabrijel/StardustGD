@@ -1,6 +1,7 @@
 using Godot;
 using Stardust.Actions;
 using System;
+using System.Linq;
 
 namespace Stardust.Godot.UI
 {
@@ -48,10 +49,12 @@ namespace Stardust.Godot.UI
             Pawn localPlayer = GameStart.LocalPlayer;
 
             if (GameLogic.TurnQueue.CurrentPawn != localPlayer) return;
+            bool doesPlayerHaveEnergy = GameStart.LocalPlayer.EnergyCards.Where((e) => !e.Exhausted).Max((e) => e.Energy) > GameLogic.EnergyExpended;
+            if (!doesPlayerHaveEnergy) return;
 
             if (!RepairRoom.CanRepairRoom(roomGraphic.Room)) return;
             
-            new RepairRoom(roomGraphic.Room, localPlayer).Do();
+            new RepairRoom(roomGraphic.Room.RoomType, localPlayer.Type).Do();
             
             if (PIOMP.Room.IsHost) ServerSend.Repair(GameStart.PlayerId);
             else if (PIOMP.Room.IsInRoom) ClientSend.ReqRepair();

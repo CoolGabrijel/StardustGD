@@ -5,29 +5,45 @@ namespace Stardust.Actions
 {
     public class PickUpPart : IUndoableAction
     {
-        public PickUpPart(Pawn pawn, Room room, Item part)
+        public PickUpPart(PawnType pawn, RoomType room, ItemType part)
         {
             Pawn = pawn;
             Room = room;
             Part = part;
         }
 
-        public Pawn Pawn { get; set; }
-        public Room Room { get; set; }
-        public Item Part { get; set; }
+        public PawnType Pawn { get; set; }
+        public RoomType Room { get; set; }
+        public ItemType Part { get; set; }
 
         public void Do()
         {
-            Room.RemoveItem(Part);
-            Pawn.PickUpItem(Part);
-            GD.Print($"{Pawn}: Picked up part in {Room.Name}");
+            Pawn pawn = GameLogic.GetPawnByType(Pawn);
+            Room room = GameLogic.RoomManager.GetRoomByType(Room);
+            Item part = room.GetItem(Part);
+            
+            room.RemoveItem(part);
+            pawn.PickUpItem(part);
+            GD.Print($"{Pawn}: Picked up part in {Room}");
         }
 
         public void Undo()
         {
-            Room.AddItem(Part);
-            Pawn.DropItem(Part);
-            GD.Print($"{Pawn}: Undone part pickup in {Room.Name}");
+            Pawn pawn = GameLogic.GetPawnByType(Pawn);
+            Room room = GameLogic.RoomManager.GetRoomByType(Room);
+            Item part = null;
+            foreach (Item item in pawn.Inventory)
+            {
+                if (item.Type == Part)
+                {
+                    part = item;
+                    break;
+                }
+            }
+            
+            room.AddItem(part);
+            pawn.DropItem(part);
+            GD.Print($"{Pawn}: Undone part pickup in {Room}");
         }
     }
 }

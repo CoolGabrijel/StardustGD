@@ -4,34 +4,32 @@ namespace Stardust.Actions
 {
     public partial class WolframHeal : IUndoableAction
     {
-        public WolframHeal(Pawn target)
+        public WolframHeal(PawnType target)
         {
             Target = target;
         }
 
-        public EnergyCard Card { get; private set; }
-        public Pawn Target { get; private set; }
+        public PawnType Target { get; private set; }
 
         public void Do()
         {
-            if (Card == null)
-            {
-                Card = GetHighestCard();
-            }
+            EnergyCard card = GetHighestCard(true);
 
-            Card.Exhausted = false;
+            card.Exhausted = false;
             GameLogic.EnergyExpended++;
         }
 
         public void Undo()
         {
-            Card.Exhausted = true;
+            EnergyCard card = GetHighestCard(false);
+            card.Exhausted = true;
             GameLogic.EnergyExpended--;
         }
 
-        private EnergyCard GetHighestCard()
+        private EnergyCard GetHighestCard(bool exhausted)
         {
-            return Target.EnergyCards.Where((c) => c.Exhausted).OrderByDescending((c) => c.Energy).FirstOrDefault();
+            Pawn target = GameLogic.GetPawnByType(Target);
+            return target.EnergyCards.Where((c) => c.Exhausted == exhausted).OrderByDescending((c) => c.Energy).FirstOrDefault();
         }
     }
 }

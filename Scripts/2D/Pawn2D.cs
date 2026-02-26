@@ -119,7 +119,7 @@ namespace Stardust.Godot
                 int localMaxEnergy = GameStart.LocalPlayer.EnergyCards.Where((c) => !c.Exhausted).Max(x => x.Energy);
                 if (GameLogic.EnergyExpended + 1 > localMaxEnergy) return; // Check if we have spare energy for the action
 
-                IUndoableAction restoreAction = new WolframHeal(Pawn);
+                IUndoableAction restoreAction = new WolframHeal(Pawn.Type);
 
                 restoreAction.Do();
                 ActionLibrary.AddAction(restoreAction);

@@ -142,7 +142,7 @@ namespace Stardust.Godot
 
             Pawn currentPawn = GameLogic.TurnQueue.CurrentPawn;
             Item item = currentPawn.Room.GetItem(itemType);
-            PickUpPart pickupAction = new(currentPawn, currentPawn.Room, item);
+            PickUpPart pickupAction = new(currentPawn.Type, currentPawn.Room.RoomType, itemType);
             pickupAction.Do();
             ActionLibrary.AddAction(pickupAction);
         }
@@ -170,19 +170,19 @@ namespace Stardust.Godot
             switch (item.Type)
             {
                 case ItemType.Part:
-                    action = new DropItem(pawn, pawn.Room, item);
+                    action = new DropItem(pawn.Type, pawn.Room.RoomType, itemType);
                     break;
                 case ItemType.Sample:
                     if (pawn.Room.RoomType == RoomType.Lander)
                         action = new CompleteMarsTask(pawn, item);
                     else
-                        action = new DropItem(pawn, pawn.Room, item);
+                        action = new DropItem(pawn.Type, pawn.Room.RoomType, itemType);
                     break;
                 case ItemType.Flag:
                     if (pawn.Room.RoomType == RoomType.Peak)
                         action = new CompleteMarsTask(pawn, item);
                     else
-                        action = new DropItem(pawn, pawn.Room, item);
+                        action = new DropItem(pawn.Type, pawn.Room.RoomType, itemType);
                     break;
                 case ItemType.Objective:
                     break;
@@ -200,7 +200,7 @@ namespace Stardust.Godot
             int id =  _msg.GetInt(0);
 
             Pawn currentPawn = GameLogic.TurnQueue.CurrentPawn;
-            new RepairRoom(currentPawn.Room, currentPawn).Do();
+            new RepairRoom(currentPawn.Room.RoomType, currentPawn.Type).Do();
         }
         
         [MessageHandler("CompleteTask")]
@@ -230,19 +230,8 @@ namespace Stardust.Godot
         {
             int id =  _msg.GetInt(0);
             PawnType targetType = (PawnType)_msg.GetInt(1);
-
-            Pawn pawn = null;
-
-            foreach (Pawn queuePawn in GameLogic.TurnQueue.Pawns)
-            {
-                if (queuePawn.Type == targetType)
-                {
-                    pawn = queuePawn;
-                    break;
-                }
-            }
             
-            IUndoableAction restoreAction = new WolframHeal(pawn);
+            IUndoableAction restoreAction = new WolframHeal(targetType);
 
             restoreAction.Do();
             ActionLibrary.AddAction(restoreAction);

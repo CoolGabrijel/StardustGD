@@ -67,13 +67,15 @@ namespace Stardust.Godot.UI
 			if (GameLogic.TurnQueue.CurrentPawn.Type == PawnType.Zambuko)
 			{
 				ZambukoEndTurn endTurn = new();
-				endTurn.DamagedRoom = damagedRoom;
+				endTurn.DamagedRoom = damagedRoom.RoomType;
+				endTurn.DamagedRoomSet = true;
 				action = endTurn;
 			}
 			else
 			{
 				EndTurn endTurn = new();
-				endTurn.DamagedRoom = damagedRoom;
+				endTurn.DamagedRoom = damagedRoom.RoomType;
+                endTurn.DamagedRoomSet = true;
 				action = endTurn;
 			}
 

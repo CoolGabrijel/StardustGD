@@ -45,7 +45,7 @@ namespace Stardust.Godot
             if (!CanPickup()) return;
 
             Item item = roomGraphic.Room.GetItem(pickupType);
-            PickUpPart PickupAction = new(player, roomGraphic.Room, item);
+            PickUpPart PickupAction = new(player.Type, roomGraphic.Room.RoomType, pickupType);
             PickupAction.Do();
             ActionLibrary.AddAction(PickupAction);
             
