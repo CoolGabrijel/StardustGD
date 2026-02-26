@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c6uo5do5x0krg"]
+[gd_scene load_steps=12 format=3 uid="uid://c6uo5do5x0krg"]
 
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_o3wf5"]
 [ext_resource type="Texture2D" uid="uid://der8s6i532n3a" path="res://Textures/CaptainHoers/Background Bit Alternate.png" id="1_qj0if"]
@@ -6,6 +6,19 @@
 [ext_resource type="Script" path="res://Scripts/UI/Menu/SettingNode.cs" id="3_jurvs"]
 [ext_resource type="AudioStream" uid="uid://djwkl73sys1xk" path="res://Sfx/Kenney Sfx/Button_Hover.ogg" id="4_udjtp"]
 [ext_resource type="Script" path="res://Scripts/UI/ButtonHoverSfx.cs" id="5_2eg30"]
+[ext_resource type="Texture2D" uid="uid://coj87xj33rl2r" path="res://Textures/CaptainHoers/Video icons/Ico_X.png" id="7_yuukv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycskb"]
+bg_color = Color(0.215686, 0.27451, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ne820"]
+bg_color = Color(0.6, 0.27, 0.27, 1)
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqiba"]
+bg_color = Color(0.792157, 0.792157, 0.792157, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sl41v"]
 
@@ -19,19 +32,75 @@ grow_vertical = 2
 theme = ExtResource("1_o3wf5")
 script = ExtResource("2_k5m6e")
 
-[node name="Background" type="Panel" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 89.0
+offset_top = 48.0
+offset_right = 1191.0
+offset_bottom = 672.0
+theme_override_constants/separation = 0
+
+[node name="Header" type="Panel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ycskb")
+
+[node name="Label" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_right = 104.0
+grow_vertical = 2
+text = "Settings"
+vertical_alignment = 1
+
+[node name="BtnClose" type="Button" parent="VBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ne820")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Header/BtnClose"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 85.0
-offset_top = 48.0
-offset_right = -86.0
-offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_yuukv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="VBoxContainer/Header/BtnClose"]
+stream = ExtResource("4_udjtp")
+bus = &"Sfx"
+script = ExtResource("5_2eg30")
+
+[node name="Content" type="Panel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_wqiba")
+
+[node name="Background" type="Panel" parent="VBoxContainer/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 79.0
+offset_top = 43.0
+offset_right = -92.0
+offset_bottom = -53.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SettingsList" type="VBoxContainer" parent="Background"]
+[node name="SettingsList" type="VBoxContainer" parent="VBoxContainer/Content/Background"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -45,7 +114,7 @@ offset_bottom = 233.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VolumeMain" type="HBoxContainer" parent="Background/SettingsList" node_paths=PackedStringArray("slider", "lineEdit", "grabber", "fillContainer", "fillRect")]
+[node name="VolumeMain" type="HBoxContainer" parent="VBoxContainer/Content/Background/SettingsList" node_paths=PackedStringArray("slider", "lineEdit", "grabber", "fillContainer", "fillRect")]
 layout_mode = 2
 script = ExtResource("3_jurvs")
 slider = NodePath("HSlider")
@@ -57,15 +126,15 @@ normalFillColor = Color(0.215686, 0.27451, 0.4, 1)
 highlightedFillColor = Color(0.196078, 0.392157, 0.568627, 1)
 grabberOffset = Vector2(-15, 0)
 
-[node name="Label" type="Label" parent="Background/SettingsList/VolumeMain"]
+[node name="Label" type="Label" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain"]
 layout_mode = 2
 text = "Main Volume"
 
-[node name="Space" type="Control" parent="Background/SettingsList/VolumeMain"]
+[node name="Space" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="Background/SettingsList/VolumeMain"]
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -73,7 +142,7 @@ mouse_default_cursor_shape = 10
 theme_override_styles/slider = SubResource("StyleBoxEmpty_sl41v")
 value = 50.0
 
-[node name="Background" type="Control" parent="Background/SettingsList/VolumeMain/HSlider"]
+[node name="Background" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider"]
 modulate = Color(0.792157, 0.792157, 0.792157, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -83,7 +152,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Left" type="TextureRect" parent="Background/SettingsList/VolumeMain/HSlider/Background"]
+[node name="Left" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -93,7 +162,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Right" type="TextureRect" parent="Background/SettingsList/VolumeMain/HSlider/Background"]
+[node name="Right" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -106,7 +175,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Middle" type="ColorRect" parent="Background/SettingsList/VolumeMain/HSlider/Background"]
+[node name="Middle" type="ColorRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -116,7 +185,7 @@ offset_right = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Fill" type="Control" parent="Background/SettingsList/VolumeMain/HSlider"]
+[node name="Fill" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider"]
 modulate = Color(0.215686, 0.27451, 0.4, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -126,7 +195,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="LeftFill" type="TextureRect" parent="Background/SettingsList/VolumeMain/HSlider/Fill"]
+[node name="LeftFill" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider/Fill"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -136,7 +205,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="MainFill" type="ColorRect" parent="Background/SettingsList/VolumeMain/HSlider/Fill"]
+[node name="MainFill" type="ColorRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider/Fill"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -145,7 +214,7 @@ offset_right = 82.0
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Grabber" type="TextureRect" parent="Background/SettingsList/VolumeMain/HSlider"]
+[node name="Grabber" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -162,16 +231,16 @@ texture = ExtResource("1_qj0if")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Background/SettingsList/VolumeMain/HSlider"]
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider"]
 stream = ExtResource("4_udjtp")
 bus = &"Sfx"
 script = ExtResource("5_2eg30")
 
-[node name="Space2" type="Control" parent="Background/SettingsList/VolumeMain"]
+[node name="Space2" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="Background/SettingsList/VolumeMain"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain"]
 layout_mode = 2
 text = "50"
 alignment = 1
@@ -180,7 +249,7 @@ virtual_keyboard_type = 2
 middle_mouse_paste_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="VolumeMain2" type="HBoxContainer" parent="Background/SettingsList" node_paths=PackedStringArray("slider", "lineEdit", "grabber", "fillContainer", "fillRect")]
+[node name="VolumeMain2" type="HBoxContainer" parent="VBoxContainer/Content/Background/SettingsList" node_paths=PackedStringArray("slider", "lineEdit", "grabber", "fillContainer", "fillRect")]
 layout_mode = 2
 script = ExtResource("3_jurvs")
 volumeType = 1
@@ -193,15 +262,15 @@ normalFillColor = Color(0.215686, 0.27451, 0.4, 1)
 highlightedFillColor = Color(0.196078, 0.392157, 0.568627, 1)
 grabberOffset = Vector2(-15, 0)
 
-[node name="Label" type="Label" parent="Background/SettingsList/VolumeMain2"]
+[node name="Label" type="Label" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2"]
 layout_mode = 2
 text = "Music Volume"
 
-[node name="Space" type="Control" parent="Background/SettingsList/VolumeMain2"]
+[node name="Space" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="Background/SettingsList/VolumeMain2"]
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -209,7 +278,7 @@ mouse_default_cursor_shape = 10
 theme_override_styles/slider = SubResource("StyleBoxEmpty_sl41v")
 value = 50.0
 
-[node name="Background" type="Control" parent="Background/SettingsList/VolumeMain2/HSlider"]
+[node name="Background" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider"]
 modulate = Color(0.792157, 0.792157, 0.792157, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -219,7 +288,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Left" type="TextureRect" parent="Background/SettingsList/VolumeMain2/HSlider/Background"]
+[node name="Left" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -229,7 +298,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Right" type="TextureRect" parent="Background/SettingsList/VolumeMain2/HSlider/Background"]
+[node name="Right" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -242,7 +311,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Middle" type="ColorRect" parent="Background/SettingsList/VolumeMain2/HSlider/Background"]
+[node name="Middle" type="ColorRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -252,7 +321,7 @@ offset_right = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Fill" type="Control" parent="Background/SettingsList/VolumeMain2/HSlider"]
+[node name="Fill" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider"]
 modulate = Color(0.215686, 0.27451, 0.4, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -262,7 +331,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="LeftFill" type="TextureRect" parent="Background/SettingsList/VolumeMain2/HSlider/Fill"]
+[node name="LeftFill" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider/Fill"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -272,7 +341,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="MainFill" type="ColorRect" parent="Background/SettingsList/VolumeMain2/HSlider/Fill"]
+[node name="MainFill" type="ColorRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider/Fill"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -281,7 +350,7 @@ offset_right = 82.0
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Grabber" type="TextureRect" parent="Background/SettingsList/VolumeMain2/HSlider"]
+[node name="Grabber" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -298,16 +367,16 @@ texture = ExtResource("1_qj0if")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Background/SettingsList/VolumeMain2/HSlider"]
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider"]
 stream = ExtResource("4_udjtp")
 bus = &"Sfx"
 script = ExtResource("5_2eg30")
 
-[node name="Space2" type="Control" parent="Background/SettingsList/VolumeMain2"]
+[node name="Space2" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="Background/SettingsList/VolumeMain2"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain2"]
 layout_mode = 2
 text = "50"
 alignment = 1
@@ -316,7 +385,7 @@ virtual_keyboard_type = 2
 middle_mouse_paste_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="VolumeMain3" type="HBoxContainer" parent="Background/SettingsList" node_paths=PackedStringArray("slider", "lineEdit", "grabber", "fillContainer", "fillRect")]
+[node name="VolumeMain3" type="HBoxContainer" parent="VBoxContainer/Content/Background/SettingsList" node_paths=PackedStringArray("slider", "lineEdit", "grabber", "fillContainer", "fillRect")]
 layout_mode = 2
 script = ExtResource("3_jurvs")
 volumeType = 2
@@ -329,15 +398,15 @@ normalFillColor = Color(0.215686, 0.27451, 0.4, 1)
 highlightedFillColor = Color(0.196078, 0.392157, 0.568627, 1)
 grabberOffset = Vector2(-15, 0)
 
-[node name="Label" type="Label" parent="Background/SettingsList/VolumeMain3"]
+[node name="Label" type="Label" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3"]
 layout_mode = 2
 text = "Sfx Volume"
 
-[node name="Space" type="Control" parent="Background/SettingsList/VolumeMain3"]
+[node name="Space" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3"]
 custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="Background/SettingsList/VolumeMain3"]
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -345,7 +414,7 @@ mouse_default_cursor_shape = 10
 theme_override_styles/slider = SubResource("StyleBoxEmpty_sl41v")
 value = 50.0
 
-[node name="Background" type="Control" parent="Background/SettingsList/VolumeMain3/HSlider"]
+[node name="Background" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider"]
 modulate = Color(0.792157, 0.792157, 0.792157, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -355,7 +424,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Left" type="TextureRect" parent="Background/SettingsList/VolumeMain3/HSlider/Background"]
+[node name="Left" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -365,7 +434,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Right" type="TextureRect" parent="Background/SettingsList/VolumeMain3/HSlider/Background"]
+[node name="Right" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -378,7 +447,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Middle" type="ColorRect" parent="Background/SettingsList/VolumeMain3/HSlider/Background"]
+[node name="Middle" type="ColorRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider/Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -388,7 +457,7 @@ offset_right = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Fill" type="Control" parent="Background/SettingsList/VolumeMain3/HSlider"]
+[node name="Fill" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider"]
 modulate = Color(0.215686, 0.27451, 0.4, 1)
 layout_mode = 1
 anchors_preset = 15
@@ -398,7 +467,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="LeftFill" type="TextureRect" parent="Background/SettingsList/VolumeMain3/HSlider/Fill"]
+[node name="LeftFill" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider/Fill"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -408,7 +477,7 @@ texture = ExtResource("1_qj0if")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="MainFill" type="ColorRect" parent="Background/SettingsList/VolumeMain3/HSlider/Fill"]
+[node name="MainFill" type="ColorRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider/Fill"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -417,7 +486,7 @@ offset_right = 82.0
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="Grabber" type="TextureRect" parent="Background/SettingsList/VolumeMain3/HSlider"]
+[node name="Grabber" type="TextureRect" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -434,16 +503,16 @@ texture = ExtResource("1_qj0if")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Background/SettingsList/VolumeMain3/HSlider"]
+[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider"]
 stream = ExtResource("4_udjtp")
 bus = &"Sfx"
 script = ExtResource("5_2eg30")
 
-[node name="Space2" type="Control" parent="Background/SettingsList/VolumeMain3"]
+[node name="Space2" type="Control" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3"]
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="Background/SettingsList/VolumeMain3"]
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Content/Background/SettingsList/VolumeMain3"]
 layout_mode = 2
 text = "50"
 alignment = 1
@@ -452,36 +521,16 @@ virtual_keyboard_type = 2
 middle_mouse_paste_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="Btn_Back" type="Button" parent="Background"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Back"
-
-[node name="ButtonHoverSfx" type="AudioStreamPlayer" parent="Background/Btn_Back"]
-stream = ExtResource("4_udjtp")
-bus = &"Sfx"
-script = ExtResource("5_2eg30")
-
-[connection signal="mouse_entered" from="Background/SettingsList/VolumeMain/HSlider" to="Background/SettingsList/VolumeMain" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="Background/SettingsList/VolumeMain/HSlider" to="Background/SettingsList/VolumeMain" method="OnMouseExited"]
-[connection signal="value_changed" from="Background/SettingsList/VolumeMain/HSlider" to="Background/SettingsList/VolumeMain" method="OnSliderValueChanged"]
-[connection signal="text_submitted" from="Background/SettingsList/VolumeMain/LineEdit" to="Background/SettingsList/VolumeMain" method="OnLineEditValueSubmitted"]
-[connection signal="mouse_entered" from="Background/SettingsList/VolumeMain2/HSlider" to="Background/SettingsList/VolumeMain2" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="Background/SettingsList/VolumeMain2/HSlider" to="Background/SettingsList/VolumeMain2" method="OnMouseExited"]
-[connection signal="value_changed" from="Background/SettingsList/VolumeMain2/HSlider" to="Background/SettingsList/VolumeMain2" method="OnSliderValueChanged"]
-[connection signal="text_submitted" from="Background/SettingsList/VolumeMain2/LineEdit" to="Background/SettingsList/VolumeMain2" method="OnLineEditValueSubmitted"]
-[connection signal="mouse_entered" from="Background/SettingsList/VolumeMain3/HSlider" to="Background/SettingsList/VolumeMain3" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="Background/SettingsList/VolumeMain3/HSlider" to="Background/SettingsList/VolumeMain3" method="OnMouseExited"]
-[connection signal="value_changed" from="Background/SettingsList/VolumeMain3/HSlider" to="Background/SettingsList/VolumeMain3" method="OnSliderValueChanged"]
-[connection signal="text_submitted" from="Background/SettingsList/VolumeMain3/LineEdit" to="Background/SettingsList/VolumeMain3" method="OnLineEditValueSubmitted"]
-[connection signal="pressed" from="Background/Btn_Back" to="." method="Back"]
+[connection signal="pressed" from="VBoxContainer/Header/BtnClose" to="." method="Back"]
+[connection signal="mouse_entered" from="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider" to="VBoxContainer/Content/Background/SettingsList/VolumeMain" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider" to="VBoxContainer/Content/Background/SettingsList/VolumeMain" method="OnMouseExited"]
+[connection signal="value_changed" from="VBoxContainer/Content/Background/SettingsList/VolumeMain/HSlider" to="VBoxContainer/Content/Background/SettingsList/VolumeMain" method="OnSliderValueChanged"]
+[connection signal="text_submitted" from="VBoxContainer/Content/Background/SettingsList/VolumeMain/LineEdit" to="VBoxContainer/Content/Background/SettingsList/VolumeMain" method="OnLineEditValueSubmitted"]
+[connection signal="mouse_entered" from="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider" to="VBoxContainer/Content/Background/SettingsList/VolumeMain2" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider" to="VBoxContainer/Content/Background/SettingsList/VolumeMain2" method="OnMouseExited"]
+[connection signal="value_changed" from="VBoxContainer/Content/Background/SettingsList/VolumeMain2/HSlider" to="VBoxContainer/Content/Background/SettingsList/VolumeMain2" method="OnSliderValueChanged"]
+[connection signal="text_submitted" from="VBoxContainer/Content/Background/SettingsList/VolumeMain2/LineEdit" to="VBoxContainer/Content/Background/SettingsList/VolumeMain2" method="OnLineEditValueSubmitted"]
+[connection signal="mouse_entered" from="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider" to="VBoxContainer/Content/Background/SettingsList/VolumeMain3" method="OnMouseEntered"]
+[connection signal="mouse_exited" from="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider" to="VBoxContainer/Content/Background/SettingsList/VolumeMain3" method="OnMouseExited"]
+[connection signal="value_changed" from="VBoxContainer/Content/Background/SettingsList/VolumeMain3/HSlider" to="VBoxContainer/Content/Background/SettingsList/VolumeMain3" method="OnSliderValueChanged"]
+[connection signal="text_submitted" from="VBoxContainer/Content/Background/SettingsList/VolumeMain3/LineEdit" to="VBoxContainer/Content/Background/SettingsList/VolumeMain3" method="OnLineEditValueSubmitted"]
