@@ -1,3 +1,4 @@
+using PIOMP;
 using Stardust.Actions;
 using System;
 using System.Collections.Generic;
@@ -102,6 +103,12 @@ namespace Stardust
 
             if (wasBroken != Broken) OnBreak?.Invoke();
             else OnDamage?.Invoke();
+        }
+
+        public void Repair()
+        {
+            DamageAmount--;
+            OnRepair?.Invoke();
         }
 
         public void AddItem(Item item)

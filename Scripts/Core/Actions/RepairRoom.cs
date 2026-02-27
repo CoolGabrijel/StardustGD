@@ -19,7 +19,7 @@ namespace Stardust.Actions
         public void Do()
         {
             Room room = GameLogic.RoomManager.GetRoomByType(Room);
-            room.DamageAmount--;
+            room.Repair();
             room.RemoveItem(part);
             GameLogic.EnergyExpended += 1;
             ActionLibrary.AddAction(this); // It should maybe not do this.
@@ -29,7 +29,7 @@ namespace Stardust.Actions
         public void Undo()
         {
             Room room = GameLogic.RoomManager.GetRoomByType(Room);
-            room.DamageAmount++;
+            room.Damage();
             room.AddItem(part);
             GameLogic.EnergyExpended -= 1;
             GD.Print($"{Pawn}: Undone Repair in {room.Name}");

@@ -48,6 +48,7 @@ namespace Stardust.Godot
 			area.MouseExited += OnMouseExit;
 			Room.OnDamage += OnDamaged;
 			Room.OnBreak += OnBroken;
+			Room.OnRepair += OnRepaired;
 			activationButton.Pressed += OnActivationClicked;
 			activationButton.MouseEntered += OnActivationMouseEntered;
 			activationButton.MouseExited += OnActivationMouseExited;
@@ -291,7 +292,20 @@ namespace Stardust.Godot
 			if (Room.Broken) colorTween.TweenProperty(this, "self_modulate", Color.FromHtml("#555555"), .5f);
             else colorTween.TweenProperty(this, "self_modulate", Color.FromHtml("#ffffff"), .5f);
 
-			GD.Print($"{Room.Name}: Damaged");
+			GD.Print($"Room2D :: {Room.Name}: Damaged");
+        }
+
+		private void OnRepaired()
+        {
+            colorTween?.Kill();
+
+            colorTween = CreateTween();
+
+            colorTween.TweenProperty(this, "self_modulate", Color.FromHtml("#ff0000"), .25f);
+            if (Room.Broken) colorTween.TweenProperty(this, "self_modulate", Color.FromHtml("#555555"), .5f);
+            else colorTween.TweenProperty(this, "self_modulate", Color.FromHtml("#ffffff"), .5f);
+
+            GD.Print($"Room2D :: {Room.Name}: Repaired");
         }
 
 		private void OnBroken()
@@ -307,7 +321,7 @@ namespace Stardust.Godot
             colorTween.TweenProperty(this, "self_modulate", Color.FromHtml("#ffffff"), .2f);
             colorTween.TweenProperty(this, "self_modulate", Color.FromHtml("#555555"), .2f);
 
-            GD.Print($"{Room.Name}: Damaged and broke");
+            GD.Print($"Room2D :: {Room.Name}: Damaged and broke");
         }
 	} 
 }
