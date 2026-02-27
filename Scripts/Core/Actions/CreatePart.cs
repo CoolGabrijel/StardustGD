@@ -30,7 +30,7 @@ namespace Stardust.Actions
         public void Undo()
         {
             Room workshop = GameLogic.RoomManager.GetRoomByType(Workshop);
-            Item part = new(Part);
+            Item part = workshop.GetItem(Part);
             
             workshop.RemoveItem(part);
             GameLogic.EnergyExpended -= EnergyCost;
