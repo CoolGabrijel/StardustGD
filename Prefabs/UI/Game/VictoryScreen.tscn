@@ -99,13 +99,46 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 81.0
+offset_left = -49.0
 offset_top = -57.0
-offset_right = 177.0
+offset_right = 47.0
 offset_bottom = -26.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_default_cursor_shape = 2
 text = "Main Menu"
+
+[node name="Button2" type="Button" parent="Window/VBoxContainer/WindowContent"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 51.0
+offset_top = -57.0
+offset_right = 151.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+text = "Save Replay"
+
+[node name="Button3" type="Button" parent="Window/VBoxContainer/WindowContent"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 154.0
+offset_top = -57.0
+offset_right = 313.0
+offset_bottom = -26.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+text = "Open Replay Folder"
 
 [node name="PortraitContainer" type="ColorRect" parent="Window/VBoxContainer/WindowContent"]
 clip_children = 1
@@ -114,6 +147,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 234.0
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="Window/VBoxContainer/WindowContent/PortraitContainer"]
 material = SubResource("ShaderMaterial_3squ7")
@@ -122,6 +156,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 478.0
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("5_0wb5v")
 expand_mode = 2
 stretch_mode = 4
@@ -164,3 +199,5 @@ mouse_filter = 2
 color = Color(0.843137, 0.843137, 0.843137, 1)
 
 [connection signal="pressed" from="Window/VBoxContainer/WindowContent/Button" to="." method="QuitToMainMenu"]
+[connection signal="pressed" from="Window/VBoxContainer/WindowContent/Button2" to="." method="SaveReplay"]
+[connection signal="pressed" from="Window/VBoxContainer/WindowContent/Button3" to="." method="OpenReplayFolder"]
