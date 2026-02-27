@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://7ky63yvh43nu"]
+[gd_scene load_steps=15 format=3 uid="uid://7ky63yvh43nu"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Menu/LobbyChar.cs" id="1_w4pks"]
 [ext_resource type="Material" uid="uid://d02hdwrqarhyh" path="res://Materials/2D/Greyscale.tres" id="2_8p642"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dxw4c53leeyvu" path="res://Textures/CaptainHoers/Horse cards/Wolfram.png" id="6_4j81l"]
 [ext_resource type="AudioStream" uid="uid://djwkl73sys1xk" path="res://Sfx/Kenney Sfx/Button_Hover.ogg" id="6_bmpcg"]
 [ext_resource type="Script" path="res://Scripts/UI/ButtonHoverSfx.cs" id="7_dxm53"]
+[ext_resource type="Texture2D" uid="uid://kvphavh0hdu" path="res://Textures/CaptainHoers/RandomCard.png" id="8_6p1hg"]
 [ext_resource type="Script" path="res://Scripts/UI/CenterPivot.cs" id="10_ciy2j"]
 
 [node name="LobbySelectableChar" type="Control" node_paths=PackedStringArray("btn", "btnBorder", "btnMask", "portraits")]
@@ -98,6 +99,7 @@ texture = ExtResource("2_v31ix")
 expand_mode = 1
 
 [node name="Aurora" type="TextureRect" parent="Mask/Portraits"]
+visible = false
 layout_mode = 0
 offset_left = -37.0
 offset_top = 67.0
@@ -142,6 +144,16 @@ offset_bottom = 182.0
 rotation = -1.5708
 mouse_filter = 2
 texture = ExtResource("6_4j81l")
+expand_mode = 1
+
+[node name="Random" type="TextureRect" parent="Mask/Portraits"]
+offset_left = -21.0
+offset_top = 70.0003
+offset_right = 92.0
+offset_bottom = 185.0
+rotation = -1.5708
+mouse_filter = 2
+texture = ExtResource("8_6p1hg")
 expand_mode = 1
 
 [node name="Border" type="TextureRect" parent="Mask"]

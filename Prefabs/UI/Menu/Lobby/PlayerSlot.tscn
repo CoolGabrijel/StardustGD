@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cwnns2jklwavn"]
+[gd_scene load_steps=37 format=3 uid="uid://cwnns2jklwavn"]
 
 [ext_resource type="Theme" uid="uid://beri00884ypmy" path="res://Themes/MainTheme.tres" id="1_8pbng"]
 [ext_resource type="Script" path="res://Scripts/UI/Menu/PlayerSlot.cs" id="1_boct3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dsthg2hdprrio" path="res://Textures/CaptainHoers/Horse cards/Zambuko.png" id="4_yh51v"]
 [ext_resource type="Texture2D" uid="uid://bikvdx5le53qr" path="res://Textures/CaptainHoers/Horse cards/Rosetta.png" id="5_52fh0"]
 [ext_resource type="Texture2D" uid="uid://dxw4c53leeyvu" path="res://Textures/CaptainHoers/Horse cards/Wolfram.png" id="6_46rq7"]
+[ext_resource type="Texture2D" uid="uid://kvphavh0hdu" path="res://Textures/CaptainHoers/RandomCard.png" id="6_a5r8y"]
 [ext_resource type="Texture2D" uid="uid://4qydkeog265d" path="res://Textures/Other/Lobby_Frame_New.png" id="9_ibks8"]
 [ext_resource type="Texture2D" uid="uid://llrsidiajdsu" path="res://Textures/Other/RoundedTriangle.png" id="11_3druv"]
 [ext_resource type="Script" path="res://Scripts/UI/AdvancedPivot.cs" id="12_3ogi6"]
@@ -128,7 +129,7 @@ readyLight = NodePath("PDA/NewFrame/NinePatchRect/ReadyLight")
 portraits = {
 "Aurora": ExtResource("1_ndgp0"),
 "Concorde": ExtResource("2_c4nol"),
-"Random": null,
+"Random": ExtResource("6_a5r8y"),
 "Rosetta": ExtResource("5_52fh0"),
 "Wolfram": ExtResource("6_46rq7"),
 "Zambuko": ExtResource("4_yh51v")

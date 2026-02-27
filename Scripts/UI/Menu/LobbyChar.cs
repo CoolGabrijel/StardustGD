@@ -50,6 +50,12 @@ namespace Stardust.Godot.UI
 
         private void PlayRandomCycle()
         {
+            portraits.GetNode<TextureRect>("Random").Visible = true;
+            return;
+            
+            // The code down under is legacy where it cycles all portraits in a greyscale shader.
+            // Could still be useful for something.
+            
             randCycleTween?.Kill();
             Control curPortrait = portraits.GetChild<Control>(randIndex);
             curPortrait.Hide();
