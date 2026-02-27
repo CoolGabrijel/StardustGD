@@ -240,15 +240,18 @@ namespace Stardust.Godot.UI
 		{
 			nameplate.Text = newChar.ToUpper();
 
-			// if (newChar == "Random")
-			// {
-			// 	portrait.Show();
-			// 	portrait.Material = greyscaleShader;
-			// 	PlayRandomCycle();
-			// 	return;
-			// }
-			portrait.Material = null;
-			randCycleTween?.Kill();
+			if (newChar == "Random")
+			{
+				portrait.Show();
+				portrait.Material = greyscaleShader;
+				// PlayRandomCycle();
+				// return;
+			}
+			else
+			{
+				portrait.Material = null;
+				randCycleTween?.Kill();
+			}
 
 			portrait.Visible = newChar != "Open";
 			
